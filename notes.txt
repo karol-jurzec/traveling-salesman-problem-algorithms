@@ -28,3 +28,19 @@ Metryczny problem komiwojażera, krawędzie grafu spełniają nierówność tró
 9.	Algorytm Christofidesa, 3/2 aproksymacyjny
 10.	 Algorytm 2 aproksymacyjny
 
+
+----------------------------------------------------------------------------------------------
+
+Aplikacja prezentujaca dzialanie:
+
+Mozliwe genereowania lokalizacji/miast:
+
+    1. generowanie randomyowych wspolrzednych z przedzialu
+    2. pobieranie wspolrzednych miast z API i przedstawienie na mapie -
+    3. sferyczny uklad wspolrzednych - mapa kosmosu, prezentacja na
+
+Prezentacja/omowienie:
+- omowienie zlozonosci oraz wymagan/zalozen algorytmow
+- prezentacja dzialania algorytmow na mapie/wykresie
+-
+
