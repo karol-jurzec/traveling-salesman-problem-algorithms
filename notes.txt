@@ -42,5 +42,5 @@ Mozliwe genereowania lokalizacji/miast:
 Prezentacja/omowienie:
 - omowienie zlozonosci oraz wymagan/zalozen algorytmow
 - prezentacja dzialania algorytmow na mapie/wykresie
--
+
 
