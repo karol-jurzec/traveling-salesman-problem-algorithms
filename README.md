@@ -10,21 +10,21 @@ Algorithms for thesis connected to traveling salesman problem.
 3.	Podsumowanie oraz wnioski.
 
 
-## Algorytmy, które udało mi się znaleźć:
+# Algorytmy, które udało mi się znaleźć:
 
-# Algorytmy dokładne:
+## Algorytmy dokładne:
 
 1.	Rozwiązanie naiwne, wszystkie możliwe permutacje
 2.	Algorytm Bellmana-Helda-Karpa
 3.	Algorytm Branch and Bound
 
-# Algorytmy aproksymacyjne i heurystyczne:
+## Algorytmy aproksymacyjne i heurystyczne:
 
 4.	Algorytm najbliższego sąsiada
 5.	Algorytm mrówkowy
 6.	Algorytm genetyczny
 
-# Metryczny problem komiwojażera, krawędzie grafu spełniają nierówność trójkąta:
+## Metryczny problem komiwojażera, krawędzie grafu spełniają nierówność trójkąta:
 
 7.	Heurystyka Lin - Khernighana
 8.	Algorytmy k-optymalne, 2-opt, 3-opt…
