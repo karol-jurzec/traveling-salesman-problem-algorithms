@@ -46,7 +46,7 @@ Prezentacja/omowienie:
 - omowienie zlozonosci oraz wymagan/zalozen algorytmow
 - prezentacja dzialania algorytmow na mapie/wykresie
 
-##todo 15-20.10
+## todo 15-20.10
 
 - [ ] opis problemy komiwojażera
 - [ ] prezglad algorytmow + literatura
