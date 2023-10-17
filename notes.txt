@@ -43,4 +43,16 @@ Prezentacja/omowienie:
 - omowienie zlozonosci oraz wymagan/zalozen algorytmow
 - prezentacja dzialania algorytmow na mapie/wykresie
 
+##todo 15-20.10
+
+- [ ] opis problemy komiwojażera
+- [ ] prezglad algorytmow + literatura
+    - [ ] posortowanie po algorytmow wedlug date powstania
+    - [ ] opis tych algorytmow
+- [ ] algorytm naiwny
+    - [ ] dokladny opis algorytmu
+    - [ ] implementacja
+    - [ ] analiza ograniczenie sprawdzania sciezek
+
+
 
