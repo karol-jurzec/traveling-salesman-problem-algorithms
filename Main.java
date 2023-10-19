@@ -5,17 +5,19 @@ public class Main {
     public static int counter = 0;
     public static ArrayList<ArrayList<Integer>> notUniquePermutations = new ArrayList<>();
 
-    public static void permute(ArrayList<Integer> arr, int k) {
+    public static <T> ArrayList<ArrayList<T>> permute(ArrayList<T> arr, ArrayList<ArrayList<T>> permutations, int k) {
         for(int i = k; i < arr.size(); ++i) {
             Collections.swap(arr, i, k);
-            permute(arr, k + 1);
+            permute(arr, permutations, k + 1);
             Collections.swap(arr, i, k);
         }
         if(k == arr.size() - 1) {
-            permutations.add(new ArrayList<>(arr));
+            permutations.add(new ArrayList<T>(arr));
             //System.out.println(Arrays.toString(arr.toArray()));
             //++counter;
         }
+
+        return permutations;
     }
 
     public static ArrayList<ArrayList<Integer>> permutations = new ArrayList<>();
@@ -38,7 +40,7 @@ public class Main {
         Integer last = arr.isEmpty() ? null : arr.get(arr.size() - 1);
         arr.remove(arr.size() - 1);
 
-        permute(arr, 0);
+        var permutations = permute(arr, new ArrayList<ArrayList<Integer>>(), 0);
 
         // check if are forcing direction O(n!)
         Iterator<ArrayList<Integer>> iterator = permutations.iterator();
@@ -55,8 +57,10 @@ public class Main {
         }
 
         System.out.println(Arrays.toString(permutations.toArray()));
-
     }
+
+
+
 
     public static boolean comparePermutations(ArrayList<Integer> perm1, ArrayList<Integer> perm2) {
         int n = perm1.size();
@@ -94,14 +98,9 @@ public class Main {
         return true;
     }
 
-
-
     public static void main(String[] args) {
-
-        generateUniquePermutations(new ArrayList<>(List.of(1, 2, 3, 4, 5, 6)));
-
+        generateUniquePermutations(new ArrayList<>(List.of(1, 2, 3, 4)));
         var areUnique = comparePermutations();
-
 
     }
 }

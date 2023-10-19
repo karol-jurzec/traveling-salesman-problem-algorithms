@@ -46,6 +46,7 @@ Prezentacja/omowienie:
 ##todo 15-20.10
 
 - [ ] opis problemy komiwojażera
+    - [ ] geneza/popularnosc problemu
 - [ ] prezglad algorytmow + literatura
     - [ ] posortowanie po algorytmow wedlug date powstania
     - [ ] opis tych algorytmow
