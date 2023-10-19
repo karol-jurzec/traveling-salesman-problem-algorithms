@@ -45,6 +45,7 @@ Prezentacja/omowienie:
 
 ##todo 15-20.10
 
+- [ ] algorytm Hopfieldas
 - [ ] opis problemy komiwojażera
     - [ ] geneza/popularnosc problemu
 - [ ] prezglad algorytmow + literatura
