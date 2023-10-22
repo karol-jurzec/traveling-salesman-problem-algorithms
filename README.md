@@ -50,12 +50,12 @@ Prezentacja/omowienie:
 
 - [ ] opis problemy komiwojażera
 - [ ] prezglad algorytmow + literatura
-    - [ ] posortowanie po algorytmow wedlug date powstania
+    - [X] posortowanie po algorytmow wedlug date powstania
     - [ ] opis tych algorytmow
 - [ ] algorytm naiwny
     - [ ] dokladny opis algorytmu
     - [ ] implementacja
-    - [ ] analiza ograniczenie sprawdzania sciezek
+    - [X] analiza ograniczenie sprawdzania sciezek
 
 
 
