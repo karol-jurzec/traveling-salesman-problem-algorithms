@@ -57,6 +57,5 @@ Prezentacja/omowienie:
     - [ ] implementacja
     - [X] analiza ograniczenie sprawdzania sciezek
 
-
-
+[geeksforgeeks - native implementation, (n-1)! perms](https://www.geeksforgeeks.org/traveling-salesman-problem-tsp-implementation/)
 
