@@ -59,9 +59,6 @@ public class Main {
         System.out.println(Arrays.toString(permutations.toArray()));
     }
 
-
-
-
     public static boolean comparePermutations(ArrayList<Integer> perm1, ArrayList<Integer> perm2) {
         int n = perm1.size();
         for(int i = 0; i < n; ++i) {

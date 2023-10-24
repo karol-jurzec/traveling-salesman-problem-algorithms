@@ -46,16 +46,22 @@ Prezentacja/omowienie:
 - omowienie zlozonosci oraz wymagan/zalozen algorytmow
 - prezentacja dzialania algorytmow na mapie/wykresie
 
-## todo 15-20.10
+## todo 15-27.10
 
-- [ ] opis problemy komiwojażera
+- [X] opis problemu komiwojażera
 - [ ] prezglad algorytmow + literatura
     - [X] posortowanie po algorytmow wedlug date powstania
     - [ ] opis tych algorytmow
 - [ ] algorytm naiwny
-    - [ ] dokladny opis algorytmu
+    - [X] dokladny opis algorytmu
     - [ ] implementacja
     - [X] analiza ograniczenie sprawdzania sciezek
+- [ ] przeglad, poukladanie, zredegaowanie
+- [ ] przeslanie do Pani Suwady
 
 [geeksforgeeks - native implementation, (n-1)! perms](https://www.geeksforgeeks.org/traveling-salesman-problem-tsp-implementation/)
 
+## todo 27.10 - 03.11
+
+- [ ] podzial na asymetryczny i symetryczny problem
+- [ ] nierownosc trojkata w problemie komiwojazera
