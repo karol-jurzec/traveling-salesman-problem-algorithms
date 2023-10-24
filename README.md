@@ -36,10 +36,10 @@ Algorithms for thesis connected to traveling salesman problem.
 
 Aplikacja prezentujaca dzialanie:
 
-Mozliwe genereowania lokalizacji/miast:
+    Mozliwe generowanie lokalizacji/miast:
 
     1. generowanie randomyowych wspolrzednych z przedzialu
-    2. pobieranie wspolrzednych miast z API i przedstawienie na mapie -
+    2. pobieranie wspolrzednych miast z API i przedstawienie na mapie
     3. sferyczny uklad wspolrzednych - mapa kosmosu, prezentacja na
 
 Prezentacja/omowienie:
@@ -54,8 +54,9 @@ Prezentacja/omowienie:
     - [ ] opis tych algorytmow
 - [ ] algorytm naiwny
     - [X] dokladny opis algorytmu
-    - [ ] implementacja
+    - [X] implementacja
     - [X] analiza ograniczenie sprawdzania sciezek
+    - [ ] analiza złożoności czasowej/pamieciowej
 - [ ] przeglad, poukladanie, zredegaowanie
 - [ ] przeslanie do Pani Suwady
 
