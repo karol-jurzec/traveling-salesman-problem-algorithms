@@ -46,7 +46,7 @@ Prezentacja/omowienie:
 - omowienie zlozonosci oraz wymagan/zalozen algorytmow
 - prezentacja dzialania algorytmow na mapie/wykresie
 
-## todo 15-27.10
+## todo 15-30.10
 
 - [X] opis problemu komiwojażera
 - [ ] prezglad algorytmow + literatura
@@ -56,13 +56,14 @@ Prezentacja/omowienie:
     - [X] dokladny opis algorytmu
     - [X] implementacja
     - [X] analiza ograniczenie sprawdzania sciezek
+    - [ ] pseudo kod CLRS
     - [ ] analiza złożoności czasowej/pamieciowej
 - [ ] przeglad, poukladanie, zredegaowanie
 - [ ] przeslanie do Pani Suwady
 
 [geeksforgeeks - native implementation, (n-1)! perms](https://www.geeksforgeeks.org/traveling-salesman-problem-tsp-implementation/)
 
-## todo 27.10 - 03.11
+## todo 30.10 - 03.11
 
 - [ ] podzial na asymetryczny i symetryczny problem
 - [ ] nierownosc trojkata w problemie komiwojazera
