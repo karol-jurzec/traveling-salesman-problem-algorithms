@@ -49,12 +49,12 @@ Prezentacja/omowienie:
 ## todo 15-30.10
 
 - [X] opis problemu komiwojażera
-- [ ] algorytm naiwny
+- [X] algorytm naiwny
     - [X] dokladny opis algorytmu
     - [X] implementacja
     - [X] analiza ograniczenie sprawdzania sciezek
     - [X] pseudo kod CLRS
-    - [ ] analiza złożoności czasowej/pamieciowej
+    - [X] analiza złożoności czasowej/pamieciowej
 - [ ] przeglad, poukladanie, zredegaowanie
 - [ ] przeslanie do Pani Suwady
 
