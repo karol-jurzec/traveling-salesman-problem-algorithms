@@ -49,14 +49,11 @@ Prezentacja/omowienie:
 ## todo 15-30.10
 
 - [X] opis problemu komiwojażera
-- [ ] prezglad algorytmow + literatura
-    - [X] posortowanie po algorytmow wedlug date powstania
-    - [ ] opis tych algorytmow
 - [ ] algorytm naiwny
     - [X] dokladny opis algorytmu
     - [X] implementacja
     - [X] analiza ograniczenie sprawdzania sciezek
-    - [ ] pseudo kod CLRS
+    - [X] pseudo kod CLRS
     - [ ] analiza złożoności czasowej/pamieciowej
 - [ ] przeglad, poukladanie, zredegaowanie
 - [ ] przeslanie do Pani Suwady
@@ -67,3 +64,6 @@ Prezentacja/omowienie:
 
 - [ ] podzial na asymetryczny i symetryczny problem
 - [ ] nierownosc trojkata w problemie komiwojazera
+-  [ ] prezglad algorytmow + literatura
+  - [X] posortowanie po algorytmow wedlug date powstania
+  - [ ] opis tych algorytmow

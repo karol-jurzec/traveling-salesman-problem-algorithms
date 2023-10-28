@@ -94,6 +94,6 @@ public class BruteForceAlgorithm implements ITspAlgorithm {
             }
         }
 
-        return tspSolution;
+            return tspSolution;
     }
 }
