@@ -67,3 +67,4 @@ Prezentacja/omowienie:
 -  [ ] prezglad algorytmow + literatura
   - [X] posortowanie po algorytmow wedlug date powstania
   - [ ] opis tych algorytmow
+- [ ] implementacja niektorych algorytmow
