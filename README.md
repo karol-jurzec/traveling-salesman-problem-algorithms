@@ -64,7 +64,8 @@ Prezentacja/omowienie:
 
 - [ ] podzial na asymetryczny i symetryczny problem
 - [ ] nierownosc trojkata w problemie komiwojazera
--  [ ] prezglad algorytmow + literatura
+- [ ] prezglad algorytmow + literatura
   - [X] posortowanie po algorytmow wedlug date powstania
   - [ ] opis tych algorytmow
-- [ ] implementacja niektorych algorytmow
+- [ ] implementacja wybranych algorytmow z listy
+- [ ] implementacja wizualizacji
