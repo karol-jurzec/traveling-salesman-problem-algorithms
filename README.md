@@ -69,3 +69,5 @@ Prezentacja/omowienie:
   - [ ] opis tych algorytmow
 - [ ] implementacja wybranych algorytmow z listy
 - [ ] implementacja wizualizacji
+-  [ ] widok punktow jako wspolrzedne (x, y) na mapie
+-  [ ] widok jako mapa miast, jak rysowanc droge
