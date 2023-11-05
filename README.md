@@ -63,12 +63,12 @@ Prezentacja/omowienie:
 ## todo 30.10 - 03.11
 
 - [X] podzial na asymetryczny i symetryczny problem
-- [ ] nierownosc trojkata w problemie komiwojazera
-- [ ] prezglad algorytmow + literatura
+- [X] nierownosc trojkata w problemie komiwojazera
+- [ ] przeglad algorytmow + literatura
   - [X] posortowanie po algorytmow wedlug date powstania
   - [ ] opis tych algorytmow
 - [ ] implementacja wybranych algorytmow z listy
 - [ ] implementacja wizualizacji
 -  [ ] widok punktow jako wspolrzedne (x, y) na mapie
 -  [ ] widok jako mapa miast, jak rysowanc droge
-- [ ] zregagowac, poukladac
+- [ ] zredagowac, poukladac
