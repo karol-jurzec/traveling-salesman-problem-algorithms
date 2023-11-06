@@ -2,6 +2,7 @@ package src;
 
 import src.main.java.tsp.TspSolver;
 import src.main.java.tsp.algorithms.BruteForceAlgorithm;
+import src.main.java.tsp.algorithms.HeldKarpAlgorithm;
 import src.main.java.tsp.graph.GraphGenerator;
 import src.main.java.tsp.models.City;
 
@@ -51,10 +52,11 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        var cities = GraphGenerator.generateSymetricGraph(7);
+        var cities = GraphGenerator.generateSymetricGraph(3);
         var solver = new TspSolver(new BruteForceAlgorithm());
         var solution = solver.solve(cities);
 
+        var subsets = HeldKarpAlgorithm.generateSubsets(cities, new ArrayList<>(), new ArrayList<>(), 0);
     }
 }
 
