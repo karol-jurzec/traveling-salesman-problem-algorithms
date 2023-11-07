@@ -52,11 +52,16 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        var cities = GraphGenerator.generateSymetricGraph(3);
-        var solver = new TspSolver(new BruteForceAlgorithm());
-        var solution = solver.solve(cities);
+        var cities = GraphGenerator.generateSymetricGraph(8);
 
-        var subsets = HeldKarpAlgorithm.generateSubsets(cities, new ArrayList<>(), new ArrayList<>(), 0);
+
+        var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
+        var solutionBruteForce = solverBruteForce.solve(cities);
+
+
+        var solverHeldKarpAlgorithm = new TspSolver(new HeldKarpAlgorithm());
+        var solutionHeldKarpAlgorithm = solverHeldKarpAlgorithm.solve(cities);
+
     }
 }
 

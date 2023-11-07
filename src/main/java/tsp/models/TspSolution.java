@@ -6,7 +6,7 @@ public class TspSolution {
     private ArrayList<City> path;
     private float totalDistance;
 
-    public TspSolution(ArrayList<City> path, long totalDistance) {
+    public TspSolution(ArrayList<City> path, float totalDistance) {
         this.path = path;
         this.totalDistance = totalDistance;
     }
