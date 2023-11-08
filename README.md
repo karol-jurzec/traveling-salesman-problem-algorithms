@@ -55,12 +55,12 @@ Prezentacja/omowienie:
     - [X] analiza ograniczenie sprawdzania sciezek
     - [X] pseudo kod CLRS
     - [X] analiza złożoności czasowej/pamieciowej
-- [ ] przeglad, poukladanie, zredegaowanie
+- [X] przeglad, poukladanie, zredegaowanie
 - [ ] przeslanie do Pani Suwady
 
 [geeksforgeeks - native implementation, (n-1)! perms](https://www.geeksforgeeks.org/traveling-salesman-problem-tsp-implementation/)
 
-## todo 30.10 - 03.11
+## todo 30.10 - 15.11
 
 - [X] podzial na asymetryczny i symetryczny problem
 - [X] nierownosc trojkata w problemie komiwojazera

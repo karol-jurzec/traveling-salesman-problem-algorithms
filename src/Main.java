@@ -54,14 +54,11 @@ public class Main {
     public static void main(String[] args) {
         var cities = GraphGenerator.generateSymetricGraph(8);
 
-
         var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
         var solutionBruteForce = solverBruteForce.solve(cities);
 
-
         var solverHeldKarpAlgorithm = new TspSolver(new HeldKarpAlgorithm());
         var solutionHeldKarpAlgorithm = solverHeldKarpAlgorithm.solve(cities);
-
     }
 }
 
