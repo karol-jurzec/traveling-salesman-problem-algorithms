@@ -5,10 +5,15 @@ import src.main.java.tsp.algorithms.BruteForceAlgorithm;
 import src.main.java.tsp.algorithms.HeldKarpAlgorithm;
 import src.main.java.tsp.graph.GraphGenerator;
 import src.main.java.tsp.models.City;
+import src.main.java.tsp.ploter.PlotPanel;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.*;
 
 public class Main {
+
+    public static final int RANGE = 700;
 
     public static int counter = 0;
     public static ArrayList<ArrayList<Integer>> notUniquePermutations = new ArrayList<>();
@@ -52,13 +57,31 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        var cities = GraphGenerator.generateSymetricGraph(8);
+
+
+
+        var cities = GraphGenerator.generateSymetricGraph(10);
 
         var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
         var solutionBruteForce = solverBruteForce.solve(cities);
 
         var solverHeldKarpAlgorithm = new TspSolver(new HeldKarpAlgorithm());
         var solutionHeldKarpAlgorithm = solverHeldKarpAlgorithm.solve(cities);
+
+
+        var panel = new PlotPanel(cities);
+        panel.setPath(solutionBruteForce.getPath());
+
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(RANGE, RANGE);
+        frame.add(panel);
+        frame.setVisible(true);
+
+
+
+
+
     }
 }
 

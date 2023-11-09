@@ -39,4 +39,8 @@ public class City {
         return 0;
     }
 
+    public Point getCoordinates() {
+        return this.coordinates;
+    }
+
 }
