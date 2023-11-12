@@ -56,7 +56,7 @@ Prezentacja/omowienie:
     - [X] pseudo kod CLRS
     - [X] analiza złożoności czasowej/pamieciowej
 - [X] przeglad, poukladanie, zredegaowanie
-- [ ] przeslanie do Pani Suwady
+- [X] przeslanie do Pani Suwady
 
 [geeksforgeeks - native implementation, (n-1)! perms](https://www.geeksforgeeks.org/traveling-salesman-problem-tsp-implementation/)
 
@@ -68,7 +68,7 @@ Prezentacja/omowienie:
   - [X] posortowanie po algorytmow wedlug date powstania
   - [ ] opis tych algorytmow
 - [ ] implementacja wybranych algorytmow z listy
-- [ ] implementacja wizualizacji
--  [ ] widok punktow jako wspolrzedne (x, y) na mapie
--  [ ] widok jako mapa miast, jak rysowanc droge
+- [X] implementacja wizualizacji
+  - [X] widok punktow jako wspolrzedne (x, y) na mapie
+  - [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
 - [ ] zredagowac, poukladac

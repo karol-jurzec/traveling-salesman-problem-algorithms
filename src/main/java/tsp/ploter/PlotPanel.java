@@ -60,12 +60,16 @@ public class PlotPanel extends JPanel {
         graph.setPaint(Color.RED);
 
         for(var city : cities) {
-
-            int x = city.getCoordinates().x;
-            int y = city.getCoordinates().y;
-
-            graph.fill(new Ellipse2D.Double(x - 4, height - y - 4, 8, 8));
+            plotCity(city, graph);
         }
+    }
+
+    private void plotCity(City city, Graphics2D graph) {
+        int x = city.getCoordinates().x;
+        int y = city.getCoordinates().y;
+        int height = getHeight();
+
+        graph.fill(new Ellipse2D.Double(x - 4, height - y - 4, 8, 8));
     }
 
     private void doDrawing(Graphics g) {

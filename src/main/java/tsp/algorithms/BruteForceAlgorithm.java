@@ -7,6 +7,7 @@ import java.util.*;
 
 public class BruteForceAlgorithm implements ITspAlgorithm {
 
+
     // method calculating all permutations for given array
     private <T> ArrayList<ArrayList<T>> permute(ArrayList<T> arr, ArrayList<ArrayList<T>> permutations, int k) {
         for(int i = k; i < arr.size(); ++i) {
@@ -95,5 +96,10 @@ public class BruteForceAlgorithm implements ITspAlgorithm {
         }
 
             return tspSolution;
+    }
+
+    @Override
+    public void printAlgorithm(ArrayList<ArrayList<City>> steps) {
+
     }
 }

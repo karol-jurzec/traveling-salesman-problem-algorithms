@@ -7,4 +7,5 @@ import java.util.ArrayList;
 
 public interface ITspAlgorithm {
     public TspSolution solve(ArrayList<City> cities);
+    public void printAlgorithm(ArrayList<ArrayList<City>> steps);
 }

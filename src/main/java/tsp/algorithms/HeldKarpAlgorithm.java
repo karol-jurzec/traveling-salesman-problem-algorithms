@@ -8,6 +8,10 @@ import java.security.KeyPair;
 import java.util.*;
 
 public class HeldKarpAlgorithm implements ITspAlgorithm {
+
+
+
+
     BiHashMap<City, HashSet<City>, Float> dp = new BiHashMap<>();
     BiHashMap<City, HashSet<City>, City> pb = new BiHashMap<>();
     City originCity;
@@ -93,6 +97,8 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
         return tour;
     }
 
+
+
     @Override
     public TspSolution solve(ArrayList<City> cities) {
         if(cities.size() == 0 | cities.size() == 1)
@@ -115,5 +121,10 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
         ArrayList<City> optimalTour = retrieveOptimalTour(subsets.get(subsets.size() - 1));
 
         return new TspSolution(optimalTour, distance);
+    }
+
+    @Override
+    public void printAlgorithm(ArrayList<ArrayList<City>> steps) {
+
     }
 }
