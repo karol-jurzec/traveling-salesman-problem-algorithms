@@ -60,17 +60,17 @@ public class Main {
 
 
 
-        var cities = GraphGenerator.generateSymetricGraph(10);
+        var cities = GraphGenerator.generateSymetricGraph(30);
 
-        var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
-        var solutionBruteForce = solverBruteForce.solve(cities);
+        //var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
+        //var solutionBruteForce = solverBruteForce.solve(cities);
 
-        var solverHeldKarpAlgorithm = new TspSolver(new HeldKarpAlgorithm());
-        var solutionHeldKarpAlgorithm = solverHeldKarpAlgorithm.solve(cities);
+        //var solverHeldKarpAlgorithm = new TspSolver(new HeldKarpAlgorithm());
+        //var solutionHeldKarpAlgorithm = solverHeldKarpAlgorithm.solve(cities);
 
 
         var panel = new PlotPanel(cities);
-        panel.setPath(solutionBruteForce.getPath());
+       // panel.setPath(solutionBruteForce.getPath());
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

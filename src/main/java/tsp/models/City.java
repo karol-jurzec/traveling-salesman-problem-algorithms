@@ -2,6 +2,7 @@ package src.main.java.tsp.models;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class City {
     private String name;
@@ -43,4 +44,5 @@ public class City {
         return this.coordinates;
     }
 
+    public ArrayList<Road> getRoads() { return  this.roads; }
 }

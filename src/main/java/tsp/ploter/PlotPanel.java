@@ -55,13 +55,33 @@ public class PlotPanel extends JPanel {
         Graphics2D graph = (Graphics2D)g;
         graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-
         //set color for points
         graph.setPaint(Color.RED);
 
         for(var city : cities) {
             plotCity(city, graph);
         }
+
+        plotRoads(graph);
+    }
+
+    private void plotRoads(Graphics g) {
+        Graphics2D graph = (Graphics2D)g;
+
+        graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graph.setPaint(Color.BLACK);
+
+        int h = getHeight();
+
+        for( var city : cities ) {
+            for( var road : city.getRoads() ) {
+                var destination = road.getDestination().getCoordinates();
+                var origin = city.getCoordinates();
+
+                graph.draw(new Line2D.Double(origin.x, h - origin.y, destination.x, h-destination.y));
+            }
+        }
+
     }
 
     private void plotCity(City city, Graphics2D graph) {
@@ -69,17 +89,17 @@ public class PlotPanel extends JPanel {
         int y = city.getCoordinates().y;
         int height = getHeight();
 
-        graph.fill(new Ellipse2D.Double(x - 4, height - y - 4, 8, 8));
+        graph.fill(new Ellipse2D.Double(x - 16, height - y - 16, 32, 32));
     }
 
     private void doDrawing(Graphics g) {
         drawGraph(g);
-        drawPath(g);
+        //drawPath(g);
     }
 
     @Override public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawPath(g);
+        //drawPath(g);
         doDrawing(g);
     }
 
