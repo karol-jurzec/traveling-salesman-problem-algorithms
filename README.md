@@ -60,9 +60,13 @@ Prezentacja/omowienie:
 
 [geeksforgeeks - native implementation, (n-1)! perms](https://www.geeksforgeeks.org/traveling-salesman-problem-tsp-implementation/)
 
-## todo 30.10 - 15.11
+## todo 30.10 - 1.12.
 
 - [X] podzial na asymetryczny i symetryczny problem
+- [X] bellman held karp - implementacja
+  - [X] impelemntacja
+  - [X] opis 
+  - [ ] analiza zlozonosci
 - [X] nierownosc trojkata w problemie komiwojazera
 - [ ] przeglad algorytmow + literatura
   - [X] posortowanie po algorytmow wedlug date powstania
