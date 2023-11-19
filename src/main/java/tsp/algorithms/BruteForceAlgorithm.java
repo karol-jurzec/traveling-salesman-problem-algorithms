@@ -7,6 +7,14 @@ import java.util.*;
 
 public class BruteForceAlgorithm implements ITspAlgorithm {
 
+    private float getTotalPathDistance(ArrayList<City> path) {
+        float sum = 0;
+        for(int i = 0; i < path.size(); ++i) {
+            var next = path.get((i+1)%path.size());
+            sum = sum + path.get(i).distanceToCity(next);
+        }
+        return sum;
+    }
 
     // method calculating all permutations for given array
     private <T> ArrayList<ArrayList<T>> permute(ArrayList<T> arr, ArrayList<ArrayList<T>> permutations, int k) {
@@ -71,15 +79,6 @@ public class BruteForceAlgorithm implements ITspAlgorithm {
         return permutations;
     }
 
-    private float getTotalPathDistance(ArrayList<City> path) {
-        float sum = 0;
-        for(int i = 0; i < path.size(); ++i) {
-            var next = path.get((i+1)%path.size());
-            sum = sum + path.get(i).distanceToCity(next);
-        }
-        return sum;
-    }
-
     @Override
     public TspSolution solve(ArrayList<City> cities) {
 
@@ -95,7 +94,7 @@ public class BruteForceAlgorithm implements ITspAlgorithm {
             }
         }
 
-            return tspSolution;
+        return tspSolution;
     }
 
     @Override
