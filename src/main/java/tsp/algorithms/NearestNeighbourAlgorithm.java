@@ -29,9 +29,11 @@ public class NearestNeighbourAlgorithm implements ITspAlgorithm {
                 }
             }
 
-            visited.put(nearest, true);
+            visited.put(curr, true);
             nnPath.add(nearest);
         }
+
+        nnPath.add(nnPath.get(0));
 
         return nnPath;
     }

@@ -94,6 +94,10 @@ public class BruteForceAlgorithm implements ITspAlgorithm {
             }
         }
 
+        // add last node to path
+
+        tspSolution.getPath().add(tspSolution.getPath().get(0));
+
         return tspSolution;
     }
 

@@ -94,6 +94,8 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
             n--;
         }
 
+        tour.add(tour.get(0));
+
         return tour;
     }
 
