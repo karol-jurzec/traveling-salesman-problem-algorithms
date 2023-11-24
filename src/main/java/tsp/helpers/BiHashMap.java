@@ -36,6 +36,15 @@ public class BiHashMap<K1, K2, V> {
         return map.put(key2, value);
     }
 
+    public V add(K1 key1, K2 key2, V value) {
+        Map<K2, V> map;
+
+        map = new HashMap<K2, V>();
+        mMap.put(key1, map);
+
+        return map.put(key2, value);
+    }
+
     /**
      * Returns the value to which the specified key is mapped, or <code>null</code> if this map contains no mapping for
      * the key.

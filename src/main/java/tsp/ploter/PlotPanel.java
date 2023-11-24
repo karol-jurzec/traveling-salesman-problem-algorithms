@@ -62,7 +62,7 @@ public class PlotPanel extends JPanel {
             plotCity(city, graph);
         }
 
-        plotRoads(graph);
+        //plotRoads(graph);
     }
 
     private void plotRoads(Graphics g) {
@@ -94,7 +94,7 @@ public class PlotPanel extends JPanel {
 
     private void doDrawing(Graphics g) {
         drawGraph(g);
-        //drawPath(g);
+        drawPath(g);
     }
 
     @Override public void paintComponent(Graphics g) {

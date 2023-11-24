@@ -1,6 +1,7 @@
 package src;
 
 import src.main.java.tsp.TspSolver;
+import src.main.java.tsp.algorithms.AntColonyAlgorithm;
 import src.main.java.tsp.algorithms.BruteForceAlgorithm;
 import src.main.java.tsp.algorithms.HeldKarpAlgorithm;
 import src.main.java.tsp.algorithms.NearestNeighbourAlgorithm;
@@ -59,33 +60,42 @@ public class Main {
 
     public static void main(String[] args) {
 
-        for(int i = 0; i < 10; ++i) {
-            var cities = GraphGenerator.generateSymetricGraph(4);
-
-            var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
-            var solutionBruteForce = solverBruteForce.solve(cities);
-
-            var solverNearestNeighbour = new TspSolver(new NearestNeighbourAlgorithm());
-            var solutionNN = solverNearestNeighbour.solve(cities);
-
-            if(solutionNN.getTotalDistance() != solutionBruteForce.getTotalDistance()) {
-                System.out.println();
-            }
 
 
-            var solverHeldKarpAlgorithm = new TspSolver(new HeldKarpAlgorithm());
-            var solutionHeldKarpAlgorithm = solverHeldKarpAlgorithm.solve(cities);
+        //var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
+        //var solutionBruteForce = solverBruteForce.solve(cities);
 
 
-        }
 
-        //var panel = new PlotPanel(cities);
-        // panel.setPath(solutionBruteForce.getPath());
+
+
+
+
+
+
+
+
+        var cities = GraphGenerator.generateSymetricGraph(50);
+
+        var solverAntColony = new TspSolver(new AntColonyAlgorithm(10));
+        var solutionAntColony = solverAntColony.solve(cities);
+
+        //var solverHeldKarpAlgorithm = new TspSolver(new HeldKarpAlgorithm());
+        //var solutionHeldKarpAlgorithm = solverHeldKarpAlgorithm.solve(cities);
+
+        //var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
+        //var solutionBruteForce = solverBruteForce.solve(cities);
+
+        var solverNearestNeighbour = new TspSolver(new NearestNeighbourAlgorithm());
+        var solutionNN = solverNearestNeighbour.solve(cities);
+
+        var panel = new PlotPanel(cities);
+        panel.setPath(solutionAntColony.getPath());
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(RANGE, RANGE);
-        //frame.add(panel);
+        frame.add(panel);
         frame.setVisible(true);
     }
 }
