@@ -12,7 +12,7 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
 
 
 
-    BiHashMap<City, HashSet<City>, Float> dp = new BiHashMap<>();
+    BiHashMap<City, HashSet<City>, Double> dp = new BiHashMap<>();
     BiHashMap<City, HashSet<City>, City> pb = new BiHashMap<>();
     City originCity;
 
@@ -36,7 +36,7 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
 
     // obliczanie rozwiazanie dynamicznym programowaniem, argument subsets powienien byc posortowany rosnaco wzgledem
     // ilosc elementow
-    private float calculateSolution(ArrayList<HashSet<City>> subsets, ArrayList<City> cities) {
+    private double calculateSolution(ArrayList<HashSet<City>> subsets, ArrayList<City> cities) {
         for(var subset : subsets) {
             for (var city : cities) {
                 if (subset.size() < cities.size() && !subset.contains(city)) {
@@ -52,7 +52,7 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
         return dp.get(originCity, subsets.get(subsets.size()- 1));
     }
 
-    private float calculateMiminumDistance(City c, HashSet<City> s) {
+    private double calculateMiminumDistance(City c, HashSet<City> s) {
         if(s.size() == 0) {
             return c.distanceToCity(originCity);
         }
@@ -60,8 +60,8 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
         // remember city which would be chosen
         City endingCity = null;
 
-        float dist = Float.MAX_VALUE;
-        float lastdist = dist;
+        double dist = Float.MAX_VALUE;
+        double lastdist = dist;
 
         for(var city : new HashSet<>(s)) {
             s.remove(city);
@@ -119,7 +119,7 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
             }
         });
 
-        float distance = calculateSolution(subsets, cities);
+        double distance = calculateSolution(subsets, cities);
         ArrayList<City> optimalTour = retrieveOptimalTour(subsets.get(subsets.size() - 1));
 
         return new TspSolution(optimalTour, distance);

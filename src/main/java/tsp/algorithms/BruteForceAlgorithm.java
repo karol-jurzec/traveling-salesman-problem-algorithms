@@ -7,8 +7,8 @@ import java.util.*;
 
 public class BruteForceAlgorithm implements ITspAlgorithm {
 
-    private float getTotalPathDistance(ArrayList<City> path) {
-        float sum = 0;
+    private double getTotalPathDistance(ArrayList<City> path) {
+        double sum = 0;
         for(int i = 0; i < path.size(); ++i) {
             var next = path.get((i+1)%path.size());
             sum = sum + path.get(i).distanceToCity(next);
@@ -87,7 +87,7 @@ public class BruteForceAlgorithm implements ITspAlgorithm {
         TspSolution tspSolution = new TspSolution(null, Long.MAX_VALUE);
 
         for(var perm : permutations) {
-            float totalDistance = getTotalPathDistance(perm);
+            double totalDistance = getTotalPathDistance(perm);
             if(totalDistance < tspSolution.getTotalDistance() ) {
                 tspSolution.setPath(perm);
                 tspSolution.setTotalDistance(totalDistance);

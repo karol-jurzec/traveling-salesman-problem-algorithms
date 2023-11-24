@@ -2,7 +2,6 @@ package src.main.java.tsp.models;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class City {
     private String name;
@@ -30,7 +29,7 @@ public class City {
         roads.add(road);
     }
 
-    public float distanceToCity(City city) {
+    public double distanceToCity(City city) {
         for(var road : roads) {
             if(road.getDestination() == city) {
                 return road.getWeight();

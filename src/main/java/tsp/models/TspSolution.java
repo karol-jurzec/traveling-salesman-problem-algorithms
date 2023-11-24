@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class TspSolution {
     private ArrayList<City> path;
-    private float totalDistance;
+    private double totalDistance;
 
-    public TspSolution(ArrayList<City> path, float totalDistance) {
+    public TspSolution(ArrayList<City> path, double totalDistance) {
         this.path = path;
         this.totalDistance = totalDistance;
     }
@@ -16,7 +16,7 @@ public class TspSolution {
         this.totalDistance = getTotalPathDistance(path);
     }
 
-    public float getTotalDistance() {
+    public double getTotalDistance() {
         return totalDistance;
     }
 
@@ -28,12 +28,12 @@ public class TspSolution {
         this.path = path;
     }
 
-    public void setTotalDistance(float distance) {
+    public void setTotalDistance(double distance) {
         this.totalDistance = distance;
     }
 
-    private float getTotalPathDistance(ArrayList<City> path) {
-        float sum = 0;
+    private double getTotalPathDistance(ArrayList<City> path) {
+        double sum = 0;
         for(int i = 0; i < path.size(); ++i) {
             var next = path.get((i+1)%path.size());
             sum = sum + path.get(i).distanceToCity(next);
