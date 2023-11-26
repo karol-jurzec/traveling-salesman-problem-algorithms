@@ -89,7 +89,7 @@ public class PlotPanel extends JPanel {
         int y = city.getCoordinates().y;
         int height = getHeight();
 
-        graph.fill(new Ellipse2D.Double(x - 16, height - y - 16, 32, 32));
+        graph.fill(new Ellipse2D.Double(x - 8, height - y - 8, 16, 16));
     }
 
     private void doDrawing(Graphics g) {

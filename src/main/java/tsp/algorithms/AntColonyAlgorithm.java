@@ -18,6 +18,7 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
     private double pheromoneDecayParameter = 0.1; // alfa and p
     private double initialPheromoneValue = 0.0;
     private double Q0 = 0.9; // parameter 0 <= q0 <= 1
+    private int numberOfAntAgents2 = 10; //
 
 
     private BiHashMap<City, City, Double> pheromone;
@@ -25,6 +26,7 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
     private ArrayList<Ant> antAgents;
     private ArrayList<City> globalBestTour;
     private double globalBestTourLength = Double.MAX_VALUE;
+
 
 
     public AntColonyAlgorithm(int numberOfAnts) {
@@ -37,19 +39,18 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
         }
     }
 
-
-
-    private void initializePheromoneTabel(double pheromoneLevel, ArrayList<City> cities) {
+    private void initializePheromoneTabel(ArrayList<City> cities) {
         for(var cityOrigin : cities) {
             for (var cityDest : cities) {
                 if(cityOrigin != cityDest) {
-                    pheromone.put(cityDest, cityOrigin, pheromoneLevel);
+                    pheromone.put(cityDest, cityOrigin, this.initialPheromoneValue);
                 }
             }
         }
     }
 
-    private void initializeAntAgents(ArrayList<City> cities) {
+    private void initializeAntAgents(ArrayList<City> citiesInput) {
+        var cities = new ArrayList<>(citiesInput);
         Collections.shuffle(cities);
 
         for(int i = 0; i < antAgents.size(); ++i) {
@@ -67,8 +68,6 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
             antAgents.get(i).currentCity = startingCity;
             antAgents.get(i).antPath.add(startingCity);
         }
-
-        Collections.shuffle(cities);
     }
 
     private void initializeDistance(ArrayList<City> cities) {
@@ -105,7 +104,7 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
         ArrayList<Double> arguments = new ArrayList<>();
 
         for(var city : k.remainingCities) {
-            var arg = pheromone.get(k.currentCity, city) * Math.pow(distances.get(k.currentCity, city), importanceOfPheromone);
+            var arg = pheromone.get(k.currentCity, city) * Math.pow(1/distances.get(k.currentCity, city), importanceOfPheromone);
             arguments.add(arg);
         }
 
@@ -118,13 +117,11 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
         }
     }
 
-
     private double deltaLocal() {
         return this.initialPheromoneValue;
     }
 
     private double deltaGlobal() { return 1/globalBestTourLength; }
-
 
     private void antCalculateNextMove(Ant k) {
         k.nextCity = stateTransitionRule(k);
@@ -165,16 +162,14 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
         }
     }
 
-
-
     private void initialize(ArrayList<City> cities) {
 
         var solverNearestNeighbour = new TspSolver(new NearestNeighbourAlgorithm());
         var solutionNNLen = solverNearestNeighbour.solve(cities).getTotalDistance();
 
-        this.initialPheromoneValue = 1/(cities.size() * solutionNNLen);
+        this.initialPheromoneValue = Math.pow(cities.size() * solutionNNLen, -1);
 
-        initializePheromoneTabel(this.initialPheromoneValue, cities);
+        initializePheromoneTabel(cities);
         initializeDistance(cities);
         initializeAntAgents(cities);
 
@@ -211,11 +206,6 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
             var origin = globalBestTour.get(i);
             var destination = globalBestTour.get(i + 1);
 
-            var pher = pheromone.get(origin, destination);
-            if(pher == null ) {
-                System.out.println();
-            }
-
             var newPheromoneVal = (1 - pheromoneDecayParameter) * pheromone.get(origin, destination)
                     + pheromoneDecayParameter * deltaGlobal();
 
@@ -227,13 +217,14 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
         initializeAntAgents(cities);
     }
 
-
     @Override
     public TspSolution solve(ArrayList<City> cities) {
         ArrayList<City> cityList = new ArrayList<>(cities);
 
-        for(int i = 0; i < 1000; ++i) {
-            initialize(cityList);
+
+        initialize(cityList);
+
+        for(int i = 0; i < 10000; ++i) {
             buildAntTours(cityList.size());
             performGlobalUpdate();
             refresh(cities);
@@ -246,7 +237,6 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
     public void printAlgorithm(ArrayList<ArrayList<City>> steps) {
 
     }
-
 
     class Ant {
 
@@ -279,8 +269,5 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
         }
 
     }
-
-
-
 
 }

@@ -15,7 +15,7 @@ import java.util.*;
 
 public class Main {
 
-    public static final int RANGE = 700;
+    public static final int RANGE = 900;
 
     public static int counter = 0;
     public static ArrayList<ArrayList<Integer>> notUniquePermutations = new ArrayList<>();
@@ -59,23 +59,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
-
-
         //var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
         //var solutionBruteForce = solverBruteForce.solve(cities);
 
-
-
-
-
-
-
-
-
-
-
         var cities = GraphGenerator.generateSymetricGraph(50);
+
+        var solverNearestNeighbour = new TspSolver(new NearestNeighbourAlgorithm());
+        var solutionNN = solverNearestNeighbour.solve(cities);
 
         var solverAntColony = new TspSolver(new AntColonyAlgorithm(10));
         var solutionAntColony = solverAntColony.solve(cities);
@@ -86,8 +76,7 @@ public class Main {
         //var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
         //var solutionBruteForce = solverBruteForce.solve(cities);
 
-        var solverNearestNeighbour = new TspSolver(new NearestNeighbourAlgorithm());
-        var solutionNN = solverNearestNeighbour.solve(cities);
+
 
         var panel = new PlotPanel(cities);
         panel.setPath(solutionAntColony.getPath());
