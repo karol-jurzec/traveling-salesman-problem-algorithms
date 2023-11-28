@@ -17,10 +17,6 @@ public class TwoOptAlgorithm implements ITspAlgorithm {
         var vOneIndex = cities.indexOf(v1);
         var vTwoIndex = cities.indexOf(v2);
 
-        if(vOneIndex > vTwoIndex) {
-            System.out.println();
-        }
-
         Collections.reverse(newGraph.subList(vOneIndex + 1 , vTwoIndex + 1)) ;
 
         return newGraph;
