@@ -58,14 +58,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-
-
-
         //var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
         //var solutionBruteForce = solverBruteForce.solve(cities);
 
-        var cities = GraphGenerator.generateSymetricGraph(4);
+        var cities = GraphGenerator.generateSymetricGraph(5);
 
         var solverThreeOptAlgorithm = new TspSolver(new ThreeOptAlgorithm());
         var solutionThreeOptAlgorithm = solverThreeOptAlgorithm.solve(cities);

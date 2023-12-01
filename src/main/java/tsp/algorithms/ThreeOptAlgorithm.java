@@ -39,41 +39,41 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
         // case 1
         var deletedLen = xEdgeLen + zEdgeLen;
         var addedLen = xCity.distanceToCity(zCity) + xCity2.distanceToCity(zCity2);
-        deltaLengths.add(deletedLen + addedLen);
+        deltaLengths.add(-deletedLen + addedLen);
 
         // case 2
         deletedLen = yEdgeLen + zEdgeLen;
         addedLen = yCity.distanceToCity(zCity) + yCity2.distanceToCity(zCity2);
-        deltaLengths.add(deletedLen + addedLen);
+        deltaLengths.add(-deletedLen + addedLen);
 
         // case 3
 
         deletedLen = xEdgeLen + yEdgeLen;
         addedLen = xCity.distanceToCity(yCity) + xCity2.distanceToCity(yCity2);
-        deltaLengths.add(deletedLen + addedLen);
+        deltaLengths.add(-deletedLen + addedLen);
 
         // case 4
 
         deletedLen = xEdgeLen + yEdgeLen + zEdgeLen;
         addedLen = xCity.distanceToCity(yCity) + xCity2.distanceToCity(zCity) + yCity2.distanceToCity(zCity2);
-        deltaLengths.add(deletedLen + addedLen);
+        deltaLengths.add(-deletedLen + addedLen);
 
         // case 5
 
         addedLen = xCity.distanceToCity(zCity) + yCity2.distanceToCity(xCity2) + yCity.distanceToCity(zCity2);
-        deltaLengths.add(deletedLen + addedLen);
+        deltaLengths.add(-deletedLen + addedLen);
 
 
         // case 6
 
         addedLen = xCity.distanceToCity(yCity2) + zCity.distanceToCity(yCity) + xCity2.distanceToCity(zCity2);
-        deltaLengths.add(deletedLen + addedLen);
+        deltaLengths.add(-deletedLen + addedLen);
 
 
         // case 7
 
         addedLen = xCity.distanceToCity(yCity2) + zCity.distanceToCity(xCity2) + yCity.distanceToCity(zCity2);
-        deltaLengths.add(deletedLen + addedLen);
+        deltaLengths.add(-deletedLen + addedLen);
 
 
         double minDelta = Collections.min(deltaLengths);
