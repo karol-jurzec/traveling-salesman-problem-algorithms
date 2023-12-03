@@ -1,5 +1,6 @@
 package src.main.java.tsp.algorithms;
 
+import src.main.java.tsp.TspSolver;
 import src.main.java.tsp.models.City;
 import src.main.java.tsp.models.TspSolution;
 
@@ -8,10 +9,20 @@ import java.util.Collections;
 
 public class ThreeOptAlgorithm implements ITspAlgorithm {
 
-    private ArrayList<City> twoOptSwap(ArrayList<City> cities, int vOneIndex, int vTwoIndex) {
-        ArrayList newGraph = new ArrayList<>(cities);
+    public double delta = 0;
 
-        Collections.reverse(newGraph.subList(vOneIndex + 1 , vTwoIndex + 1)) ;
+    private ArrayList<City> twoOptSwap(ArrayList<City> cities, int vOneIndex, int vTwoIndex) {
+        ArrayList<City> newGraph = new ArrayList<>(cities);
+
+        // we dont swap first origin cities
+        //if(vOneIndex == 0 || vOneIndex == cities.size() - 1 || vTwoIndex == 0 || vTwoIndex == cities.size() - 1 )
+        //    return newGraph;
+
+        if(vOneIndex > vTwoIndex) {
+            Collections.reverse(newGraph.subList(vTwoIndex + 1, vOneIndex));
+        } else {
+            Collections.reverse(newGraph.subList(vOneIndex, vTwoIndex + 1));
+        }
 
         return newGraph;
     }
@@ -59,36 +70,30 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 5
-
-        addedLen = xCity.distanceToCity(zCity) + yCity2.distanceToCity(xCity2) + yCity.distanceToCity(zCity2);
-        deltaLengths.add(-deletedLen + addedLen);
-
-
-        // case 6
-
         addedLen = xCity.distanceToCity(yCity2) + zCity.distanceToCity(yCity) + xCity2.distanceToCity(zCity2);
         deltaLengths.add(-deletedLen + addedLen);
 
+        // case 6
+        addedLen = xCity.distanceToCity(zCity) + yCity2.distanceToCity(xCity2) + yCity.distanceToCity(zCity2);
+        deltaLengths.add(-deletedLen + addedLen);
 
         // case 7
-
         addedLen = xCity.distanceToCity(yCity2) + zCity.distanceToCity(xCity2) + yCity.distanceToCity(zCity2);
         deltaLengths.add(-deletedLen + addedLen);
 
 
         double minDelta = Collections.min(deltaLengths);
+        this.delta = minDelta;
 
         if(minDelta >= 0) {
             return CASE.zero;
         }
 
         int minIndex = deltaLengths.indexOf(minDelta);
-
         return CASE.values()[minIndex + 1];
     }
 
     private ArrayList<City> applyThreeOpt(ArrayList<City> cities, int x, int y, int z) {
-
         var tour = new ArrayList<>(cities);
         var caseNum = calculateMinDeltaLen(tour, x, y, z);
 
@@ -96,44 +101,72 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
             case zero:
                 return tour;
             case one:
-                return twoOptSwap(tour, x + 1, z);
+                return twoOptSwap(tour, z + 1, x);
             case two:
-                return twoOptSwap(tour, z + 1, y);
+                return twoOptSwap(tour, y + 1, z);
             case three:
-                return twoOptSwap(tour, y + 1, x);
+                return twoOptSwap(tour, x + 1, y);
             case four:
-                tour = twoOptSwap(tour, z + 1, y);
-                return twoOptSwap(tour, y + 1, x);
+                tour = twoOptSwap(tour, y + 1, z);
+                return twoOptSwap(tour, x + 1, y);
             case five:
-                tour = twoOptSwap(tour, x  + 1, z);
-                return twoOptSwap(tour, y + 1, x);
+                tour = twoOptSwap(tour, z + 1, x);
+                return twoOptSwap(tour, x + 1, y);
             case six:
-                tour = twoOptSwap(tour, x + 1, z);
-                return twoOptSwap(tour, z + 1, y);
+                tour = twoOptSwap(tour, z + 1, x);
+                return twoOptSwap(tour, y + 1, z);
             case seven:
-                tour = twoOptSwap(tour, x + 1, z);
-                tour = twoOptSwap(tour, y + 1, x);
-                return twoOptSwap(tour, z + 1, y);
+                tour = twoOptSwap(tour, z + 1, x);
+                tour = twoOptSwap(tour, x + 1, y);
+                return twoOptSwap(tour, y + 1, z);
             default:
                 return null;
         }
     }
 
+    private boolean checkConstraints(int i, int j, int k) {
+
+        // k>j>i or i>k>j or j>k>i, but not
+        // i>j>k nor j>k>i nor k>i>j
+
+        if(k > j && j > i)
+            return true;
+
+
+        if(i > k && k > j)
+            return true;
+
+
+        if(j > k && k > i)
+            return true;
+
+        return false;
+    }
+
+
+
     @Override
     public TspSolution solve(ArrayList<City> cities) {
-        var tour = new ArrayList<>(cities);
+        var tour = new NearestNeighbourAlgorithm().solve(new ArrayList<>(cities)).getPath();
         var foundImprovment = true;
 
         while(foundImprovment) {
             foundImprovment = false;
-            for(int i = 0; i < cities.size() - 3; ++i) {
-                for(int j = i + 1; j < cities.size() - 2; ++j) {
-                    for(int k = j + 1; k < cities.size() - 1; ++k) {
+            outerloop:
+            for(int i = 0; i < tour.size() - 3; ++i) {
+                for(int j = i + 1; j < tour.size() - 2; ++j) {
+                    for(int k = j + 1; k < tour.size() - 1; ++k) {
+                        if(checkConstraints(i, j, k)) {
+                            var threeOpt = applyThreeOpt(tour, i, j, k);
 
-                        var threeOpt = applyThreeOpt(tour, i, j, k);
-                        if(threeOpt != tour) {
-                            tour = threeOpt;
-                            foundImprovment = true;
+                            var calculateTour = new TspSolution(threeOpt);
+                            var secTour = new TspSolution(tour);
+
+                            if(!threeOpt.equals(tour)) {
+                                tour = threeOpt;
+                                foundImprovment = true;
+                                break outerloop;
+                            }
                         }
                     }
                 }

@@ -4,6 +4,7 @@ import src.main.java.tsp.TspSolver;
 import src.main.java.tsp.algorithms.*;
 import src.main.java.tsp.graph.GraphGenerator;
 import src.main.java.tsp.models.City;
+import src.main.java.tsp.models.TspSolution;
 import src.main.java.tsp.ploter.PlotPanel;
 
 import javax.swing.*;
@@ -58,19 +59,22 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
-        //var solutionBruteForce = solverBruteForce.solve(cities);
+        // var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
+        // var solutionBruteForce = solverBruteForce.solve(cities);
 
-        var cities = GraphGenerator.generateSymetricGraph(5);
 
-        var solverThreeOptAlgorithm = new TspSolver(new ThreeOptAlgorithm());
-        var solutionThreeOptAlgorithm = solverThreeOptAlgorithm.solve(cities);
+
+
+        var cities = GraphGenerator.generateSymetricGraph(105);
+
+        //var solverNearestNeighbour = new TspSolver(new NearestNeighbourAlgorithm());
+        //var solutionNN = solverNearestNeighbour.solve(cities);
+
+       var solverThreeOptAlgorithm = new TspSolver(new ThreeOptAlgorithm());
+       var solutionThreeOptAlgorithm = solverThreeOptAlgorithm.solve(cities);
 
         var solverTwoOptAlgorithm = new TspSolver(new TwoOptAlgorithm());
         var solutionTwoOptAlgorithm = solverTwoOptAlgorithm.solve(cities);
-
-        var solverNearestNeighbour = new TspSolver(new NearestNeighbourAlgorithm());
-        var solutionNN = solverNearestNeighbour.solve(cities);
 
         var solverAntColony = new TspSolver(new AntColonyAlgorithm(10));
         var solutionAntColony = solverAntColony.solve(cities);
@@ -78,15 +82,12 @@ public class Main {
         //var solverHeldKarpAlgorithm = new TspSolver(new HeldKarpAlgorithm());
         //var solutionHeldKarpAlgorithm = solverHeldKarpAlgorithm.solve(cities);
 
-
-
         //var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
         //var solutionBruteForce = solverBruteForce.solve(cities);
 
 
-
         var panel = new PlotPanel(cities);
-        panel.setPath(solutionTwoOptAlgorithm.getPath());
+        panel.setPath(solutionThreeOptAlgorithm.getPath());
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

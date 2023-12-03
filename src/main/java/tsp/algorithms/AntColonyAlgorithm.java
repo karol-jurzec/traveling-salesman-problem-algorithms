@@ -255,7 +255,6 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
             antPath = new ArrayList<>();
         }
 
-
         private void calculateAntPathLength() {
             double l = 0.0;
             int n = antPath.size();
@@ -267,7 +266,5 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
 
             this.antPathTotalLength = l;
         }
-
     }
-
 }

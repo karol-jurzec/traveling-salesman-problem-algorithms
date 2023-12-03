@@ -30,13 +30,15 @@ public class City {
     }
 
     public double distanceToCity(City city) {
-        for(var road : roads) {
-            if(road.getDestination() == city) {
-                return road.getWeight();
-            }
-        }
+        return calculateEuclideanDistance(this, city);
 
-        return 0;
+        //for(var road : roads) {
+        //    if(road.getDestination() == city) {
+        //        return road.getWeight();
+        //    }
+        //}
+
+        //return 0;
     }
 
     public Point getCoordinates() {
