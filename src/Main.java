@@ -1,16 +1,8 @@
 package src;
 
-import src.main.java.tsp.TspSolver;
-import src.main.java.tsp.algorithms.*;
-import src.main.java.tsp.graph.GraphGenerator;
-import src.main.java.tsp.models.City;
-import src.main.java.tsp.models.TspSolution;
-import src.main.java.tsp.ploter.PlotPanel;
+import src.main.java.tsp.panel.TspAnalyzerFrame;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public class Main {
 
@@ -59,39 +51,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
-        // var solutionBruteForce = solverBruteForce.solve(cities);
+        TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
 
 
-        var cities = GraphGenerator.generateSymetricGraph(130);
-
-        //var solverNearestNeighbour = new TspSolver(new NearestNeighbourAlgorithm());
-        //var solutionNN = solverNearestNeighbour.solve(cities);
-
-       var solverThreeOptAlgorithm = new TspSolver(new ThreeOptAlgorithm());
-       var solutionThreeOptAlgorithm = solverThreeOptAlgorithm.solve(cities);
-
-        var solverTwoOptAlgorithm = new TspSolver(new TwoOptAlgorithm());
-        var solutionTwoOptAlgorithm = solverTwoOptAlgorithm.solve(cities);
-
-        //var solverAntColony = new TspSolver(new AntColonyAlgorithm(10));
-        //var solutionAntColony = solverAntColony.solve(cities);
-
-        //var solverHeldKarpAlgorithm = new TspSolver(new HeldKarpAlgorithm());
-        //var solutionHeldKarpAlgorithm = solverHeldKarpAlgorithm.solve(cities);
-
-        //var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
-        //var solutionBruteForce = solverBruteForce.solve(cities);
-
-
-        var panel = new PlotPanel(cities);
-        panel.setPath(solutionThreeOptAlgorithm.getPath());
-
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(RANGE, RANGE);
-        frame.add(panel);
-        frame.setVisible(true);
     }
 }
 
