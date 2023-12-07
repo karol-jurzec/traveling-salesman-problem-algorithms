@@ -6,6 +6,7 @@ import java.awt.*;
 public class TspAnalyzerFrame extends JFrame {
 
     ConfigurationPanel configurationPanel = new ConfigurationPanel();
+    VisualizationPanel visualizationPanel = new VisualizationPanel();
 
     public TspAnalyzerFrame() {
 
@@ -16,11 +17,12 @@ public class TspAnalyzerFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.add(configurationPanel, BorderLayout.WEST);
+        this.add(visualizationPanel, BorderLayout.CENTER);
 
 
+        configurationPanel.loadInstancePanel.attach(visualizationPanel);
 
         this.setVisible(true);
-
     }
 
 }
