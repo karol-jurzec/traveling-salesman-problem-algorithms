@@ -62,7 +62,6 @@ public class Main {
         // var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
         // var solutionBruteForce = solverBruteForce.solve(cities);
 
-
         var cities = GraphGenerator.generateSymetricGraph(130);
 
         //var solverNearestNeighbour = new TspSolver(new NearestNeighbourAlgorithm());
@@ -73,15 +72,6 @@ public class Main {
 
         var solverTwoOptAlgorithm = new TspSolver(new TwoOptAlgorithm());
         var solutionTwoOptAlgorithm = solverTwoOptAlgorithm.solve(cities);
-
-        //var solverAntColony = new TspSolver(new AntColonyAlgorithm(10));
-        //var solutionAntColony = solverAntColony.solve(cities);
-
-        //var solverHeldKarpAlgorithm = new TspSolver(new HeldKarpAlgorithm());
-        //var solutionHeldKarpAlgorithm = solverHeldKarpAlgorithm.solve(cities);
-
-        //var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
-        //var solutionBruteForce = solverBruteForce.solve(cities);
 
 
         var panel = new PlotPanel(cities);
