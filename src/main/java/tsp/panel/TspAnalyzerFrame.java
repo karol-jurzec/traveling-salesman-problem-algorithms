@@ -20,7 +20,7 @@ public class TspAnalyzerFrame extends JFrame {
         this.add(visualizationPanel, BorderLayout.CENTER);
 
 
-        configurationPanel.loadInstancePanel.attach(visualizationPanel);
+        configurationPanel.loadInstancePanel.attach(visualizationPanel.drawingPanel);
 
         this.setVisible(true);
     }

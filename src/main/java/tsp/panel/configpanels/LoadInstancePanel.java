@@ -1,6 +1,9 @@
 package src.main.java.tsp.panel.configpanels;
 
+import src.main.java.tsp.models.TspInstance;
+
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,6 +48,8 @@ public class LoadInstancePanel extends JPanel implements ActionListener {
             if(resp == JFileChooser.APPROVE_OPTION) {
                 File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
                 this.jTextField.setText(file.getName());
+                var tspInstance = TspInstance.FileToTspInstance(file);
+                notifyAllObservers(tspInstance);
             }
         }
     }
@@ -53,9 +58,9 @@ public class LoadInstancePanel extends JPanel implements ActionListener {
         observers.add(observer);
     }
 
-    public void notifyAllObservers() {
+    public void notifyAllObservers(TspInstance tspInstance) {
         for(var observer : observers) {
-            observer.update();
+            observer.updateInstance(tspInstance);
         }
     }
 }
