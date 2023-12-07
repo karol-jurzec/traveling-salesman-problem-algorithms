@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GraphGenerator {
-
     static int RANGE = Main.RANGE;
 
     public static ArrayList<City> generateSymetricGraph(int size) {

@@ -72,7 +72,10 @@ Prezentacja/omowienie:
   - [X] posortowanie po algorytmow wedlug date powstania
   - [ ] opis tych algorytmow
 - [ ] implementacja wybranych algorytmow z listy
+  - [ ] LKH
+  - [ ] algorytm genetyczny
+  - [ ] algorytm christofidesa
 - [X] implementacja wizualizacji
   - [X] widok punktow jako wspolrzedne (x, y) na mapie
   - [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
-- [ ] zredagowac, poukladac
+- [X] zredagowac, poukladac
