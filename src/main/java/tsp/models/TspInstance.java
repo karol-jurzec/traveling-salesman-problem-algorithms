@@ -41,7 +41,10 @@ public class TspInstance {
             String line;
             while ((line = br.readLine()) != null) {
                 if(line.contains("COMMENT")) {
-                    desc = desc + line + "\n";
+                    var arr = Stream.of(line.split(":")).filter(w -> !w.isEmpty()).toArray(String[]::new);
+                    if(arr.length > 1) {
+                        desc = desc + arr[1].stripLeading() + ";\n";
+                    }
                 }
             }
         }
@@ -95,4 +98,6 @@ public class TspInstance {
     public ArrayList<Point2D> getPointCollection() {
         return this.pointCollection;
     }
+
+    public String getInstanceDescription() { return this.instanceDescription; }
 }
