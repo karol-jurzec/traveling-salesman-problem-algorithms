@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 public class TspInstance {
     String instanceDescription = "";
     ArrayList<Point2D> pointCollection = new ArrayList<>();
+    ArrayList<Integer> idCollection = new ArrayList<Integer>();
 
     public double minX = java.lang.Double.MAX_VALUE;
     public double minY = java.lang.Double.MAX_VALUE;
@@ -48,7 +49,6 @@ public class TspInstance {
                 }
             }
         }
-
         return desc;
     }
 

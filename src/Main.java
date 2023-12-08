@@ -1,8 +1,13 @@
 package src;
 
+import src.main.java.tsp.TspSolver;
 import src.main.java.tsp.algorithms.LinKernighan;
+import src.main.java.tsp.algorithms.ThreeOptAlgorithm;
+import src.main.java.tsp.algorithms.TwoOptAlgorithm;
+import src.main.java.tsp.graph.GraphGenerator;
 import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.panel.TspAnalyzerFrame;
+import src.main.java.tsp.ploter.PlotPanel;
 
 import java.io.File;
 import java.util.*;
@@ -56,21 +61,15 @@ public class Main {
 
     public static void main(String[] args) {
 
+        var points = TspInstance.FileToTspInstance(new File("/Users/karol/Desktop/uni/ajio/used_tsp_inst/ch130.tsp")).getPointCollection();
 
-        // var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
-        // var solutionBruteForce = solverBruteForce.solve(cities);
+        var arr = IntStream.range(0, points.size()).toArray();
+        var ids = Arrays.stream(arr).boxed().collect(Collectors.toList());
 
-        var cities = GraphGenerator.generateSymetricGraph(130);
 
-        //var solverNearestNeighbour = new TspSolver(new NearestNeighbourAlgorithm());
-        //var solutionNN = solverNearestNeighbour.solve(cities);
+        LinKernighan linKernighan = new LinKernighan(points, new ArrayList<>(ids));
 
-       var solverThreeOptAlgorithm = new TspSolver(new ThreeOptAlgorithm());
-       var solutionThreeOptAlgorithm = solverThreeOptAlgorithm.solve(cities);
-
-        var solverTwoOptAlgorithm = new TspSolver(new TwoOptAlgorithm());
-        var solutionTwoOptAlgorithm = solverTwoOptAlgorithm.solve(cities);
-
+        TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
 
     }
 }
