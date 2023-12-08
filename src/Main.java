@@ -1,16 +1,13 @@
 package src;
 
-import src.main.java.tsp.TspSolver;
-import src.main.java.tsp.algorithms.*;
-import src.main.java.tsp.graph.GraphGenerator;
-import src.main.java.tsp.models.City;
-import src.main.java.tsp.models.TspSolution;
-import src.main.java.tsp.ploter.PlotPanel;
+import src.main.java.tsp.algorithms.LinKernighan;
+import src.main.java.tsp.models.TspInstance;
+import src.main.java.tsp.panel.TspAnalyzerFrame;
 
-import javax.swing.*;
-import java.awt.*;
+import java.io.File;
 import java.util.*;
-import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
 
@@ -59,6 +56,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+
         // var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
         // var solutionBruteForce = solverBruteForce.solve(cities);
 
@@ -74,14 +72,6 @@ public class Main {
         var solutionTwoOptAlgorithm = solverTwoOptAlgorithm.solve(cities);
 
 
-        var panel = new PlotPanel(cities);
-        panel.setPath(solutionThreeOptAlgorithm.getPath());
-
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(RANGE, RANGE);
-        frame.add(panel);
-        frame.setVisible(true);
     }
 }
 
