@@ -56,15 +56,20 @@ public class Main {
 
     public static void main(String[] args) {
 
-        var points = TspInstance.FileToTspInstance(new File("/Users/karol/Desktop/uni/ajio/used_tsp_inst/ch130.tsp")).getPointCollection();
 
-        var arr = IntStream.range(0, points.size()).toArray();
-        var ids = Arrays.stream(arr).boxed().collect(Collectors.toList());
+        // var solverBruteForce = new TspSolver(new BruteForceAlgorithm());
+        // var solutionBruteForce = solverBruteForce.solve(cities);
 
+        var cities = GraphGenerator.generateSymetricGraph(130);
 
-        LinKernighan linKernighan = new LinKernighan(points, new ArrayList<>(ids));
+        //var solverNearestNeighbour = new TspSolver(new NearestNeighbourAlgorithm());
+        //var solutionNN = solverNearestNeighbour.solve(cities);
 
-        TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
+       var solverThreeOptAlgorithm = new TspSolver(new ThreeOptAlgorithm());
+       var solutionThreeOptAlgorithm = solverThreeOptAlgorithm.solve(cities);
+
+        var solverTwoOptAlgorithm = new TspSolver(new TwoOptAlgorithm());
+        var solutionTwoOptAlgorithm = solverTwoOptAlgorithm.solve(cities);
 
 
     }
