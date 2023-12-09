@@ -4,6 +4,7 @@ import src.main.java.tsp.algorithms.*;
 import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.models.TspSolution;
 import src.main.java.tsp.panel.TspAnalyzerFrame;
+import src.main.java.tsp.ploter.PlotPanel;
 
 import java.io.File;
 import java.util.*;
@@ -58,7 +59,6 @@ public class Main {
     public static void main(String[] args) {
 
         //var instance = TspInstance.FileToTspInstance(new File("/Users/karol/Desktop/uni/ajio/used_tsp_inst/dj38.tsp"));
-
 
         TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
     }
