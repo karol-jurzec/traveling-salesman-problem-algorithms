@@ -1,27 +1,26 @@
 package src.main.java.tsp.algorithms;
 
 import src.main.java.tsp.helpers.BiHashMap;
-import src.main.java.tsp.models.City;
+import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.models.TspSolution;
+import java.awt.geom.Point2D;
+
 
 import java.security.KeyPair;
 import java.util.*;
 
 public class HeldKarpAlgorithm implements ITspAlgorithm {
-
-
-
-
-    BiHashMap<City, HashSet<City>, Double> dp = new BiHashMap<>();
-    BiHashMap<City, HashSet<City>, City> pb = new BiHashMap<>();
-    City originCity;
+    
+    BiHashMap<Point2D, HashSet<Point2D>, Double> dp = new BiHashMap<>();
+    BiHashMap<Point2D, HashSet<Point2D>, Point2D> pb = new BiHashMap<>();
+    Point2D originPoint2D;
 
 
     // generowanie podzbiorw dla grafu wejsciowego, polega na rekurencyjnym przejsciu przez tablice i
     // dodaniu lub nie dodaniu miasta do zbioru. podzbiory dodawane są w liściach drzewa rekurencyjnego
 
-    private ArrayList<HashSet<City>> generateSubsets(ArrayList<City> cities, ArrayList<City> subset,
-                                                      ArrayList<HashSet<City>> subsets, int index) {
+    private ArrayList<HashSet<Point2D>> generateSubsets(ArrayList<Point2D> cities, ArrayList<Point2D> subset,
+                                                      ArrayList<HashSet<Point2D>> subsets, int index) {
         if(index >= cities.size()) {
             subsets.add(new HashSet<>(subset));
             return subsets;
@@ -36,56 +35,56 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
 
     // obliczanie rozwiazanie dynamicznym programowaniem, argument subsets powienien byc posortowany rosnaco wzgledem
     // ilosc elementow
-    private double calculateSolution(ArrayList<HashSet<City>> subsets, ArrayList<City> cities) {
+    private double calculateSolution(ArrayList<HashSet<Point2D>> subsets, ArrayList<Point2D> cities) {
         for(var subset : subsets) {
-            for (var city : cities) {
-                if (subset.size() < cities.size() && !subset.contains(city)) {
-                    dp.put(city, subset, calculateMiminumDistance(city, subset));
+            for (var Point2D : cities) {
+                if (subset.size() < cities.size() && !subset.contains(Point2D)) {
+                    dp.put(Point2D, subset, calculateMiminumDistance(Point2D, subset));
                 }
 
                 if (subset.size() == cities.size()) {
-                    dp.put(originCity, subset, calculateMiminumDistance(originCity, subset));
+                    dp.put(originPoint2D, subset, calculateMiminumDistance(originPoint2D, subset));
                 }
             }
         }
 
-        return dp.get(originCity, subsets.get(subsets.size()- 1));
+        return dp.get(originPoint2D, subsets.get(subsets.size()- 1));
     }
 
-    private double calculateMiminumDistance(City c, HashSet<City> s) {
+    private double calculateMiminumDistance(Point2D c, HashSet<Point2D> s) {
         if(s.size() == 0) {
-            return c.distanceToCity(originCity);
+            return c.distance(originPoint2D);
         }
 
-        // remember city which would be chosen
-        City endingCity = null;
+        // remember Point2D which would be chosen
+        Point2D endingPoint2D = null;
 
         double dist = Float.MAX_VALUE;
         double lastdist = dist;
 
-        for(var city : new HashSet<>(s)) {
-            s.remove(city);
-            dist = Math.min(dist, c.distanceToCity(city) + dp.get(city, s));
+        for(var Point2D : new HashSet<>(s)) {
+            s.remove(Point2D);
+            dist = Math.min(dist, c.distance(Point2D) + dp.get(Point2D, s));
 
             if( dist != lastdist ) {
                 lastdist = dist;
-                endingCity = city;
+                endingPoint2D = Point2D;
             }
 
-            s.add(city);
+            s.add(Point2D);
         }
 
-        // add city to tracking
-        pb.put(c, s, endingCity);
+        // add Point2D to tracking
+        pb.put(c, s, endingPoint2D);
 
         return dist;
     }
 
-    private ArrayList<City> retrieveOptimalTour(HashSet<City> subset) {
+    private ArrayList<Point2D> retrieveOptimalTour(HashSet<Point2D> subset) {
 
         int n = subset.size();
-        ArrayList<City> tour = new ArrayList<>();
-        City next = originCity;
+        ArrayList<Point2D> tour = new ArrayList<>();
+        Point2D next = originPoint2D;
 
         while(n >= 0) {
             tour.add(next);
@@ -98,35 +97,29 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
 
         return tour;
     }
-
-
+    
 
     @Override
-    public TspSolution solve(ArrayList<City> cities) {
+    public TspSolution solve(TspInstance tspInstance) {
+        var cities = tspInstance.getPointCollection();
         if(cities.size() == 0 | cities.size() == 1)
-            return new TspSolution(new ArrayList<>(), 0);
+            return new TspSolution(new ArrayList<>());
 
-        ArrayList<City> citiesWihoutOrigin = new ArrayList<>(cities);
-        originCity = citiesWihoutOrigin.remove(0);
+        ArrayList<Point2D> citiesWihoutOrigin = new ArrayList<>(cities);
+        originPoint2D = citiesWihoutOrigin.remove(0);
 
         var subsets = generateSubsets(citiesWihoutOrigin, new ArrayList<>(), new ArrayList<>(), 0);
 
         // prepare list of subsets by sorting in ascending order by number of elemnts
-        subsets.sort(new Comparator<HashSet<City>>() {
+        subsets.sort(new Comparator<HashSet<Point2D>>() {
             @Override
-            public int compare(HashSet<City> o1, HashSet<City> o2) {
+            public int compare(HashSet<Point2D> o1, HashSet<Point2D> o2) {
                 return Integer.compare(o1.size(), o2.size());
             }
         });
 
-        double distance = calculateSolution(subsets, cities);
-        ArrayList<City> optimalTour = retrieveOptimalTour(subsets.get(subsets.size() - 1));
+        ArrayList<Point2D> optimalTour = retrieveOptimalTour(subsets.get(subsets.size() - 1));
 
-        return new TspSolution(optimalTour, distance);
-    }
-
-    @Override
-    public void printAlgorithm(ArrayList<ArrayList<City>> steps) {
-
+        return new TspSolution(optimalTour);
     }
 }

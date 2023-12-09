@@ -3,10 +3,11 @@ package src.main.java.tsp.algorithms;
 
 import src.main.java.tsp.TspSolver;
 import src.main.java.tsp.helpers.BiHashMap;
-import src.main.java.tsp.models.City;
 import src.main.java.tsp.models.Road;
+import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.models.TspSolution;
 
+import java.awt.geom.Point2D;
 import java.io.Console;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,10 +22,10 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
     private int numberOfAntAgents2 = 10; //
 
 
-    private BiHashMap<City, City, Double> pheromone;
-    private BiHashMap<City, City, Double> distances;
+    private BiHashMap<Point2D, Point2D, Double> pheromone;
+    private BiHashMap<Point2D, Point2D, Double> distances;
     private ArrayList<Ant> antAgents;
-    private ArrayList<City> globalBestTour;
+    private ArrayList<Point2D> globalBestTour;
     private double globalBestTourLength = Double.MAX_VALUE;
 
 
@@ -39,17 +40,17 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
         }
     }
 
-    private void initializePheromoneTabel(ArrayList<City> cities) {
-        for(var cityOrigin : cities) {
-            for (var cityDest : cities) {
-                if(cityOrigin != cityDest) {
-                    pheromone.put(cityDest, cityOrigin, this.initialPheromoneValue);
+    private void initializePheromoneTabel(ArrayList<Point2D> cities) {
+        for(var Point2DOrigin : cities) {
+            for (var Point2DDest : cities) {
+                if(Point2DOrigin != Point2DDest) {
+                    pheromone.put(Point2DDest, Point2DOrigin, this.initialPheromoneValue);
                 }
             }
         }
     }
 
-    private void initializeAntAgents(ArrayList<City> citiesInput) {
+    private void initializeAntAgents(ArrayList<Point2D> citiesInput) {
         var cities = new ArrayList<>(citiesInput);
         Collections.shuffle(cities);
 
@@ -58,27 +59,27 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
         }
 
         for(int i = 0; i < antAgents.size(); ++i) {
-            var startingCity = cities.get(i);
-            antAgents.get(i).startingCity = startingCity;
+            var startingPoint2D = cities.get(i);
+            antAgents.get(i).startingPoint2D = startingPoint2D;
 
-            var remainingCities = new ArrayList<City>(cities);
-            remainingCities.remove(startingCity);
+            var remainingCities = new ArrayList<Point2D>(cities);
+            remainingCities.remove(startingPoint2D);
 
             antAgents.get(i).remainingCities = remainingCities;
-            antAgents.get(i).currentCity = startingCity;
-            antAgents.get(i).antPath.add(startingCity);
+            antAgents.get(i).currentPoint2D = startingPoint2D;
+            antAgents.get(i).antPath.add(startingPoint2D);
         }
     }
 
-    private void initializeDistance(ArrayList<City> cities) {
-        for( var cityOrigin : cities) {
-            for(var cityDest : cities) {
-                distances.put(cityOrigin, cityDest, cityOrigin.distanceToCity(cityDest));
+    private void initializeDistance(ArrayList<Point2D> cities) {
+        for( var Point2DOrigin : cities) {
+            for(var Point2DDest : cities) {
+                distances.put(Point2DOrigin, Point2DDest, Point2DOrigin.distance(Point2DDest));
             }
         }
     }
 
-    private City randomProportionalRule(Ant k, ArrayList<Double> arguments) {
+    private Point2D randomProportionalRule(Ant k, ArrayList<Double> arguments) {
         double totalSum = arguments.stream().mapToDouble(f -> f.doubleValue()).sum();
 
         double p = Math.random();
@@ -93,18 +94,18 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
         return null;
     }
 
-    private City getMostOptimalRoad(Ant k, ArrayList<Double> arguments) {
+    private Point2D getMostOptimalRoad(Ant k, ArrayList<Double> arguments) {
         double maxArg = Collections.max(arguments);
         int maxArgIndex = arguments.indexOf(maxArg);
 
         return k.remainingCities.get(maxArgIndex);
     }
 
-    private City stateTransitionRule(Ant k) {
+    private Point2D stateTransitionRule(Ant k) {
         ArrayList<Double> arguments = new ArrayList<>();
 
-        for(var city : k.remainingCities) {
-            var arg = pheromone.get(k.currentCity, city) * Math.pow(1/distances.get(k.currentCity, city), importanceOfPheromone);
+        for(var Point2D : k.remainingCities) {
+            var arg = pheromone.get(k.currentPoint2D, Point2D) * Math.pow(1/distances.get(k.currentPoint2D, Point2D), importanceOfPheromone);
             arguments.add(arg);
         }
 
@@ -124,23 +125,23 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
     private double deltaGlobal() { return 1/globalBestTourLength; }
 
     private void antCalculateNextMove(Ant k) {
-        k.nextCity = stateTransitionRule(k);
-        k.remainingCities.remove(k.nextCity);
-        k.antPath.add(k.nextCity);
+        k.nextPoint2D = stateTransitionRule(k);
+        k.remainingCities.remove(k.nextPoint2D);
+        k.antPath.add(k.nextPoint2D);
     }
 
-    private void antGoBackToInitialCity(Ant k) {
-        k.nextCity = k.startingCity;
-        k.antPath.add(k.nextCity);
+    private void antGoBackToInitialPoint2D(Ant k) {
+        k.nextPoint2D = k.startingPoint2D;
+        k.antPath.add(k.nextPoint2D);
     }
 
-    private void antMoveToNextCity(Ant k) {
-        k.currentCity = k.nextCity;
+    private void antMoveToNextPoint2D(Ant k) {
+        k.currentPoint2D = k.nextPoint2D;
     }
 
     private void performLocalUpdate(Ant k) {
-        var origin = k.currentCity;
-        var destination = k.nextCity;
+        var origin = k.currentPoint2D;
+        var destination = k.nextPoint2D;
 
         var newPheromoneVal = (1 - pheromoneDecayParameter) * pheromone.get(origin, destination)
                 + pheromoneDecayParameter * deltaLocal();
@@ -162,10 +163,10 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
         }
     }
 
-    private void initialize(ArrayList<City> cities) {
-
-        var solverNearestNeighbour = new TspSolver(new NearestNeighbourAlgorithm());
-        var solutionNNLen = solverNearestNeighbour.solve(cities).getTotalDistance();
+    private void initialize(TspInstance tspInstance) {
+        var cities = tspInstance.getPointCollection();
+        var solutionNN = new NearestNeighbourAlgorithm().solve(tspInstance).getPath();
+        var solutionNNLen = TspSolution.getTotalPathDistanceForPoints(solutionNN);
 
         this.initialPheromoneValue = Math.pow(cities.size() * solutionNNLen, -1);
 
@@ -182,16 +183,16 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
                     antCalculateNextMove(antAgents.get(j));
                 }
             } else {
-                //ants go back to the initial city
+                //ants go back to the initial Point2D
                 for(int j = 0;  j < antAgents.size(); ++j) {
-                    antGoBackToInitialCity(antAgents.get(j));
+                    antGoBackToInitialPoint2D(antAgents.get(j));
                 }
             }
 
-            // local updates after calculations, moving ants to next city
+            // local updates after calculations, moving ants to next Point2D
             for(int j = 0; j < antAgents.size(); ++j) {
                 performLocalUpdate(antAgents.get(j));
-                antMoveToNextCity(antAgents.get(j));
+                antMoveToNextPoint2D(antAgents.get(j));
             }
         }
     }
@@ -213,40 +214,34 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
         }
     }
 
-    public void refresh(ArrayList<City> cities) {
+    public void refresh(ArrayList<Point2D> cities) {
         initializeAntAgents(cities);
     }
 
-    @Override
-    public TspSolution solve(ArrayList<City> cities) {
-        ArrayList<City> cityList = new ArrayList<>(cities);
+    public TspSolution solve(TspInstance tspInstance) {
+        var cities = tspInstance.getPointCollection();
+        ArrayList<Point2D> Point2DList = new ArrayList<>(cities);
 
+        initialize(tspInstance);
 
-        initialize(cityList);
-
-        for(int i = 0; i < 10000; ++i) {
-            buildAntTours(cityList.size());
+        for(int i = 0; i < 4000; ++i) {
+            buildAntTours(Point2DList.size());
             performGlobalUpdate();
             refresh(cities);
         }
 
-        return new TspSolution(globalBestTour, globalBestTourLength);
-    }
-
-    @Override
-    public void printAlgorithm(ArrayList<ArrayList<City>> steps) {
-
+        return new TspSolution(globalBestTour);
     }
 
     class Ant {
 
-        private City startingCity;
-        private City currentCity;
-        private City nextCity;
+        private Point2D startingPoint2D;
+        private Point2D currentPoint2D;
+        private Point2D nextPoint2D;
 
-        private ArrayList<City> remainingCities;
+        private ArrayList<Point2D> remainingCities;
 
-        private ArrayList<City> antPath;
+        private ArrayList<Point2D> antPath;
 
         private double antPathTotalLength;
 
@@ -261,7 +256,7 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
 
             for(int i = 0; i < n - 1; ++i) {
                 var next = antPath.get(i + 1);
-                l = l + antPath.get(i).distanceToCity(next);
+                l = l + antPath.get(i).distance(next);
             }
 
             this.antPathTotalLength = l;

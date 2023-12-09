@@ -1,9 +1,10 @@
 package src.main.java.tsp.algorithms;
 
 import src.main.java.tsp.TspSolver;
-import src.main.java.tsp.models.City;
+import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.models.TspSolution;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -11,8 +12,8 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
 
     public double delta = 0;
 
-    private ArrayList<City> twoOptSwap(ArrayList<City> cities, int vOneIndex, int vTwoIndex) {
-        ArrayList<City> newGraph = new ArrayList<>(cities);
+    private ArrayList<Point2D> twoOptSwap(ArrayList<Point2D> cities, int vOneIndex, int vTwoIndex) {
+        ArrayList<Point2D> newGraph = new ArrayList<>(cities);
 
         // we dont swap first origin cities
         //if(vOneIndex == 0 || vOneIndex == cities.size() - 1 || vTwoIndex == 0 || vTwoIndex == cities.size() - 1 )
@@ -27,58 +28,65 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
         return newGraph;
     }
 
-    private CASE calculateMinDeltaLen(ArrayList<City> cities, int x, int y, int z) {
-        ArrayList<City> tour = new ArrayList<>(cities);
+    private double distance(Point2D p1, Point2D p2) {
+        return Math.sqrt(
+                Math.pow(p2.getX() - p1.getX(), 2) +
+                        Math.pow(p2.getY() - p1.getY(), 2)
+        );
+    }
 
-        City xCity = tour.get(x);
-        City xCity2 = tour.get(x + 1);
+    private CASE calculateMinDeltaLen(ArrayList<Point2D> cities, int x, int y, int z) {
+        ArrayList<Point2D> tour = new ArrayList<>(cities);
 
-        double xEdgeLen = xCity.distanceToCity(xCity2);
+        Point2D xPoint2D = tour.get(x);
+        Point2D xPoint2D2 = tour.get(x + 1);
 
-        City yCity = tour.get(y);
-        City yCity2 = tour.get(y + 1);
+        double xEdgeLen = xPoint2D.distance(xPoint2D2);
 
-        double yEdgeLen = yCity.distanceToCity(yCity2);
+        Point2D yPoint2D = tour.get(y);
+        Point2D yPoint2D2 = tour.get(y + 1);
 
-        City zCity = tour.get(z);
-        City zCity2 = tour.get(z + 1);
+        double yEdgeLen = yPoint2D.distance(yPoint2D2);
 
-        double zEdgeLen = zCity.distanceToCity(zCity2);
+        Point2D zPoint2D = tour.get(z);
+        Point2D zPoint2D2 = tour.get(z + 1);
+
+        double zEdgeLen = zPoint2D.distance(zPoint2D2);
 
         ArrayList<Double> deltaLengths = new ArrayList<>();
 
         // case 1
         var deletedLen = xEdgeLen + zEdgeLen;
-        var addedLen = xCity.distanceToCity(zCity) + xCity2.distanceToCity(zCity2);
+        var addedLen = xPoint2D.distance(zPoint2D) + xPoint2D2.distance(zPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 2
         deletedLen = yEdgeLen + zEdgeLen;
-        addedLen = yCity.distanceToCity(zCity) + yCity2.distanceToCity(zCity2);
+        addedLen = yPoint2D.distance(zPoint2D) + yPoint2D2.distance(zPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 3
 
         deletedLen = xEdgeLen + yEdgeLen;
-        addedLen = xCity.distanceToCity(yCity) + xCity2.distanceToCity(yCity2);
+        addedLen = xPoint2D.distance(yPoint2D) + xPoint2D2.distance(yPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 4
 
         deletedLen = xEdgeLen + yEdgeLen + zEdgeLen;
-        addedLen = xCity.distanceToCity(yCity) + xCity2.distanceToCity(zCity) + yCity2.distanceToCity(zCity2);
+        addedLen = xPoint2D.distance(yPoint2D) + xPoint2D2.distance(zPoint2D) + yPoint2D2.distance(zPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 6
-        addedLen = xCity.distanceToCity(zCity) + yCity2.distanceToCity(xCity2) + yCity.distanceToCity(zCity2);
+        addedLen = xPoint2D.distance(zPoint2D) + yPoint2D2.distance(xPoint2D2) + yPoint2D.distance(zPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 5
-        addedLen = xCity.distanceToCity(yCity2) + zCity.distanceToCity(yCity) + xCity2.distanceToCity(zCity2);
+        addedLen = xPoint2D.distance(yPoint2D2) + zPoint2D.distance(yPoint2D) + xPoint2D2.distance(zPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 7
-        addedLen = xCity.distanceToCity(yCity2) + zCity.distanceToCity(xCity2) + yCity.distanceToCity(zCity2);
+        addedLen = xPoint2D.distance(yPoint2D2) + zPoint2D.distance(xPoint2D2) + yPoint2D.distance(zPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
 
@@ -94,14 +102,14 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
         return CASE.values()[minIndex + 1];
     }
 
-    public boolean calculateDiff(ArrayList<City> modified, ArrayList<City> origin) {
-        double modifiedLen = new TspSolution(modified).getTotalDistance();
-        double originLen = new TspSolution(origin).getTotalDistance();
+    public boolean calculateDiff(ArrayList<Point2D> modified, ArrayList<Point2D> origin) {
+        double modifiedLen = TspSolution.getTotalPathDistanceForPoints(modified);
+        double originLen = TspSolution.getTotalPathDistanceForPoints(origin);
 
         return modifiedLen < originLen;
     }
 
-    private ArrayList<City> applyThreeOpt(ArrayList<City> cities, int x, int y, int z) {
+    private ArrayList<Point2D> applyThreeOpt(ArrayList<Point2D> cities, int x, int y, int z) {
         var tour = new ArrayList<>(cities);
         var caseNum = calculateMinDeltaLen(tour, x, y, z);
 
@@ -154,103 +162,102 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
         return false;
     }
 
-    void threeOptTest(ArrayList<City> cities) {
-        ArrayList<City> tour = new ArrayList<>(cities);
+    void threeOptTest(ArrayList<Point2D> cities) {
+        ArrayList<Point2D> tour = new ArrayList<>(cities);
 
         int x = 0, y = 2, z = 4;
 
 
         //delta len
 
-        City xCity = tour.get(x);
-        City xCity2 = tour.get(x + 1);
+        Point2D xPoint2D = tour.get(x);
+        Point2D xPoint2D2 = tour.get(x + 1);
 
-        double xEdgeLen = xCity.distanceToCity(xCity2);
+        double xEdgeLen = xPoint2D.distance(xPoint2D2);
 
-        City yCity = tour.get(y);
-        City yCity2 = tour.get(y + 1);
+        Point2D yPoint2D = tour.get(y);
+        Point2D yPoint2D2 = tour.get(y + 1);
 
-        double yEdgeLen = yCity.distanceToCity(yCity2);
+        double yEdgeLen = yPoint2D.distance(yPoint2D2);
 
-        City zCity = tour.get(z);
-        City zCity2 = tour.get(z + 1);
+        Point2D zPoint2D = tour.get(z);
+        Point2D zPoint2D2 = tour.get(z + 1);
 
-        double zEdgeLen = zCity.distanceToCity(zCity2);
+        double zEdgeLen = zPoint2D.distance(zPoint2D2);
 
         ArrayList<Double> deltaLengths = new ArrayList<>();
 
         // case 1
         var deletedLen = xEdgeLen + zEdgeLen;
-        var addedLen = xCity.distanceToCity(zCity) + xCity2.distanceToCity(zCity2);
+        var addedLen = xPoint2D.distance(zPoint2D) + xPoint2D2.distance(zPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 2
         deletedLen = yEdgeLen + zEdgeLen;
-        addedLen = yCity.distanceToCity(zCity) + yCity2.distanceToCity(zCity2);
+        addedLen = yPoint2D.distance(zPoint2D) + yPoint2D2.distance(zPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 3
 
         deletedLen = xEdgeLen + yEdgeLen;
-        addedLen = xCity.distanceToCity(yCity) + xCity2.distanceToCity(yCity2);
+        addedLen = xPoint2D.distance(yPoint2D) + xPoint2D2.distance(yPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 4
 
         deletedLen = xEdgeLen + yEdgeLen + zEdgeLen;
-        addedLen = xCity.distanceToCity(yCity) + xCity2.distanceToCity(zCity) + yCity2.distanceToCity(zCity2);
+        addedLen = xPoint2D.distance(yPoint2D) + xPoint2D2.distance(zPoint2D) + yPoint2D2.distance(zPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 6
-        addedLen = xCity.distanceToCity(zCity) + yCity2.distanceToCity(xCity2) + yCity.distanceToCity(zCity2);
+        addedLen = xPoint2D.distance(zPoint2D) + yPoint2D2.distance(xPoint2D2) + yPoint2D.distance(zPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 5
-        addedLen = xCity.distanceToCity(yCity2) + zCity.distanceToCity(yCity) + xCity2.distanceToCity(zCity2);
+        addedLen = xPoint2D.distance(yPoint2D2) + zPoint2D.distance(yPoint2D) + xPoint2D2.distance(zPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
         // case 7
-        addedLen = xCity.distanceToCity(yCity2) + zCity.distanceToCity(xCity2) + yCity.distanceToCity(zCity2);
+        addedLen = xPoint2D.distance(yPoint2D2) + zPoint2D.distance(xPoint2D2) + yPoint2D.distance(zPoint2D2);
         deltaLengths.add(-deletedLen + addedLen);
 
 
-        var originTour = new TspSolution(tour);
-        var originLen = originTour.getTotalDistance();
+        var originLen = TspSolution.getTotalPathDistanceForPoints(tour);
 
         //case 1
         var caseOneTest = twoOptSwap(tour, z + 1, x);
-        var caseOneTour = new TspSolution(caseOneTest);
-        double diffOneTour = Math.abs(originLen - caseOneTour.getTotalDistance());
+        var caseOneTourLen = TspSolution.getTotalPathDistanceForPoints(caseOneTest);
+        double diffOneTour = Math.abs(originLen - caseOneTourLen);
 
         //case 2
         var caseTwoTest = twoOptSwap(tour, y + 1, z);
-        var caseTwoTour = new TspSolution(caseTwoTest);
-        double diffTwoTour = Math.abs(originLen - caseTwoTour.getTotalDistance());
+        var caseTwoTourLen = TspSolution.getTotalPathDistanceForPoints(caseTwoTest);
+        double diffTwoTour = Math.abs(originLen - caseTwoTourLen);
 
         //case 3
         var caseThreeTest = twoOptSwap(tour, x + 1, y);
-        var caseThreeTour = new TspSolution(caseThreeTest);
-        double diffThreeTour = Math.abs(originLen - caseThreeTour.getTotalDistance());
+        var caseThreeTourLen = TspSolution.getTotalPathDistanceForPoints(caseThreeTest);
+        double diffThreeTour = Math.abs(originLen - caseThreeTourLen);
 
 
         //case 4
         var caseFourTest = twoOptSwap(tour, y + 1, z);
         caseFourTest = twoOptSwap(caseFourTest, x + 1, y);
-        var caseFourTour = new TspSolution(caseFourTest);
-        double diffFourTour = Math.abs(originLen - caseFourTour.getTotalDistance());
+        var caseFourTourLen = TspSolution.getTotalPathDistanceForPoints(caseFourTest);
+        double diffFourTour = Math.abs(originLen - caseFourTourLen);
 
         //case 5
         var caseFiveTest = twoOptSwap(tour, z + 1, x);
         caseFiveTest = twoOptSwap(caseFiveTest, y + 1, z);
-        var caseFiveTour = new TspSolution(caseFiveTest);
-        double diffFiveTour = Math.abs(originLen - caseFiveTour.getTotalDistance());
+        var caseFiveTourLen = TspSolution.getTotalPathDistanceForPoints(caseFiveTest);
+        double diffFiveTour = Math.abs(originLen - caseFiveTourLen);
 
 
         //case 6
         var caseSixTest = twoOptSwap(tour, z + 1, x);
         caseSixTest = twoOptSwap(caseSixTest, x + 1, y);
-        var caseSixTour = new TspSolution(caseSixTest);
-        double diffSixTour = Math.abs(originLen - caseSixTour.getTotalDistance());
+        var caseSixTourLen = TspSolution.getTotalPathDistanceForPoints(caseSixTest);
+        double diffSixTour = Math.abs(originLen - caseSixTourLen);
 
 
         //case 7
@@ -258,8 +265,8 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
         var caseSevenTest = twoOptSwap(tour, z + 1, x);
         caseSevenTest = twoOptSwap(caseSevenTest, x + 1, y);
         caseSevenTest =  twoOptSwap(caseSevenTest, y + 1, z);
-        var caseSevenTour = new TspSolution(caseSevenTest);
-        double diffSevenTour = Math.abs(originLen - caseSevenTour.getTotalDistance());
+        var caseSevenTourLen = TspSolution.getTotalPathDistanceForPoints(caseSevenTest);
+        double diffSevenTour = Math.abs(originLen - caseSevenTourLen);
 
 
         return;
@@ -267,8 +274,10 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
     }
 
     @Override
-    public TspSolution solve(ArrayList<City> cities) {
-        var tour = new NearestNeighbourAlgorithm().solve(new ArrayList<>(cities)).getPath();
+    public TspSolution solve(TspInstance tspInstance) {
+        var tour = new NearestNeighbourAlgorithm().solve(tspInstance).getPath();
+
+
         var foundImprovment = true;
 
 
@@ -280,8 +289,8 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
                         if(checkConstraints(i, j, k)) {
                             var threeOpt = applyThreeOpt(tour, i, j, k);
 
-                            var calculateTour = new TspSolution(threeOpt);
-                            var secTour = new TspSolution(tour);
+                            //var calculateTour = new TspSolution(threeOpt);
+                            //var secTour = new TspSolution(tour);
 
                             if(!threeOpt.equals(tour)) {
                                 tour = threeOpt;
@@ -293,13 +302,10 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
             }
         }
 
+        //return new TspSolution(tour);
         return new TspSolution(tour);
     }
 
-    @Override
-    public void printAlgorithm(ArrayList<ArrayList<City>> steps) {
-
-    }
 
     enum CASE {
         zero,

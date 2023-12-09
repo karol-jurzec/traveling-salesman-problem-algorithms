@@ -1,11 +1,8 @@
 package src;
 
-import src.main.java.tsp.TspSolver;
-import src.main.java.tsp.algorithms.LinKernighan;
-import src.main.java.tsp.algorithms.ThreeOptAlgorithm;
-import src.main.java.tsp.algorithms.TwoOptAlgorithm;
-import src.main.java.tsp.graph.GraphGenerator;
+import src.main.java.tsp.algorithms.*;
 import src.main.java.tsp.models.TspInstance;
+import src.main.java.tsp.models.TspSolution;
 import src.main.java.tsp.panel.TspAnalyzerFrame;
 import src.main.java.tsp.ploter.PlotPanel;
 
@@ -61,16 +58,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        var points = TspInstance.FileToTspInstance(new File("/Users/karol/Desktop/uni/ajio/used_tsp_inst/ch130.tsp")).getPointCollection();
-
-        var arr = IntStream.range(0, points.size()).toArray();
-        var ids = Arrays.stream(arr).boxed().collect(Collectors.toList());
-
-
-        LinKernighan linKernighan = new LinKernighan(points, new ArrayList<>(ids));
+        //var instance = TspInstance.FileToTspInstance(new File("/Users/karol/Desktop/uni/ajio/used_tsp_inst/dj38.tsp"));
 
         TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
-
     }
 }
 

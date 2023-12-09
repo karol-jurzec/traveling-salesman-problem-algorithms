@@ -1,17 +1,17 @@
 package src.main.java.tsp.algorithms;
 
-import src.main.java.tsp.models.City;
+import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.models.TspSolution;
 
+import java.awt.geom.Point2D;
 import java.util.*;
 
 public class BruteForceAlgorithm implements ITspAlgorithm {
-
-    private double getTotalPathDistance(ArrayList<City> path) {
+    private double getTotalPathDistance(ArrayList<Point2D> path) {
         double sum = 0;
         for(int i = 0; i < path.size(); ++i) {
             var next = path.get((i+1)%path.size());
-            sum = sum + path.get(i).distanceToCity(next);
+            sum = sum + path.get(i).distance(next);
         }
         return sum;
     }
@@ -46,8 +46,8 @@ public class BruteForceAlgorithm implements ITspAlgorithm {
     private <T> ArrayList<ArrayList<T>> generateUniquePermutations(ArrayList<T> arr) {
         // steps
         // 1. generate all permutations from 1...N-1 --> (n-1)! permutations
-        // 2. filter them: if the 1st city is after 2nd delete permutation --> it will remove half of them
-        // 3. append last city to each of permutations --> overall we get (n-1)!/2 perms
+        // 2. filter them: if the 1st Point2D is after 2nd delete permutation --> it will remove half of them
+        // 3. append last Point2D to each of permutations --> overall we get (n-1)!/2 perms
 
         if(arr.size() == 0) {
             return new ArrayList<ArrayList<T>>();
@@ -80,8 +80,8 @@ public class BruteForceAlgorithm implements ITspAlgorithm {
     }
 
     @Override
-    public TspSolution solve(ArrayList<City> cities) {
-
+    public TspSolution solve(TspInstance instance) {
+        var cities = instance.getPointCollection();
         var permutations = generateUniquePermutations(new ArrayList<>(cities));
 
         TspSolution tspSolution = new TspSolution(null, Long.MAX_VALUE);
@@ -95,14 +95,9 @@ public class BruteForceAlgorithm implements ITspAlgorithm {
         }
 
         // add last node to path
-
         tspSolution.getPath().add(tspSolution.getPath().get(0));
 
-        return tspSolution;
+        return new TspSolution(tspSolution.getPath());
     }
-
-    @Override
-    public void printAlgorithm(ArrayList<ArrayList<City>> steps) {
-
-    }
+    
 }

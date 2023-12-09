@@ -21,6 +21,8 @@ public class TspAnalyzerFrame extends JFrame {
 
 
         configurationPanel.loadInstancePanel.attach(visualizationPanel.drawingPanel);
+        configurationPanel.loadInstancePanel.attach(configurationPanel.solvePanel);
+        configurationPanel.solvePanel.attach(visualizationPanel.drawingPanel);
 
         this.setVisible(true);
     }

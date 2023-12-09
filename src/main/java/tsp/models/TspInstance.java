@@ -5,12 +5,18 @@ import java.io.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class TspInstance {
     String instanceDescription = "";
     ArrayList<Point2D> pointCollection = new ArrayList<>();
-    ArrayList<Integer> idCollection = new ArrayList<Integer>();
+    ArrayList<Integer> idCollection = new ArrayList<>();
+    //double[][] distanceMatrix = null;
+    int size = 0;
+
 
     public double minX = java.lang.Double.MAX_VALUE;
     public double minY = java.lang.Double.MAX_VALUE;
@@ -21,13 +27,42 @@ public class TspInstance {
     public TspInstance(ArrayList<Point2D> pointCollection, String desc) {
         this.instanceDescription = desc;
         this.pointCollection = pointCollection;
-        calculatePointsRange(pointCollection);
+        this.size = pointCollection.size();
+
+        initDistanceMatrix();
+        initPointsRange();
+        initIdCollection();
     }
 
-    private void calculatePointsRange(ArrayList<Point2D> points) {
-        for(int i = 0; i < points.size(); ++i ) {
-            double x = points.get(i).getX();
-            double y = points.get(i).getY();
+    public void initIdCollection() {
+        var arr = IntStream.range(0, getPointCollection().size()).toArray();
+        var ids = Arrays.stream(arr).boxed().collect(Collectors.toList());
+        this.idCollection = new ArrayList<>(ids);
+    }
+
+    private void initDistanceMatrix() {
+        /*double[][] res = new double[this.size][this.size];
+
+        for(int i = 0; i < this.size-1; ++i) {
+            for(int j = i + 1; j < this.size; ++j) {
+                Point2D p1 = this.pointCollection.get(i);
+                Point2D p2 = this.pointCollection.get(j);
+
+                res[i][j] = Math.sqrt(
+                        Math.pow(p2.getX() - p1.getX(), 2) +
+                                Math.pow(p2.getY() - p1.getY(), 2)
+                );
+
+                res[j][i] = res[i][j];
+            }
+        }
+        this.distanceMatrix = res;*/
+    }
+
+    private void initPointsRange() {
+        for(int i = 0; i < pointCollection.size(); ++i ) {
+            double x = pointCollection.get(i).getX();
+            double y = pointCollection.get(i).getY();
 
             minX = Math.min(minX, x);
             minY = Math.min(minY, y);
@@ -100,4 +135,10 @@ public class TspInstance {
     }
 
     public String getInstanceDescription() { return this.instanceDescription; }
+
+    /*public double[][] getDistanceMatrix() {
+        return distanceMatrix;
+    }*/
+
+    public ArrayList<Integer> getIdCollection() {return idCollection; }
 }
