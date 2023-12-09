@@ -1,8 +1,9 @@
 package src.main.java.tsp.algorithms;
 
-import src.main.java.tsp.models.City;
+import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.models.TspSolution;
 
+import java.awt.geom.Point2D;
 import java.text.CollationKey;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +12,7 @@ import java.util.stream.Stream;
 
 public class TwoOptAlgorithm implements ITspAlgorithm {
 
-    private ArrayList<City> twoOptSwap(ArrayList<City> cities, City v1, City v2) {
+    private ArrayList<Point2D> twoOptSwap(ArrayList<Point2D> cities, Point2D v1, Point2D v2) {
         ArrayList newGraph = new ArrayList<>(cities);
 
         var vOneIndex = cities.indexOf(v1);
@@ -22,25 +23,25 @@ public class TwoOptAlgorithm implements ITspAlgorithm {
         return newGraph;
     }
 
-    private double calculateDelta(City v10, City v11, City v20, City v21) {
-        return - v10.distanceToCity(v11) - v20.distanceToCity(v21) + v10.distanceToCity(v20) + v21.distanceToCity(v11);
+    private double calculateDelta(Point2D v10, Point2D v11, Point2D v20, Point2D v21) {
+        return - v10.distance(v11) - v20.distance(v21) + v10.distance(v20) + v21.distance(v11);
     }
 
-    @Override
-    public TspSolution solve(ArrayList<City> cities) {
-        var nn = new NearestNeighbourAlgorithm().solve(cities);
+    public TspSolution solve(TspInstance tspInstance) {
+        var nn = new NearestNeighbourAlgorithm().solve(tspInstance).getPath();
+        var points = tspInstance.getPointCollection();
 
-        var bestTour = nn.getPath();
-        var totalDistance = nn.getTotalDistance();
+        var bestTour = nn;
+        var totalDistance = TspSolution.getTotalPathDistanceForPoints(nn);
         var foundImprovment = true;
 
         while(foundImprovment) {
             foundImprovment = false;
 
-            for(int i = 0; i < cities.size() - 2; ++i) {
-                for(int j = i + 1; j < cities.size(); ++j) {
+            for(int i = 0; i < points.size() - 2; ++i) {
+                for(int j = i + 1; j < points.size(); ++j) {
                     double deltaLen = calculateDelta(bestTour.get(i), bestTour.get(i+1), bestTour.get(j), bestTour.get(j+1));
-                    if(deltaLen < 0) {
+                    if(deltaLen < -0.001) {
                         bestTour = twoOptSwap(bestTour, bestTour.get(i), bestTour.get(j));
                         totalDistance += deltaLen;
                         foundImprovment = true;
@@ -49,11 +50,7 @@ public class TwoOptAlgorithm implements ITspAlgorithm {
             }
         }
 
-        return new TspSolution(bestTour, totalDistance);
+        return new TspSolution(bestTour)    ;
     }
 
-    @Override
-    public void printAlgorithm(ArrayList<ArrayList<City>> steps) {
-
-    }
 }

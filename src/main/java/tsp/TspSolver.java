@@ -2,8 +2,10 @@ package src.main.java.tsp;
 
 import src.main.java.tsp.algorithms.ITspAlgorithm;
 import src.main.java.tsp.models.City;
+import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.models.TspSolution;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class TspSolver {
@@ -13,7 +15,7 @@ public class TspSolver {
         this.algorithm = algorithm;
     }
 
-    public TspSolution solve(ArrayList<City> cities) {
-        return algorithm.solve(cities);
+    public TspSolution solve(TspInstance tspInstance) {
+        return algorithm.solve(tspInstance);
     }
 }

@@ -1,7 +1,8 @@
 package src;
 
-import src.main.java.tsp.algorithms.LinKernighan;
+import src.main.java.tsp.algorithms.*;
 import src.main.java.tsp.models.TspInstance;
+import src.main.java.tsp.models.TspSolution;
 import src.main.java.tsp.panel.TspAnalyzerFrame;
 
 import java.io.File;
@@ -56,17 +57,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        var points = TspInstance.FileToTspInstance(new File("/Users/karol/Desktop/uni/ajio/used_tsp_inst/ch130.tsp")).getPointCollection();
+        //var instance = TspInstance.FileToTspInstance(new File("/Users/karol/Desktop/uni/ajio/used_tsp_inst/dj38.tsp"));
 
-        var arr = IntStream.range(0, points.size()).toArray();
-        var ids = Arrays.stream(arr).boxed().collect(Collectors.toList());
-
-
-        LinKernighan linKernighan = new LinKernighan(points, new ArrayList<>(ids));
 
         TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
-
-
     }
 }
 

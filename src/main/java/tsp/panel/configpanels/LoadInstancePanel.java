@@ -3,7 +3,6 @@ package src.main.java.tsp.panel.configpanels;
 import src.main.java.tsp.models.TspInstance;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +16,7 @@ public class LoadInstancePanel extends JPanel implements ActionListener {
     JButton jButton = new JButton("search tsp instance");
 
 
-    ArrayList<Observer> observers = new ArrayList<>();
+    ArrayList<AnalysisPanelObserver> observers = new ArrayList<>();
 
     public LoadInstancePanel() {
         this.setPreferredSize(new Dimension(200, 500));
@@ -66,7 +65,7 @@ public class LoadInstancePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void attach(Observer observer) {
+    public void attach(AnalysisPanelObserver observer) {
         observers.add(observer);
     }
 
