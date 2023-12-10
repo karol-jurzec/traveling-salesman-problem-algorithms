@@ -1,5 +1,7 @@
 package src.main.java.tsp.panel.configpanels;
 
+import src.main.java.tsp.models.TspInstance;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,11 +11,13 @@ import java.awt.event.FocusListener;
 import java.io.File;
 import java.util.Observer;
 
-public class AnalysisPanel extends JPanel implements ActionListener {
+public class AnalysisPanel extends JPanel implements ActionListener, LoadPanelObserver {
 
     JLabel jLabel = new JLabel("PERFORM ANALYSE: ");
     JTextField jTextField = new JTextField("enter runtime limit (s)");
     JButton jButton = new JButton("run");
+
+    TspInstance tspInstance = null;
 
 
     public AnalysisPanel() {
@@ -56,4 +60,8 @@ public class AnalysisPanel extends JPanel implements ActionListener {
         }
     }
 
+    @Override
+    public void updateInstance(TspInstance tspInstance) {
+        this.tspInstance = tspInstance;
+    }
 }

@@ -1,8 +1,9 @@
 package src.main.java.tsp.panel.drawpanels;
 
+import src.main.java.tsp.models.Edge;
 import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.models.TspSolution;
-import src.main.java.tsp.panel.configpanels.AnalysisPanelObserver;
+import src.main.java.tsp.panel.configpanels.LoadPanelObserver;
 import src.main.java.tsp.panel.configpanels.SolvePanelObserver;
 
 import javax.swing.*;
@@ -10,9 +11,10 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
-public class DrawingPanel extends JPanel implements AnalysisPanelObserver, SolvePanelObserver {
-    final double POINT_RADIUS = 0;
+public class DrawingPanel extends JPanel implements LoadPanelObserver, SolvePanelObserver {
+    final double POINT_RADIUS = 4;
     final int PADDING = 50;
 
     JLabel jLabel1 = new JLabel("");
@@ -20,6 +22,10 @@ public class DrawingPanel extends JPanel implements AnalysisPanelObserver, Solve
 
     TspInstance tspInstance = null;
     TspSolution tspSolution = null;
+
+
+    ArrayList<Point2D> points = null;
+
 
     public DrawingPanel() {
         this.setLayout(new BorderLayout());
@@ -68,9 +74,6 @@ public class DrawingPanel extends JPanel implements AnalysisPanelObserver, Solve
 
         double scaleX = calculateScale(width, tspInstance.maxX, tspInstance.minX);
         double scaleY = calculateScale(height, tspInstance.maxY, tspInstance.minY);
-
-        jLabel1.setText("x-axis scale: " + scaleX);
-        jLabel2.setText("y-axis scale: " + scaleY);
 
         Graphics2D graph = (Graphics2D)g;
         graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

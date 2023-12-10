@@ -4,6 +4,8 @@ import src.main.java.tsp.algorithms.*;
 import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.models.TspSolution;
 import src.main.java.tsp.panel.TspAnalyzerFrame;
+import src.main.java.tsp.tspmlp.ConvexHullGraham;
+import src.main.java.tsp.tspmlp.KruskalMST;
 
 import java.io.File;
 import java.util.*;
@@ -57,10 +59,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //var instance = TspInstance.FileToTspInstance(new File("/Users/karol/Desktop/uni/ajio/used_tsp_inst/dj38.tsp"));
+        var instance = TspInstance.FileToTspInstance(new File("/Users/karol/Desktop/uni/ajio/used_tsp_inst/portgen4992.tsp"));
 
+        //var mst = new KruskalMST(instance.getPointCollection()).findMST();
+        //var convexHUll = new ConvexHullGraham(instance.getPointCollection()).computeConvexHull();
 
         TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
     }
 }
+
 
