@@ -17,6 +17,7 @@ public class TspInstance {
     double[][] distanceMatrix = null;
     int size = 0;
 
+
     public double minX = java.lang.Double.MAX_VALUE;
     public double minY = java.lang.Double.MAX_VALUE;
     public double maxX = java.lang.Double.MIN_VALUE;
@@ -83,7 +84,6 @@ public class TspInstance {
                 }
             }
         }
-
         return desc;
     }
 
