@@ -14,7 +14,7 @@ public class TspInstance {
     String instanceDescription = "";
     ArrayList<Point2D> pointCollection = new ArrayList<>();
     ArrayList<Integer> idCollection = new ArrayList<>();
-    //double[][] distanceMatrix = null;
+    double[][] distanceMatrix = null;
     int size = 0;
 
 
@@ -41,7 +41,7 @@ public class TspInstance {
     }
 
     private void initDistanceMatrix() {
-        /*double[][] res = new double[this.size][this.size];
+        double[][] res = new double[this.size][this.size];
 
         for(int i = 0; i < this.size-1; ++i) {
             for(int j = i + 1; j < this.size; ++j) {
@@ -56,7 +56,7 @@ public class TspInstance {
                 res[j][i] = res[i][j];
             }
         }
-        this.distanceMatrix = res;*/
+        this.distanceMatrix = res;
     }
 
     private void initPointsRange() {
@@ -136,9 +136,9 @@ public class TspInstance {
 
     public String getInstanceDescription() { return this.instanceDescription; }
 
-    /*public double[][] getDistanceMatrix() {
+    public double[][] getDistanceMatrix() {
         return distanceMatrix;
-    }*/
+    }
 
     public ArrayList<Integer> getIdCollection() {return idCollection; }
 }

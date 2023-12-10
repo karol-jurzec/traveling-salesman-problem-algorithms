@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="anaptecs.jeaf.owalibs.apache.commons.cli" type="repository">
+    <properties maven-id="com.anaptecs.jeaf.owalibs:org.apache.commons.cli:4.3.1">
+      <exclude>
+        <dependency maven-id="com.anaptecs.jeaf.owalibs:org.apache.commons.cli" />
+      </exclude>
+    </properties>
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

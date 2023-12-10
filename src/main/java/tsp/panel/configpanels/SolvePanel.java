@@ -9,14 +9,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class SolvePanel extends JPanel implements ActionListener, AnalysisPanelObserver {
+public class SolvePanel extends JPanel implements ActionListener, LoadPanelObserver {
 
     JLabel jLabel = new JLabel("SOLVE PROBLEM: ");
     JComboBox jComboBox = new JComboBox(Algorithm.values());

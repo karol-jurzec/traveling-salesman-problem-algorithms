@@ -16,7 +16,7 @@ public class LoadInstancePanel extends JPanel implements ActionListener {
     JButton jButton = new JButton("search tsp instance");
 
 
-    ArrayList<AnalysisPanelObserver> observers = new ArrayList<>();
+    ArrayList<LoadPanelObserver> observers = new ArrayList<>();
 
     public LoadInstancePanel() {
         this.setPreferredSize(new Dimension(200, 500));
@@ -65,7 +65,7 @@ public class LoadInstancePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void attach(AnalysisPanelObserver observer) {
+    public void attach(LoadPanelObserver observer) {
         observers.add(observer);
     }
 
