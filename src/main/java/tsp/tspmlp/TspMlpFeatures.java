@@ -1,9 +1,10 @@
 package src.main.java.tsp.tspmlp;
 
 import src.main.java.tsp.models.TspInstance;
-
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
+import src.main.java.tsp.tspmlp.statistics.CostStatistics;
+import src.main.java.tsp.tspmlp.statistics.GeometricStatistics;
+import src.main.java.tsp.tspmlp.statistics.MstStatistics;
+import src.main.java.tsp.tspmlp.statistics.NodeDistributionStatistics;
 
 
 public class TspMlpFeatures {
@@ -11,7 +12,10 @@ public class TspMlpFeatures {
 
 
     private int numberOfNodes;
-    private double requiredWorkingTime;
+    private final double requiredWorkingTime;
+
+
+
 
     // cost matrix
     CostStatistics costStatistics;
@@ -25,11 +29,14 @@ public class TspMlpFeatures {
     // geometric features
     GeometricStatistics geometricStatistics;
 
-    public TspMlpFeatures(double requiredTime) {
+
+
+    public TspMlpFeatures(TspInstance tspInstance, double requiredTime) {
         this.requiredWorkingTime = requiredTime;
+        this.computeFeatures(tspInstance);
     }
 
-    public void computeFeatures(TspInstance tspInstance) {
+    private void computeFeatures(TspInstance tspInstance) {
         var points = tspInstance.getPointCollection();
         var distMatrix = tspInstance.getDistanceMatrix();
 
@@ -46,9 +53,7 @@ public class TspMlpFeatures {
         nodeDistributionStatistics = new NodeDistributionStatistics(points, distMatrix);
 
         //geometric features
-
-
-
+        geometricStatistics = new GeometricStatistics(points);
 
     }
 
@@ -68,9 +73,6 @@ public class TspMlpFeatures {
 
         for (double distance : distances) {
             sum += distance;
-            if(sum == 0) {
-                System.out.println();
-            }
         }
 
         double mean = sum / distances.length;
@@ -135,8 +137,15 @@ public class TspMlpFeatures {
     }
 
 
-    public void tspMlpTest() {
+    @Override
+    public String toString() {
+        return numberOfNodes + "," + requiredWorkingTime + costStatistics.toString() +
+                mstStatistics.toString() + nodeDistributionStatistics.toString() + geometricStatistics.toString();
+    }
 
+    public static String getFeatureNames() {
+        return "numberOfNodes" + "," + "requiredWorkingTime" + CostStatistics.getFeatureNames() + MstStatistics.getFeatureNames() +
+                NodeDistributionStatistics.getFeatureNames() + GeometricStatistics.getFeatureNames();
     }
 
 }

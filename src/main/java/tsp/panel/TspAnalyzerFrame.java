@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class TspAnalyzerFrame extends JFrame {
 
-    ConfigurationPanel configurationPanel = new ConfigurationPanel();
+    ConfigurationPanel configurationPanel = new src.main.java.tsp.panel.ConfigurationPanel();
     VisualizationPanel visualizationPanel = new VisualizationPanel();
 
     public TspAnalyzerFrame() {

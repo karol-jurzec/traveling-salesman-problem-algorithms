@@ -7,6 +7,7 @@ import src.main.java.tsp.models.TspSolution;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class NearestNeighbourAlgorithm implements ITspAlgorithm {
@@ -17,7 +18,7 @@ public class NearestNeighbourAlgorithm implements ITspAlgorithm {
         ArrayList<Integer> ids = tspInstance.getIdCollection();
         //double[][] distMatrix = tspInstance.getDistanceMatrix();
 
-        ArrayList<Integer> nnIdPath = new ArrayList<>(Arrays.asList(ids.get(0)));
+        ArrayList<Integer> nnIdPath = new ArrayList<>(Collections.singletonList(ids.get(0)));
         HashMap<Integer, Boolean> visited = new HashMap<>( );
 
         for(var p : ids) {
@@ -55,5 +56,10 @@ public class NearestNeighbourAlgorithm implements ITspAlgorithm {
     public TspSolution solve(TspInstance tspInstance) {
         ArrayList<Point2D> ans = NNAlgorithm(tspInstance);
         return new TspSolution(ans);
+    }
+
+    @Override
+    public String toString() {
+        return "Nearest neighbour";
     }
 }

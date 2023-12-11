@@ -1,9 +1,10 @@
-package src.main.java.tsp.tspmlp;
+package src.main.java.tsp.tspmlp.statistics;
+
+import src.main.java.tsp.tspmlp.TspMlpFeatures;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 
 public class GeometricStatistics {
 
@@ -36,7 +37,7 @@ public class GeometricStatistics {
 
         this.rectangleArea = computeRectangleAreaContainingPoints(points);
         this.convexHullAreaNormalized = computeConvexHullArea(convexHull);
-        this.convexHullNodeFraction = convexHull.size() / points.size();
+        this.convexHullNodeFraction = (double)convexHull.size() / (double)points.size();
 
         double[] convexHullDistances = computeDistancesToConvexHull(points, convexHull);
 
@@ -94,9 +95,9 @@ public class GeometricStatistics {
         Arrays.sort(distances);
         double median;
         if (distances.length % 2 == 0)
-            median = (distances[distances.length/2] + distances[distances.length/2 - 1])/2;
+            median = (distances[distances.length / 2] + distances[distances.length / 2 - 1]) / 2;
         else
-            median = distances[distances.length/2];
+            median = distances[distances.length / 2];
         return median;
     }
 
@@ -181,5 +182,38 @@ public class GeometricStatistics {
 
     private boolean isPointInsideConvexHull(Point2D point, ArrayList<Point2D> convexHull) {
         return convexHull.contains(point);
+    }
+
+    @Override
+    public String toString() {
+        return "," + rectangleArea +
+                "," + convexHullAreaNormalized +
+                "," + convexHullNodeFraction +
+                "," + convexHullDistToContourMean +
+                "," + convexHullDistToContourStdDeviation +
+                "," + convexHullDistToContourMin +
+                "," + convexHullDistToContourMax +
+                "," + convexHullDistToContourMedian +
+                "," + convexHullLengthMean +
+                "," + convexHullLengthStdDeviation +
+                "," + convexHullLengthMin +
+                "," + convexHullLengthMax +
+                "," + convexHullLengthMedian;
+    }
+
+    public static String getFeatureNames() {
+        return "," + "rectangleArea" +
+                "," + "convexHullAreaNormalized" +
+                "," + "convexHullNodeFraction" +
+                "," + "convexHullDistToContourMean" +
+                "," + "convexHullDistToContourStdDeviation" +
+                "," + "convexHullDistToContourMin" +
+                "," + "convexHullDistToContourMax" +
+                "," + "convexHullDistToContourMedian" +
+                "," + "convexHullLengthMean" +
+                "," + "convexHullLengthStdDeviation" +
+                "," + "convexHullLengthMin" +
+                "," + "convexHullLengthMax" +
+                "," + "convexHullLengthMedian";
     }
 }

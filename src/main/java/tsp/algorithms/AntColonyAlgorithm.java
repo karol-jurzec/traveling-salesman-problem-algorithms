@@ -15,15 +15,15 @@ import java.util.Collections;
 import java.util.HashSet;
 
 public class AntColonyAlgorithm implements ITspAlgorithm {
-    private double importanceOfPheromone = 2.0; // beta
-    private double pheromoneDecayParameter = 0.1; // alfa and p
+    private final double importanceOfPheromone = 2.0; // beta
+    private final double pheromoneDecayParameter = 0.1; // alfa and p
     private double initialPheromoneValue = 0.0;
-    private double Q0 = 0.9; // parameter 0 <= q0 <= 1
-    private int numberOfAntAgents2 = 10; //
+    private final double Q0 = 0.9; // parameter 0 <= q0 <= 1
+    private final int numberOfAntAgents2 = 10; //
 
 
-    private BiHashMap<Point2D, Point2D, Double> pheromone;
-    private BiHashMap<Point2D, Point2D, Double> distances;
+    private final BiHashMap<Point2D, Point2D, Double> pheromone;
+    private final BiHashMap<Point2D, Point2D, Double> distances;
     private ArrayList<Ant> antAgents;
     private ArrayList<Point2D> globalBestTour;
     private double globalBestTourLength = Double.MAX_VALUE;
@@ -219,12 +219,19 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
     }
 
     public TspSolution solve(TspInstance tspInstance) {
+        if(tspInstance.getSize() < antAgents.size()) {
+            antAgents = new ArrayList<>();
+            for(int i = 0; i < tspInstance.getSize(); ++i) {
+                antAgents.add(new Ant());
+            }
+        }
+
         var cities = tspInstance.getPointCollection();
         ArrayList<Point2D> Point2DList = new ArrayList<>(cities);
 
         initialize(tspInstance);
 
-        for(int i = 0; i < 4000; ++i) {
+        for(int i = 0; i < 500; ++i) {
             buildAntTours(Point2DList.size());
             performGlobalUpdate();
             refresh(cities);
@@ -241,7 +248,7 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
 
         private ArrayList<Point2D> remainingCities;
 
-        private ArrayList<Point2D> antPath;
+        private final ArrayList<Point2D> antPath;
 
         private double antPathTotalLength;
 
@@ -261,5 +268,10 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
 
             this.antPathTotalLength = l;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Ant Colony Algorithm";
     }
 }

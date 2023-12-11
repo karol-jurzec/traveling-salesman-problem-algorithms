@@ -1,4 +1,6 @@
-package src.main.java.tsp.tspmlp;
+package src.main.java.tsp.tspmlp.statistics;
+
+import src.main.java.tsp.tspmlp.TspMlpFeatures;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -92,5 +94,16 @@ public class NodeDistributionStatistics {
         return new Point2D.Double(avgX, avgY);
     }
 
+    @Override
+    public String toString() {
+        return "," + normalizedDistanceStdDeviation +
+                "," + distinctDistancesFraction +
+                "," + meanDistanceToCentroidNode;
+    }
 
+    public static String getFeatureNames() {
+        return "," + "normalizedDistanceStdDeviation" +
+                "," + "distinctDistancesFraction" +
+                "," + "meanDistanceToCentroidNode";
+    }
 }

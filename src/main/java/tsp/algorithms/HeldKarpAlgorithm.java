@@ -10,7 +10,7 @@ import java.security.KeyPair;
 import java.util.*;
 
 public class HeldKarpAlgorithm implements ITspAlgorithm {
-    
+
     BiHashMap<Point2D, HashSet<Point2D>, Double> dp = new BiHashMap<>();
     BiHashMap<Point2D, HashSet<Point2D>, Point2D> pb = new BiHashMap<>();
     Point2D originPoint2D;
@@ -20,7 +20,7 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
     // dodaniu lub nie dodaniu miasta do zbioru. podzbiory dodawane są w liściach drzewa rekurencyjnego
 
     private ArrayList<HashSet<Point2D>> generateSubsets(ArrayList<Point2D> cities, ArrayList<Point2D> subset,
-                                                      ArrayList<HashSet<Point2D>> subsets, int index) {
+                                                        ArrayList<HashSet<Point2D>> subsets, int index) {
         if(index >= cities.size()) {
             subsets.add(new HashSet<>(subset));
             return subsets;
@@ -97,7 +97,7 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
 
         return tour;
     }
-    
+
 
     @Override
     public TspSolution solve(TspInstance tspInstance) {
@@ -118,8 +118,15 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
             }
         });
 
+        var s = calculateSolution(subsets, cities);
+
         ArrayList<Point2D> optimalTour = retrieveOptimalTour(subsets.get(subsets.size() - 1));
 
         return new TspSolution(optimalTour);
+    }
+
+    @Override
+    public String toString() {
+        return "Held Karp";
     }
 }

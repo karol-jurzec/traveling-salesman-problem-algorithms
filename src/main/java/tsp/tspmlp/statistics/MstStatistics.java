@@ -1,6 +1,7 @@
-package src.main.java.tsp.tspmlp;
+package src.main.java.tsp.tspmlp.statistics;
 
 import src.main.java.tsp.models.Edge;
+import src.main.java.tsp.tspmlp.TspMlpFeatures;
 
 import java.awt.geom.Point2D;
 import java.util.*;
@@ -145,6 +146,33 @@ public class MstStatistics {
         this.mstNodeDepthMedian = median;
     }
 
+    @Override
+    public String toString() {
+        return "," + mstSum +
+                "," + mstMean +
+                "," + mstStdDeviation +
+                "," + mstSkew +
+                "," + mstNodeDegreeMean +
+                "," + mstNodeDegreeStdDeviation +
+                "," + mstNodeDegreeSkew +
+                "," + mstNodeDepthMean +
+                "," + mstNodeDepthStdDeviation +
+                "," + mstNodeDepthMax +
+                "," + mstNodeDepthMedian;
+    }
 
+    public static String getFeatureNames() {
+        return "," + "mstSum" +
+                "," + "mstMean" +
+                "," + "mstStdDeviation" +
+                "," + "mstSkew" +
+                "," + "mstNodeDegreeMean" +
+                "," + "mstNodeDegreeStdDeviation" +
+                "," + "mstNodeDegreeSkew" +
+                "," + "mstNodeDepthMean" +
+                "," + "mstNodeDepthStdDeviation" +
+                "," + "mstNodeDepthMax" +
+                "," + "mstNodeDepthMedian";
+    }
 }
 

@@ -99,5 +99,9 @@ public class BruteForceAlgorithm implements ITspAlgorithm {
 
         return new TspSolution(tspSolution.getPath());
     }
-    
+
+    @Override
+    public String toString() {
+        return "Brute force";
+    }
 }

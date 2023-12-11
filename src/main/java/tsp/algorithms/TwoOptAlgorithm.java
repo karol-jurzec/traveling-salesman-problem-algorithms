@@ -53,4 +53,8 @@ public class TwoOptAlgorithm implements ITspAlgorithm {
         return new TspSolution(bestTour)    ;
     }
 
+    @Override
+    public String toString() {
+        return "Two-opt";
+    }
 }

@@ -14,6 +14,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.*;
 
 public class SolvePanel extends JPanel implements ActionListener, LoadPanelObserver {
 
@@ -87,7 +88,6 @@ public class SolvePanel extends JPanel implements ActionListener, LoadPanelObser
 
             case TWO_OPT:
                 tspSolver = new TspSolver(new TwoOptAlgorithm());
-                return;
 
         }
 
@@ -97,12 +97,17 @@ public class SolvePanel extends JPanel implements ActionListener, LoadPanelObser
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == jButton) {
             if(tspInstance != null) {
-                var solution = tspSolver.solve(tspInstance);
 
-                DecimalFormat formatter = new DecimalFormat("#.######", DecimalFormatSymbols.getInstance( Locale.ENGLISH ));
+                long start = System.currentTimeMillis();
+                var solution = tspSolver.solve(tspInstance);
+                long end = System.currentTimeMillis();
+
+                DecimalFormat formatter = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance( Locale.ENGLISH ));
                 formatter.setRoundingMode( RoundingMode.DOWN );
 
-                jText.setText("current tour distance: " + formatter.format(solution.getTotalDistance()));
+                jText.setText("tour distance: " + formatter.format(solution.getTotalDistance()));
+                jText.append("\ncomp. time: " + (end - start)/1000.0 + "s");
+
 
                 notifyAllObservers(solution);
 
@@ -135,7 +140,7 @@ public class SolvePanel extends JPanel implements ActionListener, LoadPanelObser
         THREE_OPT("Three-opt algorithm"),
         TWO_OPT("Two-opt algorithm");
 
-        private String name;
+        private final String name;
 
         Algorithm(String name) {
             this.name = name;

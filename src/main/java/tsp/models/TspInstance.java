@@ -34,6 +34,16 @@ public class TspInstance {
         initIdCollection();
     }
 
+    public TspInstance(TspInstance tspInstance) {
+        this.instanceDescription = tspInstance.instanceDescription;
+        this.pointCollection = new ArrayList<>(tspInstance.getPointCollection());
+        this.size = pointCollection.size();
+
+        initDistanceMatrix();
+        initPointsRange();
+        initIdCollection();
+    }
+
     public void initIdCollection() {
         var arr = IntStream.range(0, getPointCollection().size()).toArray();
         var ids = Arrays.stream(arr).boxed().collect(Collectors.toList());
@@ -141,4 +151,8 @@ public class TspInstance {
     }
 
     public ArrayList<Integer> getIdCollection() {return idCollection; }
+
+    public int getSize() {
+        return size;
+    }
 }

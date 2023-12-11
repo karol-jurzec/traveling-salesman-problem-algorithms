@@ -8,5 +8,6 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public interface ITspAlgorithm {
-    public TspSolution solve(TspInstance tspInstance);
+    TspSolution solve(TspInstance tspInstance);
+    String toString();
 }

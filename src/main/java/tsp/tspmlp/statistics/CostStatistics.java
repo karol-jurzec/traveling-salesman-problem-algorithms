@@ -1,4 +1,6 @@
-package src.main.java.tsp.tspmlp;
+package src.main.java.tsp.tspmlp.statistics;
+
+import src.main.java.tsp.tspmlp.TspMlpFeatures;
 
 public class CostStatistics {
     public double distanceCostMean;
@@ -30,6 +32,14 @@ public class CostStatistics {
         this.distanceSkew = skewness;
     }
 
+    @Override
+    public String toString() {
+        return "," + distanceCostMean + "," + distanceStdDeviation + "," + distanceSkew;
+    }
+
+    public static String getFeatureNames() {
+        return "," + "distCostMean" + "," + "distStdDeviation" + "," + "distSkew";
+    }
 
 
 }

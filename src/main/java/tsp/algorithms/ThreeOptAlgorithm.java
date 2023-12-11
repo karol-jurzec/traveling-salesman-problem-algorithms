@@ -156,10 +156,7 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
             return true;
 
 
-        if(j > k && k > i)
-            return true;
-
-        return false;
+        return j > k && k > i;
     }
 
     void threeOptTest(ArrayList<Point2D> cities) {
@@ -269,8 +266,6 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
         double diffSevenTour = Math.abs(originLen - caseSevenTourLen);
 
 
-        return;
-
     }
 
     @Override
@@ -318,4 +313,8 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
         seven
     }
 
+    @Override
+    public String toString() {
+        return "Three-opt";
+    }
 }

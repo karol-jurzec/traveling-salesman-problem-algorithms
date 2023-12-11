@@ -1,6 +1,4 @@
-package src.main.java.tsp.tspmlp;
-
-import src.main.java.tsp.models.Edge;
+package src.main.java.tsp.tspmlp.statistics;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;

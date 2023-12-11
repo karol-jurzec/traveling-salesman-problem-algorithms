@@ -19,7 +19,7 @@ public class LinKernighanAlgorithm implements ITspAlgorithm {
     private ArrayList<Point2D> bestTour;
     private int size;
 
-    private ArrayList<Point2D> tPoints = new ArrayList<>(); // contains indexes of T1 nodes
+    private final ArrayList<Point2D> tPoints = new ArrayList<>(); // contains indexes of T1 nodes
 
     private int t1Current = -1;
 
@@ -53,9 +53,6 @@ public class LinKernighanAlgorithm implements ITspAlgorithm {
             tPoints.add(t1);
             //step three - chose x1 - means to pick t2
             Point2D t2 = chooseX1(t1);
-
-
-
 
 
         }
