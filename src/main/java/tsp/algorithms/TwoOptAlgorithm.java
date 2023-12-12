@@ -55,6 +55,6 @@ public class TwoOptAlgorithm implements ITspAlgorithm {
 
     @Override
     public String toString() {
-        return "Two-opt";
+        return "0";
     }
 }

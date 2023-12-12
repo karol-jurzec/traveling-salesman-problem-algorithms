@@ -139,13 +139,17 @@ public class TspMlpFeatures {
 
     @Override
     public String toString() {
-        return numberOfNodes + "," + requiredWorkingTime + costStatistics.toString() +
+        return numberOfNodes + costStatistics.toString() +
                 mstStatistics.toString() + nodeDistributionStatistics.toString() + geometricStatistics.toString();
+
+
     }
 
     public static String getFeatureNames() {
-        return "numberOfNodes" + "," + "requiredWorkingTime" + CostStatistics.getFeatureNames() + MstStatistics.getFeatureNames() +
-                NodeDistributionStatistics.getFeatureNames() + GeometricStatistics.getFeatureNames();
+       // return "numberOfNodes" + "," + "requiredWorkingTime" + CostStatistics.getFeatureNames() + MstStatistics.getFeatureNames() +
+        //        NodeDistributionStatistics.getFeatureNames() + GeometricStatistics.getFeatureNames();
+
+        return "numberOfNodes" + "," + "requiredWorkingTime" + CostStatistics.getFeatureNames() + MstStatistics.getFeatureNames();
     }
 
 }

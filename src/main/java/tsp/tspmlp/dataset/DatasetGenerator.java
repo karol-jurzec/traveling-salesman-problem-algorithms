@@ -21,10 +21,10 @@ import java.util.stream.Stream;
 public class DatasetGenerator {
 
     final private String TSP_INST_PATH = "/Users/karol/Desktop/uni/ajio/generated_tsp_inst/";
-    final private String DATA_SET_PATH = "/Users/karol/Desktop/uni/ajio/data_set/data.csv";
 
-    TspSolver bruteForce = new TspSolver(new BruteForceAlgorithm());
-    TspSolver heldKarp = new TspSolver(new HeldKarpAlgorithm());
+    final private String DATA_SET_PATH = "/Users/karol/Desktop/uni/ajio/data_set/data_test.csv";
+    final private String DATA_SET_PATH_EV = "/Users/karol/Desktop/uni/ajio/data_set/data_ev.csv";
+
     TspSolver nearestN = new TspSolver(new NearestNeighbourAlgorithm());
     TspSolver twoOpt = new TspSolver(new TwoOptAlgorithm());
     TspSolver threeOpt = new TspSolver(new ThreeOptAlgorithm());
@@ -83,13 +83,7 @@ public class DatasetGenerator {
     private String computeBestAlgorithm(TspInstance tspInstance, double requiredTime) {
         ArrayList<Future<Result>> futures = new ArrayList<>();
 
-        if(tspInstance.getSize() < 8) {
-            submitAlgorithmTask(new TspInstance(tspInstance), bruteForce, requiredTime, futures);
-        }
-        if(tspInstance.getSize() < 17) {
-            submitAlgorithmTask(new TspInstance(tspInstance), heldKarp, requiredTime, futures);
-        }
-        submitAlgorithmTask(tspInstance, antColony, requiredTime, futures);
+        //submitAlgorithmTask(tspInstance, antColony, requiredTime, futures);
         submitAlgorithmTask(tspInstance, twoOpt, requiredTime, futures);
         submitAlgorithmTask(tspInstance, threeOpt, requiredTime, futures);
         submitAlgorithmTask(tspInstance, nearestN, requiredTime, futures);
@@ -101,7 +95,7 @@ public class DatasetGenerator {
             // Wait for all tasks to complete and find the best result
             for (Future<Result> future : futures) {
                 Result result = future.get();
-                if (result != null && result.elapsedTime <= requiredTime && result.distance < bestDistance) {
+                if (result != null && result.distance < bestDistance) {
                     bestDistance = result.distance;
                     bestAlgorithm = result.name;
                 }
@@ -204,12 +198,18 @@ public class DatasetGenerator {
 
     private void processInstances(ArrayList<TspInstance> tspInstances) {
         //saveLabelAndFeatureNamesToPath(DATA_SET_PATH, TspMlpFeatures.getFeatureNames());
-
+        int counter = 0;
         for(var inst : tspInstances) {
+            ++counter;
             double timeToCalc = generateRandomTime(inst.getSize());
             String label = computeBestAlgorithm(inst, timeToCalc);
             String features = getFeaturesString(inst, timeToCalc);
-            saveDataSetToPath(DATA_SET_PATH, label, features);
+            if(counter < 400) {
+                saveDataSetToPath(DATA_SET_PATH, label, features);
+            }else {
+                saveDataSetToPath(DATA_SET_PATH_EV, label, features);
+            }
+
         }
 
         executor.shutdown();

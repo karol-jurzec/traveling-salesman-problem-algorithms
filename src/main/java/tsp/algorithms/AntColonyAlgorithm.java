@@ -272,6 +272,6 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
 
     @Override
     public String toString() {
-        return "Ant Colony Algorithm";
+        return "4";
     }
 }

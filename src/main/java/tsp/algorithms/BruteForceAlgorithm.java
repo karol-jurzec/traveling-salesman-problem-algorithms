@@ -102,6 +102,6 @@ public class BruteForceAlgorithm implements ITspAlgorithm {
 
     @Override
     public String toString() {
-        return "Brute force";
+        return "0";
     }
 }

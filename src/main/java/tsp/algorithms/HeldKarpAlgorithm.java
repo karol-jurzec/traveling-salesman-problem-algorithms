@@ -127,6 +127,6 @@ public class HeldKarpAlgorithm implements ITspAlgorithm {
 
     @Override
     public String toString() {
-        return "Held Karp";
+        return "1";
     }
 }

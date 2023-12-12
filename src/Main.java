@@ -4,14 +4,18 @@ import org.datavec.api.records.reader.RecordReader;
 import org.datavec.api.records.reader.impl.csv.CSVRecordReader;
 import org.datavec.api.split.FileSplit;
 import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator;
+import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
+import org.deeplearning4j.nn.conf.Updater;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.deeplearning4j.nn.weights.WeightInit;
 import org.nd4j.evaluation.classification.Evaluation;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
+import org.nd4j.linalg.dataset.api.preprocessor.LabelLastTimeStepPreProcessor;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.factory.Nd4jBackend;
 import org.nd4j.linalg.learning.config.Adam;
@@ -68,31 +72,35 @@ public class Main {
     }
 
 
+
+
+
     public static void main(String[] args) throws IOException, InterruptedException, Nd4jBackend.NoAvailableBackendException {
 
-        //generateRandomTspTour(1000);
+        //generateRandomTspTour(800);
 
         //DatasetGenerator dg = new DatasetGenerator();
         //dg.prepareDataSet();
 
-        TspInstance instance = TspInstance.FileToTspInstance(new File("/Users/karol/Desktop/uni/ajio/used_tsp_inst/ch150.tsp"));
+        //TspInstance instance = TspInstance.FileToTspInstance(new File("/Users/karol/Desktop/uni/ajio/used_tsp_inst/ch150.tsp"));
 
         int seed = 123;
         double learningRate = 0.01;
         int batchSize = 50;
         int nEpochs = 30;
-        int numInputs = 6;
-        int numOutputs = 6;
+        int numInputs = 31;
+        int numOutputs = 2;
         int numHiddenNodes = 20;
 
         RecordReader recordReader = new CSVRecordReader();
-        recordReader.initialize(new FileSplit(new File("/Users/karol/Desktop/uni/ajio/data_set/data.csv")));
-        DataSetIterator iterator = new RecordReaderDataSetIterator(recordReader, batchSize, 0, 6);
-
+        recordReader.initialize(new FileSplit(new File("/Users/karol/Desktop/uni/ajio/data_set/data_ev.csv")));
+        DataSetIterator iterator = new RecordReaderDataSetIterator(recordReader, batchSize, 0, 2);
 
         RecordReader recordReaderEv = new CSVRecordReader();
-        recordReaderEv.initialize(new FileSplit(new File("/Users/karol/Desktop/uni/ajio/data_set/data_ev.csv")));
-        DataSetIterator iteratorEv = new RecordReaderDataSetIterator(recordReaderEv, batchSize, 0, 6);
+        recordReaderEv.initialize(new FileSplit(new File("/Users/karol/Desktop/uni/ajio/data_set/data_test.csv")));
+        DataSetIterator iteratorEv = new RecordReaderDataSetIterator(recordReaderEv, batchSize, 0, 2);
+
+
 
         MultiLayerConfiguration config = new NeuralNetConfiguration.Builder()
                 .seed(123) // Set a seed for reproducibility
@@ -100,15 +108,16 @@ public class Main {
                 .list()
                 .layer(new DenseLayer.Builder()
                         .nIn(numInputs)
-                        .nOut(64)
+                        .nOut(numOutputs)
                         .activation(Activation.RELU)
                         .build())
                 .layer(new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
-                        .nIn(64)
+                        .nIn(numInputs)
                         .nOut(numOutputs)
                         .activation(Activation.SOFTMAX)
                         .build())
                 .build();
+
 
 
         MultiLayerNetwork model = new MultiLayerNetwork(config);

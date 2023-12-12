@@ -60,6 +60,6 @@ public class NearestNeighbourAlgorithm implements ITspAlgorithm {
 
     @Override
     public String toString() {
-        return "Nearest neighbour";
+        return "3";
     }
 }
