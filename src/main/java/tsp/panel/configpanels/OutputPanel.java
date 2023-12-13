@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-public class OutputPanel extends JPanel {
+public class OutputPanel extends JPanel implements AnalysisPanelObserver {
     JLabel jLabel = new JLabel("OUTPUT: ");
     JTextField jTextField = new JTextField("proposed algorithm");
 
@@ -26,5 +26,10 @@ public class OutputPanel extends JPanel {
 
         this.add(jTextField, Component.CENTER_ALIGNMENT);
         this.add(jLabel);
+    }
+
+    @Override
+    public void updateOutput(String predictedAlgorithm) {
+        this.jTextField.setText(predictedAlgorithm);
     }
 }

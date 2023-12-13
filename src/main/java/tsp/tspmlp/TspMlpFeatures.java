@@ -1,21 +1,19 @@
 package src.main.java.tsp.tspmlp;
 
+import org.apache.commons.lang3.ArrayUtils;
 import src.main.java.tsp.models.TspInstance;
-import src.main.java.tsp.tspmlp.statistics.CostStatistics;
-import src.main.java.tsp.tspmlp.statistics.GeometricStatistics;
-import src.main.java.tsp.tspmlp.statistics.MstStatistics;
-import src.main.java.tsp.tspmlp.statistics.NodeDistributionStatistics;
+import src.main.java.tsp.tspmlp.statistics.*;
+
+import java.util.Arrays;
 
 
 public class TspMlpFeatures {
     private TspInstance tspInstance;
-
-
     private int numberOfNodes;
-    private final double requiredWorkingTime;
+    private double requiredTime;
 
 
-
+    //private MetaFeatures metaFeatures;
 
     // cost matrix
     CostStatistics costStatistics;
@@ -32,7 +30,7 @@ public class TspMlpFeatures {
 
 
     public TspMlpFeatures(TspInstance tspInstance, double requiredTime) {
-        this.requiredWorkingTime = requiredTime;
+        this.requiredTime = requiredTime;
         this.computeFeatures(tspInstance);
     }
 
@@ -43,6 +41,7 @@ public class TspMlpFeatures {
         this.tspInstance = tspInstance;
         this.numberOfNodes = points.size();
 
+        //this.metaFeatures = new MetaFeatures(numberOfNodes, distMatrix);
         //cost matrix
         costStatistics = new CostStatistics(distMatrix);
 
@@ -67,7 +66,6 @@ public class TspMlpFeatures {
         double mean = sum / distances.length;
         return mean;
     }
-
     public static double computeMean(int[] distances) {
         double sum = 0.0;
 
@@ -78,7 +76,6 @@ public class TspMlpFeatures {
         double mean = sum / distances.length;
         return mean;
     }
-
     public static double computeStdDeviation(double[] distances, double mean) {
         int n = distances.length;
         double sumSquare = 0.0;
@@ -113,8 +110,6 @@ public class TspMlpFeatures {
 
         return 0.0;
     }
-
-
     public static double computeSkewness(double[] distances, double mean, double stdDeviation) {
         int n = distances.length;
         double skewness = 0.0;
@@ -139,17 +134,25 @@ public class TspMlpFeatures {
 
     @Override
     public String toString() {
-        return numberOfNodes + costStatistics.toString() +
-                mstStatistics.toString() + nodeDistributionStatistics.toString() + geometricStatistics.toString();
-
+        return costStatistics.toString() + mstStatistics.toString() + nodeDistributionStatistics.toString() + geometricStatistics.toString();
 
     }
 
-    public static String getFeatureNames() {
-       // return "numberOfNodes" + "," + "requiredWorkingTime" + CostStatistics.getFeatureNames() + MstStatistics.getFeatureNames() +
-        //        NodeDistributionStatistics.getFeatureNames() + GeometricStatistics.getFeatureNames();
+    public double[] featuresToDoubleArray() {
+        var costStatistics = this.costStatistics.toArray();
+        var geometricStatistics = this.geometricStatistics.toArray();
+        var mstStatistics = this.mstStatistics.toArray();
+        var nodeDistrStatistics = this.nodeDistributionStatistics.toArray();
 
-        return "numberOfNodes" + "," + "requiredWorkingTime" + CostStatistics.getFeatureNames() + MstStatistics.getFeatureNames();
+        var merge = new double[]{numberOfNodes, requiredTime};
+        merge = ArrayUtils.addAll(merge, costStatistics);
+        merge = ArrayUtils.addAll(merge, geometricStatistics);
+        merge = ArrayUtils.addAll(merge, mstStatistics);
+        merge = ArrayUtils.addAll(merge, nodeDistrStatistics);
+
+        return merge;
     }
+
+
 
 }

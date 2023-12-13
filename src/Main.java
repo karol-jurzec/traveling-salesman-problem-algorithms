@@ -12,6 +12,7 @@ import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
+import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.nd4j.evaluation.classification.Evaluation;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
@@ -25,16 +26,14 @@ import src.main.java.tsp.panel.TspAnalyzerFrame;
 import src.main.java.tsp.tspmlp.TspMlpFeatures;
 import src.main.java.tsp.tspmlp.dataset.DatasetGenerator;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
+
+import static src.main.java.tsp.tspmlp.NormalizeData.NormalizeData.*;
 
 public class Main {
 
     public static int RANGE = 900;
-
 
     public static void generateTSPInstance(int n, String path, String instanceName) {
         Random random = new Random();
@@ -60,7 +59,6 @@ public class Main {
         }
     }
 
-
     public static void generateRandomTspTour(int n) {
         String path = "/Users/karol/Desktop/uni/ajio/generated_tsp_inst/";
         Random random = new Random();
@@ -71,34 +69,29 @@ public class Main {
         }
     }
 
-
-
-
-
-    public static void main(String[] args) throws IOException, InterruptedException, Nd4jBackend.NoAvailableBackendException {
-
+    public static void modelLearningCode() {
         //generateRandomTspTour(800);
 
         //DatasetGenerator dg = new DatasetGenerator();
         //dg.prepareDataSet();
 
-        //TspInstance instance = TspInstance.FileToTspInstance(new File("/Users/karol/Desktop/uni/ajio/used_tsp_inst/ch150.tsp"));
-
-        int seed = 123;
+      /*  int seed = 123;
         double learningRate = 0.01;
         int batchSize = 50;
         int nEpochs = 30;
-        int numInputs = 31;
-        int numOutputs = 2;
+        int numInputs = 32;
+        int numOutputs = 4;
         int numHiddenNodes = 20;
 
+
+
         RecordReader recordReader = new CSVRecordReader();
-        recordReader.initialize(new FileSplit(new File("/Users/karol/Desktop/uni/ajio/data_set/data_ev.csv")));
-        DataSetIterator iterator = new RecordReaderDataSetIterator(recordReader, batchSize, 0, 2);
+        recordReader.initialize(new FileSplit(new File("/Users/karol/Desktop/uni/ajio/data_set/data_test_normalized.csv")));
+        DataSetIterator iterator = new RecordReaderDataSetIterator(recordReader, batchSize, 0, 4);
 
         RecordReader recordReaderEv = new CSVRecordReader();
-        recordReaderEv.initialize(new FileSplit(new File("/Users/karol/Desktop/uni/ajio/data_set/data_test.csv")));
-        DataSetIterator iteratorEv = new RecordReaderDataSetIterator(recordReaderEv, batchSize, 0, 2);
+        recordReaderEv.initialize(new FileSplit(new File("/Users/karol/Desktop/uni/ajio/data_set/data_test_normalized_ev.csv")));
+        DataSetIterator iteratorEv = new RecordReaderDataSetIterator(recordReaderEv, batchSize, 0, 4);
 
 
 
@@ -121,6 +114,7 @@ public class Main {
 
 
         MultiLayerNetwork model = new MultiLayerNetwork(config);
+        model.addListeners(new ScoreIterationListener(50));
         model.init();
 
         int numEpochs = 10; // Set the number of training epochs
@@ -131,8 +125,11 @@ public class Main {
         Evaluation eval = model.evaluate(iteratorEv);
         System.out.println(eval.stats());
 
+        model.save(new File("/Users/karol/Desktop/uni/ajio/data_set/tsp_model.zip"), true);*/
+    }
 
 
+    public static void main(String[] args) throws IOException, InterruptedException, Nd4jBackend.NoAvailableBackendException {
         TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
     }
 }

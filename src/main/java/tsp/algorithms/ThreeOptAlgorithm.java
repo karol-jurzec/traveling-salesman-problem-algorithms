@@ -315,6 +315,6 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
 
     @Override
     public String toString() {
-        return "1";
+        return "3";
     }
 }

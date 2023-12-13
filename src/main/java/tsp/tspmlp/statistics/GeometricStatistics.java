@@ -201,6 +201,13 @@ public class GeometricStatistics {
                 "," + convexHullLengthMedian;
     }
 
+    public double[] toArray() {
+        return new double[] {rectangleArea, convexHullAreaNormalized, convexHullNodeFraction,
+        convexHullDistToContourMean, convexHullDistToContourStdDeviation, convexHullDistToContourMin,
+        convexHullDistToContourMax, convexHullDistToContourMedian, convexHullLengthMean, convexHullLengthStdDeviation,
+        convexHullLengthMin, convexHullLengthMax, convexHullLengthMedian};
+    }
+
     public static String getFeatureNames() {
         return "," + "rectangleArea" +
                 "," + "convexHullAreaNormalized" +

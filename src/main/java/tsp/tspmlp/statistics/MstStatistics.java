@@ -161,6 +161,12 @@ public class MstStatistics {
                 "," + mstNodeDepthMedian;
     }
 
+    public double[] toArray() {
+        return new double[] {mstSum, mstMean, mstStdDeviation, mstSkew, mstNodeDegreeMean,
+        mstNodeDegreeStdDeviation, mstNodeDegreeSkew, mstNodeDepthMean, mstNodeDepthStdDeviation,
+        mstNodeDepthMax, mstNodeDepthMedian};
+    }
+
     public static String getFeatureNames() {
         return "," + "mstSum" +
                 "," + "mstMean" +

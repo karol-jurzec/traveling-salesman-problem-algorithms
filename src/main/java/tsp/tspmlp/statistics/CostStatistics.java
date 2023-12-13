@@ -41,5 +41,9 @@ public class CostStatistics {
         return "," + "distCostMean" + "," + "distStdDeviation" + "," + "distSkew";
     }
 
+    public double[] toArray() {
+        return new double[] {distanceCostMean, distanceStdDeviation, distanceSkew};
+    }
+
 
 }

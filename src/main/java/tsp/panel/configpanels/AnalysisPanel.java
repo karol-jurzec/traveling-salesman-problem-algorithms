@@ -1,6 +1,11 @@
 package src.main.java.tsp.panel.configpanels;
 
+import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.deeplearning4j.util.ModelSerializer;
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.factory.Nd4j;
 import src.main.java.tsp.models.TspInstance;
+import src.main.java.tsp.tspmlp.TspMlpFeatures;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observer;
 
 public class AnalysisPanel extends JPanel implements ActionListener, LoadPanelObserver {
@@ -18,9 +25,12 @@ public class AnalysisPanel extends JPanel implements ActionListener, LoadPanelOb
     JButton jButton = new JButton("run");
 
     TspInstance tspInstance = null;
+    MultiLayerNetwork model = null;
 
+    ArrayList<AnalysisPanelObserver> observers = new ArrayList<>();
 
     public AnalysisPanel() {
+        readModel();
 
         this.setPreferredSize(new Dimension(200, 400));
         this.setBackground(Color.lightGray);
@@ -53,12 +63,53 @@ public class AnalysisPanel extends JPanel implements ActionListener, LoadPanelOb
         this.add(jLabel);
     }
 
+    private void readModel() {
+        try {
+            this.model = ModelSerializer.restoreMultiLayerNetwork("/Users/karol/Desktop/uni/ajio/data_set/tsp_model.zip");
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
+    }
+
+    private String classNumToAlgorithmName(int classNum) {
+        switch (classNum) {
+            case 0:
+                return "Nearest neighbour algorithm";
+            case 1:
+                return "Ant colony algorithm";
+            case 2:
+                return "Two-opt algorithm";
+            case 3:
+                return "Three-opt algorithm";
+            default:
+                return "Butelka zwrotna 50 groszy";
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == jButton) {
-
+            var requiredTime = Double.parseDouble(jTextField.getText());
+            double[] features = new TspMlpFeatures(tspInstance, requiredTime).featuresToDoubleArray();
+            //prediction
+            INDArray featuresArray = Nd4j.create(features, new int[]{1, features.length});
+            INDArray prediction = model.output(featuresArray);
+            int predictedClass = Nd4j.argMax(prediction, 1).getInt(0);
+            notifyAllObservers(classNumToAlgorithmName(predictedClass));
         }
     }
+
+    public void notifyAllObservers(String output) {
+        for(var obs : observers) {
+            obs.updateOutput(output);
+        }
+    }
+
+    public void attach(AnalysisPanelObserver observer) {
+        observers.add(observer);
+    }
+
 
     @Override
     public void updateInstance(TspInstance tspInstance) {

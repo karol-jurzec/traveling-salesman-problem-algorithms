@@ -101,6 +101,10 @@ public class NodeDistributionStatistics {
                 "," + meanDistanceToCentroidNode;
     }
 
+    public double[] toArray() {
+        return new double[] {normalizedDistanceStdDeviation, distinctDistancesFraction, meanDistanceToCentroidNode};
+    }
+
     public static String getFeatureNames() {
         return "," + "normalizedDistanceStdDeviation" +
                 "," + "distinctDistancesFraction" +

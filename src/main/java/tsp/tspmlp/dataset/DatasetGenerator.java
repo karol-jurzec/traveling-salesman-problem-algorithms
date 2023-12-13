@@ -5,18 +5,13 @@ import src.main.java.tsp.algorithms.*;
 import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.tspmlp.TspMlpFeatures;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.*;
-import java.util.stream.Stream;
+
+import static src.main.java.tsp.tspmlp.NormalizeData.NormalizeData.*;
 
 public class DatasetGenerator {
 
@@ -25,24 +20,23 @@ public class DatasetGenerator {
     final private String DATA_SET_PATH = "/Users/karol/Desktop/uni/ajio/data_set/data_test.csv";
     final private String DATA_SET_PATH_EV = "/Users/karol/Desktop/uni/ajio/data_set/data_ev.csv";
 
+
+    private static final ExecutorService executor = Executors.newCachedThreadPool();
+
     TspSolver nearestN = new TspSolver(new NearestNeighbourAlgorithm());
     TspSolver twoOpt = new TspSolver(new TwoOptAlgorithm());
     TspSolver threeOpt = new TspSolver(new ThreeOptAlgorithm());
     TspSolver antColony = new TspSolver(new AntColonyAlgorithm(10));
-
 
     private double generateRandomTime(int numberOfNodes) {
         double baseTime = 0.001; // Base time for small instances
         double timeMultiplier = 0.0001; // Multiplier for each node
         double randomnessFactor = 0.55; // Introduce some randomness
 
-        // Generate a random additional time based on the number of nodes
         double additionalTime = timeMultiplier * numberOfNodes * numberOfNodes;
 
-        // Introduce randomness
         double randomComponent = randomnessFactor * additionalTime * new Random().nextDouble();
 
-        // Combine base time, additional time, and randomness
         return baseTime + additionalTime + randomComponent;
     }
 
@@ -65,15 +59,10 @@ public class DatasetGenerator {
         double start = System.currentTimeMillis();
         var solution = tspSolver.solve(tspInstance).getTotalDistance();
         double elapsedTime = System.currentTimeMillis() - start;
-
         return new Result(solution, elapsedTime/1000.0, tspSolver.toString());
     }
 
-
-    private static final ExecutorService executor = Executors.newCachedThreadPool();
-
-
-    private void submitAlgorithmTask(TspInstance tspInstance, TspSolver algorithm, double requiredTime,
+    private void submitAlgorithmTask(TspInstance tspInstance, TspSolver algorithm,
                                      ArrayList<Future<Result>> futures) {
         Callable<Result> task = () -> computeResultForAlgorithm(tspInstance, algorithm);
         Future<Result> future = executor.submit(task);
@@ -83,10 +72,10 @@ public class DatasetGenerator {
     private String computeBestAlgorithm(TspInstance tspInstance, double requiredTime) {
         ArrayList<Future<Result>> futures = new ArrayList<>();
 
-        //submitAlgorithmTask(tspInstance, antColony, requiredTime, futures);
-        submitAlgorithmTask(tspInstance, twoOpt, requiredTime, futures);
-        submitAlgorithmTask(tspInstance, threeOpt, requiredTime, futures);
-        submitAlgorithmTask(tspInstance, nearestN, requiredTime, futures);
+        submitAlgorithmTask(tspInstance, antColony, futures);
+        submitAlgorithmTask(tspInstance, twoOpt, futures);
+        submitAlgorithmTask(tspInstance, threeOpt, futures);
+        submitAlgorithmTask(tspInstance, nearestN, futures);
 
         String bestAlgorithm = "";
         double bestDistance = Double.MAX_VALUE;
@@ -95,7 +84,9 @@ public class DatasetGenerator {
             // Wait for all tasks to complete and find the best result
             for (Future<Result> future : futures) {
                 Result result = future.get();
-                if (result != null && result.distance < bestDistance) {
+                if( result.distance == bestDistance)
+                    return "";
+                if (result != null && result.elapsedTime < requiredTime && result.distance < bestDistance) {
                     bestDistance = result.distance;
                     bestAlgorithm = result.name;
                 }
@@ -105,77 +96,11 @@ public class DatasetGenerator {
         }
 
         return bestAlgorithm;
-
-/*
-        double start = 0.0, elapsedTime = 0.0, currMin = Double.MAX_VALUE, bestMin = Double.MAX_VALUE;
-        String currBest = "", withBestLen = "";
-
-        //brute force
-        if(tspInstance.getSize() <= 8) {
-            var res = computeResultForAlgorithm(tspInstance, bruteForce);
-            if(res.elapsedTime <= requiredTime) {
-               currMin = res.elapsedTime;
-               currBest = "Brute force";
-            }
-        }
-
-        //held karp
-        if(tspInstance.getSize() < 17) {
-            var res = computeResultForAlgorithm(tspInstance, heldKarp);
-            if(res.elapsedTime <= requiredTime) {
-                if(res.distance < currMin) {
-                    currBest = "Held karp";
-                    currMin = res.distance;
-                }
-            }
-        }
-
-        //ant colony
-        var res = computeResultForAlgorithm(tspInstance, antColony);
-        if(res.elapsedTime <= requiredTime) {
-            if(res.distance < currMin) {
-                currBest = "Ant colony";
-                currMin = res.distance;
-            }
-        }
-
-        //two-opt
-        res = computeResultForAlgorithm(tspInstance, twoOpt);
-        if(res.elapsedTime <= requiredTime) {
-            if(res.distance < currMin) {
-                currBest = "Two-opt";
-                currMin = res.distance;
-            }
-        }
-
-        //three-opt
-        res = computeResultForAlgorithm(tspInstance, threeOpt);
-        if(res.elapsedTime <= requiredTime) {
-            if(res.distance < currMin) {
-                currBest = "Three-opt";
-                currMin = res.distance;
-            }
-        }
-
-        //nearest neighbour
-        res = computeResultForAlgorithm(tspInstance, nearestN);
-        if(res.elapsedTime <= requiredTime) {
-            if(res.distance < currMin) {
-                currBest = "Nearest-neighbour";
-                currMin = res.distance;
-            }
-        }
-
-        if(currMin == Double.MAX_VALUE) {
-            System.out.println();
-        }
-
-        return currBest;*/
     }
 
     private String getFeaturesString(TspInstance tspInstance, double timeToCalc) {
         TspMlpFeatures tspMlpFeatures = new TspMlpFeatures(tspInstance,timeToCalc);
-        return tspMlpFeatures.toString();
+        return tspInstance.getSize() + "," + timeToCalc + tspMlpFeatures;
     }
 
     private void saveLabelAndFeatureNamesToPath(String path, String featureNames) {
@@ -198,26 +123,28 @@ public class DatasetGenerator {
 
     private void processInstances(ArrayList<TspInstance> tspInstances) {
         //saveLabelAndFeatureNamesToPath(DATA_SET_PATH, TspMlpFeatures.getFeatureNames());
-        int counter = 0;
         for(var inst : tspInstances) {
-            ++counter;
-            double timeToCalc = generateRandomTime(inst.getSize());
-            String label = computeBestAlgorithm(inst, timeToCalc);
-            String features = getFeaturesString(inst, timeToCalc);
-            if(counter < 400) {
+            double time = generateRandomTime(inst.getSize());
+            String label = computeBestAlgorithm(inst, time);
+            if(label != "") {
+                String features = getFeaturesString(inst, time);
                 saveDataSetToPath(DATA_SET_PATH, label, features);
-            }else {
-                saveDataSetToPath(DATA_SET_PATH_EV, label, features);
             }
-
         }
 
         executor.shutdown();
     }
 
-    public void prepareDataSet() {
+    private void normalizeDataSet(String path) throws FileNotFoundException {
+        List<List<Double>> data = readCSV(path);
+        normalizeColumns(data);
+        writeCSV(path + "v2", data);
+    }
+
+    public void prepareDataSet() throws FileNotFoundException {
         var tspInstances = readTspInstancesFromFolder();
         processInstances(tspInstances);
+        normalizeDataSet(DATA_SET_PATH);
     }
 
     class Result {
