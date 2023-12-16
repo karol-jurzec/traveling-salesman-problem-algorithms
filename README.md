@@ -1,7 +1,7 @@
 # traveling-salesman-problem-thesis
 Algorithms for thesis connected to traveling salesman problem. 
 
-### ‘Algorytmy aproksymujące dla problemu komiwojażera’
+### Algorytmy aproksymujące dla problemu komiwojażera
 
 ## Plan i schemat pracy:
 
@@ -75,6 +75,7 @@ Prezentacja/omowienie:
   - [ ] LKH
   - [ ] algorytm genetyczny
   - [ ] algorytm christofidesa
+  - [ ] tabu search
 - [X] implementacja wizualizacji
   - [X] widok punktow jako wspolrzedne (x, y) na mapie
   - [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
