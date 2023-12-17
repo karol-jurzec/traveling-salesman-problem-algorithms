@@ -80,3 +80,4 @@ Prezentacja/omowienie:
   - [X] widok punktow jako wspolrzedne (x, y) na mapie
   - [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
 - [X] zredagowac, poukladac
+- [ ] porownanie algorytmow -- wykresy, dążęnie do najlepszego rozwiązania (wykres zależny od czasu działania algorytmu) 
