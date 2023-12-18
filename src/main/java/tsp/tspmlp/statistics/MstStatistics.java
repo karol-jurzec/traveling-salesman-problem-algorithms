@@ -1,5 +1,6 @@
 package src.main.java.tsp.tspmlp.statistics;
 
+import src.main.java.tsp.helpers.KruskalMST;
 import src.main.java.tsp.models.Edge;
 import src.main.java.tsp.tspmlp.TspMlpFeatures;
 

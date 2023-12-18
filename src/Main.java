@@ -129,7 +129,7 @@ public class Main {
     }
 
 
-    public static void main(String[] args) throws IOException, InterruptedException, Nd4jBackend.NoAvailableBackendException {
+    public static void main(String[] args) {
         TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
     }
 }

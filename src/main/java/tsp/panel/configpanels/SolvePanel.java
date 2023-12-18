@@ -85,10 +85,11 @@ public class SolvePanel extends JPanel implements ActionListener, LoadPanelObser
             case THREE_OPT:
                 tspSolver = new TspSolver(new ThreeOptAlgorithm());
                 return;
-
             case TWO_OPT:
                 tspSolver = new TspSolver(new TwoOptAlgorithm());
-
+                return;
+            case TWO_APPROX:
+                tspSolver = new TspSolver(new TwoApproxAlgorithm());
         }
 
     }
@@ -138,7 +139,8 @@ public class SolvePanel extends JPanel implements ActionListener, LoadPanelObser
         HELD_KARP("Bellman-Held-Karp algorithm"),
         NEAREST_NEIGHBOUR("Nearest neighbour algorithm"),
         THREE_OPT("Three-opt algorithm"),
-        TWO_OPT("Two-opt algorithm");
+        TWO_OPT("Two-opt algorithm"),
+        TWO_APPROX("Two-approximation algorithm");
 
         private final String name;
 

@@ -1,32 +1,34 @@
-package src.main.java.tsp.tspmlp.statistics;
+package src.main.java.tsp.helpers;
 
 import src.main.java.tsp.models.Edge;
+import src.main.java.tsp.models.Point;
+
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class KruskalMST {
-    private final ArrayList<Point2D> vertices;
+    private final ArrayList<Point> vertices;
     private final ArrayList<Edge> edges;
 
     public KruskalMST(ArrayList<Point2D> points) {
-        this.vertices = points;
+        this.vertices = Point.convertPoint2dArrayToPoint(points);
         this.edges = new ArrayList<Edge>();
 
         initializeEdges();
     }
 
-    public void addEdge(Point2D source, Point2D destination) {
+    private void addEdge(Point source, Point destination) {
         Edge edge = new Edge(source, destination);
         edges.add(edge);
     }
 
-    public void initializeEdges() {
+    private void initializeEdges() {
         for (int i = 0; i < vertices.size(); i++) {
             for (int j = i + 1; j < vertices.size(); j++) {
-                Point2D source = vertices.get(i);
-                Point2D destination = vertices.get(j);
+                Point source = vertices.get(i);
+                Point destination = vertices.get(j);
 
                 addEdge(source, destination);
             }
