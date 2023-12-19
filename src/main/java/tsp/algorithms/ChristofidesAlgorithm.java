@@ -11,6 +11,7 @@ import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.models.TspSolution;
 
 import java.awt.geom.Point2D;
+import java.security.cert.PolicyNode;
 import java.util.*;
 
 public class ChristofidesAlgorithm implements ITspAlgorithm {
@@ -113,6 +114,87 @@ public class ChristofidesAlgorithm implements ITspAlgorithm {
         }
     }
 
+
+    // fleury algorithm for finding euler circuit
+    private boolean isBridge(Point u, Point v) {
+        // If the size of u's neighbor list is 1, then it is a bridge
+        if (u.neighbours.size() == 1) {
+            return true;
+        }
+
+        // Count the number of reachable vertices from u
+        HashMap<Point, Boolean> isVisited = new HashMap<>();
+        int count1 = dfsCount(u, isVisited);
+
+        // Remove the edge (u, v) and count reachable vertices from u
+        u.neighbours.remove(v);
+        v.neighbours.remove(u);
+
+        int count2 = dfsCount(u, isVisited);
+
+        // Add the edge back to the graph
+        u.addNeighbour(v);
+        v.addNeighbour(u);
+
+        // If the number of reachable vertices decreases, then it is a bridge
+        return (count1 > count2);
+    }
+
+    private int dfsCount(Point v, HashMap<Point, Boolean> isVisited) {
+        isVisited.put(v, true);
+        int count = 1;
+        for (Point adj : v.neighbours) {
+            if (isVisited.get(adj) == null) {
+                count += dfsCount(adj, isVisited);
+            }
+        }
+        return count;
+    }
+
+    public ArrayList<Point> findEulerCircuit(Point p) {
+        ArrayList<Point> circuit = new ArrayList<>();
+
+        Point current = p;
+
+        while (current != null) {
+            Point next = null;
+            for (Point adj : new ArrayList<>(current.neighbours)) {
+                if (!isBridge(current, adj)) {
+                    next = adj;
+                    break;
+                }
+            }
+
+            if (next == null && !current.neighbours.isEmpty()) {
+                // All edges are bridges; pick any edge
+                next = current.neighbours.get(0);
+            }
+
+            if (next != null) {
+                // Add the edge to the circuit
+                circuit.add(current);
+                current.neighbours.remove(next);
+                next.neighbours.remove(current);
+                current = next;
+            } else {
+                // No more edges to traverse
+                circuit.add(current);
+                break;
+            }
+        }
+
+        return circuit;
+    }
+
+    public ArrayList<Point2D> removeDuplicates(ArrayList<Point> points) {
+        Set<Point2D> pointsSet = new LinkedHashSet<>(points);
+
+        var path = new ArrayList<>(pointsSet);
+        path.add(path.get(0));
+
+        return path;
+    }
+
     private HashMap<Point, Boolean> visited = new HashMap<>();
     private ArrayList<Point> oddDegreeVert = new ArrayList<>();
 
@@ -129,9 +211,10 @@ public class ChristofidesAlgorithm implements ITspAlgorithm {
         var minWMatch = findMinWeightMatching(oddDegreeVert);
         combineEdgesToGraph(minWMatch);
 
+        var eulerCircuit = findEulerCircuit(mst);
+        var path = removeDuplicates(eulerCircuit);
 
 
-
-        return null;
+        return new TspSolution(path);
     }
 }
