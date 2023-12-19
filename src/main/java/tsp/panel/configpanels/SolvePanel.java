@@ -85,11 +85,17 @@ public class SolvePanel extends JPanel implements ActionListener, LoadPanelObser
             case THREE_OPT:
                 tspSolver = new TspSolver(new ThreeOptAlgorithm());
                 return;
+
             case TWO_OPT:
                 tspSolver = new TspSolver(new TwoOptAlgorithm());
                 return;
+
             case TWO_APPROX:
                 tspSolver = new TspSolver(new TwoApproxAlgorithm());
+                return;
+
+            case CHRIST_ALG:
+                tspSolver = new TspSolver(new ChristofidesAlgorithm());
         }
 
     }
@@ -140,7 +146,8 @@ public class SolvePanel extends JPanel implements ActionListener, LoadPanelObser
         NEAREST_NEIGHBOUR("Nearest neighbour algorithm"),
         THREE_OPT("Three-opt algorithm"),
         TWO_OPT("Two-opt algorithm"),
-        TWO_APPROX("Two-approximation algorithm");
+        TWO_APPROX("Two-approximation algorithm"),
+        CHRIST_ALG("Christofides algorithm");
 
         private final String name;
 

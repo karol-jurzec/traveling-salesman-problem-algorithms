@@ -12,5 +12,6 @@
     <orderEntry type="library" name="nd4j.native.platform" level="project" />
     <orderEntry type="library" name="slf4j.api" level="project" />
     <orderEntry type="library" name="slf4j.simple" level="project" />
+    <orderEntry type="library" name="jgrapht.core" level="project" />
   </component>
 </module>
