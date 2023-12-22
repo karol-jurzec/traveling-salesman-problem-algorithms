@@ -37,6 +37,27 @@ public class ChristofidesAlgorithm implements ITspAlgorithm {
         return convertListToTree(mst);
     }
 
+    private ArrayList<Edge> mstToPath(Point point) {
+        Queue<Point> queue = new LinkedList<>();
+        HashMap<Point, Boolean> visited = new HashMap<>();
+        ArrayList<Edge> edges = new ArrayList<>();
+        queue.add(point);
+
+        while(!queue.isEmpty()) {
+            var curr = queue.poll();
+            if(visited.get(curr) == null) {
+                visited.put(curr, true);
+                for(var n : curr.neighbours) {
+                    if(visited.get(n) == null) {
+                        edges.add(new Edge(curr, n));
+                        queue.add(n);
+                    }
+                }
+            }
+        }
+        return edges;
+    }
+
     private Point convertListToTree(List<Edge> edges) {
         if (edges.isEmpty()) {
             return null;
@@ -81,7 +102,6 @@ public class ChristofidesAlgorithm implements ITspAlgorithm {
         }
     }
 
-
     // finding min-weight perfect matching from list of vertices
     private ArrayList<Edge> findMinWeightMatching(ArrayList<Point> points) {
         // Assuming all points have odd degree
@@ -113,7 +133,6 @@ public class ChristofidesAlgorithm implements ITspAlgorithm {
             e.destination.neighbours.add(e.source);
         }
     }
-
 
     // fleury algorithm for finding euler circuit
     private boolean isBridge(Point u, Point v) {
@@ -201,15 +220,20 @@ public class ChristofidesAlgorithm implements ITspAlgorithm {
 
     @Override
     public TspSolution solve(TspInstance tspInstance) {
+
+        visited = new HashMap<>();
+        oddDegreeVert = new ArrayList<>();
+
         // compute mst tree
         var mst = getMst(tspInstance.getPointCollection());
-
         // compute odd degree vertices
         computeOddDegreeVertices(mst);
+
 
         // computer min weight matching and connect it to tree
         var minWMatch = findMinWeightMatching(oddDegreeVert);
         combineEdgesToGraph(minWMatch);
+
 
         var eulerCircuit = findEulerCircuit(mst);
         var path = removeDuplicates(eulerCircuit);

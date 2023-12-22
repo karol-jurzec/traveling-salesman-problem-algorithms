@@ -103,6 +103,29 @@ public class DrawingPanel extends JPanel implements LoadPanelObserver, SolvePane
         graph.draw(new Line2D.Double(x1, height - y1, x2, height - y2));
     }
 
+    public void drawEdges(Graphics g) {
+        int width = getWidth() - PADDING;
+        int height = getHeight() - PADDING;
+
+        double scaleX = calculateScale(width, tspInstance.maxX, tspInstance.minX);
+        double scaleY = calculateScale(height, tspInstance.maxY, tspInstance.minY);
+
+        Graphics2D graph = (Graphics2D)g;
+        graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        //set color for points
+        graph.setPaint(Color.BLACK);
+
+        var edges = tspSolution.edges;
+
+        for(var e : edges) {
+            Point2D origin = e.source;
+            Point2D destination = e.destination;
+
+            plotLine2D(origin, destination, graph, scaleX, scaleY);
+        }
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
