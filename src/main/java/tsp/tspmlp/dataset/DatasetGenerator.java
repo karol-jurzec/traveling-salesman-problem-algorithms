@@ -40,7 +40,7 @@ public class DatasetGenerator {
         return baseTime + additionalTime + randomComponent;
     }
 
-    private ArrayList<TspInstance> readTspInstancesFromFolder() {
+    public ArrayList<TspInstance> readTspInstancesFromFolder() {
         File folder = new File(TSP_INST_PATH);
         File[] listOfFiles = folder.listFiles();
         ArrayList<TspInstance> tspInstances = new ArrayList<>();

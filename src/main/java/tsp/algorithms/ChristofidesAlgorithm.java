@@ -82,6 +82,8 @@ public class ChristofidesAlgorithm implements ITspAlgorithm {
 
     private void computeOddDegreeVertices(Point p) {
         Queue<Point> queue = new LinkedList<Point>();
+        HashMap<Point, Boolean> visited = new HashMap<>();
+
         queue.add(p);
 
         while(!queue.isEmpty()) {
@@ -100,6 +102,8 @@ public class ChristofidesAlgorithm implements ITspAlgorithm {
                 }
             }
         }
+
+        System.out.println();
     }
 
     // finding min-weight perfect matching from list of vertices
@@ -134,41 +138,40 @@ public class ChristofidesAlgorithm implements ITspAlgorithm {
         }
     }
 
-    // fleury algorithm for finding euler circuit
     private boolean isBridge(Point u, Point v) {
-        // If the size of u's neighbor list is 1, then it is a bridge
         if (u.neighbours.size() == 1) {
             return true;
         }
 
-        // Count the number of reachable vertices from u
-        HashMap<Point, Boolean> isVisited = new HashMap<>();
-        int count1 = dfsCount(u, isVisited);
-
-        // Remove the edge (u, v) and count reachable vertices from u
         u.neighbours.remove(v);
         v.neighbours.remove(u);
 
-        int count2 = dfsCount(u, isVisited);
 
-        // Add the edge back to the graph
-        u.addNeighbour(v);
-        v.addNeighbour(u);
+        boolean canConnect = dfsCheckConnection(v, u, new HashSet<>());
 
-        // If the number of reachable vertices decreases, then it is a bridge
-        return (count1 > count2);
+        u.neighbours.add(v);
+        v.neighbours.add(u);
+
+        return !canConnect;
     }
 
-    private int dfsCount(Point v, HashMap<Point, Boolean> isVisited) {
-        isVisited.put(v, true);
-        int count = 1;
-        for (Point adj : v.neighbours) {
-            if (isVisited.get(adj) == null) {
-                count += dfsCount(adj, isVisited);
+    private boolean dfsCheckConnection(Point current, Point target, HashSet<Edge> visitedEdges) {
+        if (current == target) {
+            return true;
+        }
+
+        for (Point neighbor : current.neighbours) {
+            Edge edge = new Edge(current, neighbor);
+            if (!visitedEdges.contains(edge)) {
+                visitedEdges.add(edge);
+                if (dfsCheckConnection(neighbor, target, visitedEdges)) {
+                    return true;
+                }
             }
         }
-        return count;
+        return false;
     }
+
 
     public ArrayList<Point> findEulerCircuit(Point p) {
         ArrayList<Point> circuit = new ArrayList<>();
@@ -185,12 +188,9 @@ public class ChristofidesAlgorithm implements ITspAlgorithm {
             }
 
             if (next == null && !current.neighbours.isEmpty()) {
-                // All edges are bridges; pick any edge
                 next = current.neighbours.get(0);
             }
-
-            if (next != null) {
-                // Add the edge to the circuit
+                if (next != null) {
                 circuit.add(current);
                 current.neighbours.remove(next);
                 next.neighbours.remove(current);
@@ -214,14 +214,10 @@ public class ChristofidesAlgorithm implements ITspAlgorithm {
         return path;
     }
 
-    private HashMap<Point, Boolean> visited = new HashMap<>();
     private ArrayList<Point> oddDegreeVert = new ArrayList<>();
-
 
     @Override
     public TspSolution solve(TspInstance tspInstance) {
-
-        visited = new HashMap<>();
         oddDegreeVert = new ArrayList<>();
 
         // compute mst tree
@@ -233,7 +229,6 @@ public class ChristofidesAlgorithm implements ITspAlgorithm {
         // computer min weight matching and connect it to tree
         var minWMatch = findMinWeightMatching(oddDegreeVert);
         combineEdgesToGraph(minWMatch);
-
 
         var eulerCircuit = findEulerCircuit(mst);
         var path = removeDuplicates(eulerCircuit);

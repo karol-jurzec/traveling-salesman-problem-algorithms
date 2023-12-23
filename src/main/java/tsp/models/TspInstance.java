@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 public class TspInstance {
     String instanceDescription = "";
+    String name = "";
     ArrayList<Point2D> pointCollection = new ArrayList<>();
     ArrayList<Integer> idCollection = new ArrayList<>();
     double[][] distanceMatrix = null;
@@ -28,6 +29,17 @@ public class TspInstance {
         this.instanceDescription = desc;
         this.pointCollection = pointCollection;
         this.size = pointCollection.size();
+
+        initDistanceMatrix();
+        initPointsRange();
+        initIdCollection();
+    }
+
+    public TspInstance(ArrayList<Point2D> pointCollection, String desc, String name) {
+        this.instanceDescription = desc;
+        this.pointCollection = pointCollection;
+        this.size = pointCollection.size();
+        this.name = name;
 
         initDistanceMatrix();
         initPointsRange();
@@ -128,16 +140,18 @@ public class TspInstance {
 
     public static TspInstance FileToTspInstance(File file) {
         String desc = null;
+        String name = null;
         ArrayList<Point2D> points = null;
 
         try {
+            name = file.getName();
             desc = gatherInstanceDesc(file);
             points= gatherPointsList(file);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return new TspInstance(points, desc);
+        return new TspInstance(points, desc, name);
     }
 
     public ArrayList<Point2D> getPointCollection() {

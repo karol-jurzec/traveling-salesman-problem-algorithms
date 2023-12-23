@@ -21,6 +21,8 @@ import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.factory.Nd4jBackend;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
+import src.main.java.tsp.TspSolver;
+import src.main.java.tsp.algorithms.ChristofidesAlgorithm;
 import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.panel.TspAnalyzerFrame;
 import src.main.java.tsp.tspmlp.TspMlpFeatures;
@@ -64,7 +66,7 @@ public class Main {
         Random random = new Random();
 
         for(int i = 1; i <= n; ++i) {
-            int nn = random.nextInt(195) + 5;
+            int nn = random.nextInt(3) + 5;
             generateTSPInstance(nn, path, "random_tsp_" + i +"_"+ nn + ".tsp");
         }
     }
@@ -130,6 +132,22 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        //generateRandomTspTour(200);
+        var gen = new DatasetGenerator();
+
+        var inst = gen.readTspInstancesFromFolder();
+        TspSolver solver = new TspSolver(new ChristofidesAlgorithm());
+
+        for(var i : inst) {
+            var ans = solver.solve(i);
+
+            if(ans.getPath().size() <= i.getSize()) {
+                System.out.println();
+            }
+        }
+
+
         TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
     }
 }
