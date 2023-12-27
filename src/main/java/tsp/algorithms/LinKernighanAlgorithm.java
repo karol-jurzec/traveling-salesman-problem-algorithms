@@ -1,3 +1,4 @@
+/*
 package src.main.java.tsp.algorithms;
 
 import org.nd4j.linalg.api.ops.impl.shape.ExpandDims;
@@ -215,7 +216,7 @@ public class LinKernighanAlgorithm implements ITspAlgorithm {
 
                 i = i + 1;
                 while( true ) {
-                    var xi = chooseXi(i);
+                   // var xi = chooseXi(i);
                 }
 
 
@@ -252,3 +253,4 @@ public class LinKernighanAlgorithm implements ITspAlgorithm {
 
     }
 }
+*/
