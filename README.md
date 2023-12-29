@@ -66,19 +66,18 @@ Prezentacja/omowienie:
 - [X] bellman held karp - implementacja
   - [X] impelemntacja
   - [X] opis 
-  - [ ] analiza zlozonosci
+  - [X] analiza zlozonosci
 - [X] nierownosc trojkata w problemie komiwojazera
 - [ ] przeglad algorytmow + literatura
   - [X] posortowanie po algorytmow wedlug date powstania
   - [ ] opis tych algorytmow
 - [ ] implementacja wybranych algorytmow z listy
-  - [ ] LKH
   - [ ] algorytm genetyczny
-  - [ ] algorytm christofidesa
+  - [X] algorytm christofidesa
   - [ ] tabu search
 - [X] implementacja wizualizacji
   - [X] widok punktow jako wspolrzedne (x, y) na mapie
   - [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
-- [ ] opisy algorytmow do pracy
+- [X] opisy algorytmow do pracy
 - [X] zredagowac, poukladac
 - [ ] porownanie algorytmow -- wykresy, dążęnie do najlepszego rozwiązania (wykres zależny od czasu działania algorytmu)

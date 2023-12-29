@@ -23,7 +23,6 @@ import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 import src.main.java.tsp.TspSolver;
 import src.main.java.tsp.algorithms.ChristofidesAlgorithm;
-import src.main.java.tsp.algorithms.LinKernighanAlgorithm;
 import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.panel.TspAnalyzerFrame;
 import src.main.java.tsp.tspmlp.TspMlpFeatures;
@@ -134,21 +133,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int v = -1 % 10;
-
-        generateRandomTspTour(2);
-        var gen = new DatasetGenerator();
-
-        var inst = gen.readTspInstancesFromFolder();
-        TspSolver solver = new TspSolver(new LinKernighanAlgorithm());
-
-        for(var i : inst) {
-            var ans = solver.solve(i);
-
-            if(ans.getPath().size() <= i.getSize()) {
-                System.out.println();
-            }
-        }
 
 
         TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
