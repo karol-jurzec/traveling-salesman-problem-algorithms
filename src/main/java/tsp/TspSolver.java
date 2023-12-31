@@ -9,9 +9,13 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class TspSolver {
-    private final ITspAlgorithm algorithm;
+    private ITspAlgorithm algorithm;
 
     public TspSolver(ITspAlgorithm algorithm) {
+        this.algorithm = algorithm;
+    }
+
+    public void setAlgorithm(ITspAlgorithm algorithm) {
         this.algorithm = algorithm;
     }
 

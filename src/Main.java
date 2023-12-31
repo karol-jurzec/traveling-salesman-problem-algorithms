@@ -23,6 +23,9 @@ import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 import src.main.java.tsp.TspSolver;
 import src.main.java.tsp.algorithms.ChristofidesAlgorithm;
+import src.main.java.tsp.algorithms.HeldKarpAlgorithm;
+import src.main.java.tsp.algorithms.NearestNeighbourAlgorithm;
+import src.main.java.tsp.algorithms.TwoOptAlgorithm;
 import src.main.java.tsp.models.Point;
 import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.panel.TspAnalyzerFrame;
@@ -138,9 +141,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        TspTimer.bruteForceTimer(11, "brute_force_test");
-
-
+        TspTimer.algorithmTimer(6000, 50, new TwoOptAlgorithm(), "2-opt");
         //TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
     }
 }

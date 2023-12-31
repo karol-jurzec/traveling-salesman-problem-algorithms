@@ -14,7 +14,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class DrawingPanel extends JPanel implements LoadPanelObserver, SolvePanelObserver {
-    final double POINT_RADIUS = 4;
+    final double POINT_RADIUS = 1;
     final int PADDING = 50;
 
     JLabel jLabel1 = new JLabel("");

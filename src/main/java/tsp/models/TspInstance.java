@@ -63,7 +63,7 @@ public class TspInstance {
     }
 
     private void initDistanceMatrix() {
-        double[][] res = new double[this.size][this.size];
+        /*double[][] res = new double[this.size][this.size];
 
         for(int i = 0; i < this.size-1; ++i) {
             for(int j = i + 1; j < this.size; ++j) {
@@ -78,7 +78,7 @@ public class TspInstance {
                 res[j][i] = res[i][j];
             }
         }
-        this.distanceMatrix = res;
+        this.distanceMatrix = res;*/
     }
 
     private void initPointsRange() {

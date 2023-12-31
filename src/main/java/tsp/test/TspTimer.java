@@ -2,6 +2,8 @@ package src.main.java.tsp.test;
 
 import src.main.java.tsp.TspSolver;
 import src.main.java.tsp.algorithms.BruteForceAlgorithm;
+import src.main.java.tsp.algorithms.ChristofidesAlgorithm;
+import src.main.java.tsp.algorithms.ITspAlgorithm;
 import src.main.java.tsp.models.TspInstance;
 
 import java.awt.geom.Point2D;
@@ -13,6 +15,7 @@ import java.util.Random;
 
 public class TspTimer {
 
+    private static final TspSolver tspSolver = new TspSolver(new ChristofidesAlgorithm());
     private static final String path = "/Users/karol/Desktop/uni/tsp/data/";
 
     public static TspInstance generateTSPInstance(int n) {
@@ -49,13 +52,13 @@ public class TspTimer {
         }
     }
 
-    public static void bruteForceTimer(int i, String name) {
-        TspSolver tspSolver = new TspSolver(new BruteForceAlgorithm());
+    public static void algorithmTimer(int i, int interval, ITspAlgorithm algorithm, String name) {
+        tspSolver.setAlgorithm(algorithm);
 
-        for(int n = 3; n <= i; ++n) {
+        for(int n = 3; n <= i; n = n + interval) {
             ArrayList<Double> compTimes = new ArrayList<>();
 
-            for(int j = 0; j < 1; ++j) {
+            for(int j = 0; j < 5; ++j) {
                 var instance = generateTSPInstance(n);
                 var runningTime = computeRunningTime(tspSolver, instance);
                 compTimes.add(runningTime);
