@@ -23,11 +23,14 @@ import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 import src.main.java.tsp.TspSolver;
 import src.main.java.tsp.algorithms.ChristofidesAlgorithm;
+import src.main.java.tsp.models.Point;
 import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.panel.TspAnalyzerFrame;
+import src.main.java.tsp.test.TspTimer;
 import src.main.java.tsp.tspmlp.TspMlpFeatures;
 import src.main.java.tsp.tspmlp.dataset.DatasetGenerator;
 
+import java.awt.geom.Point2D;
 import java.io.*;
 import java.util.*;
 
@@ -66,7 +69,7 @@ public class Main {
         Random random = new Random();
 
         for(int i = 1; i <= n; ++i) {
-            int nn = random.nextInt(100) + 59;
+            int nn = random.nextInt(20) + 5;
             generateTSPInstance(nn, path, "random_tsp_" + i +"_"+ nn + ".tsp");
         }
     }
@@ -131,11 +134,14 @@ public class Main {
     }
 
 
+
+
     public static void main(String[] args) {
 
+        TspTimer.bruteForceTimer(11, "brute_force_test");
 
 
-        TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
+        //TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
     }
 }
 

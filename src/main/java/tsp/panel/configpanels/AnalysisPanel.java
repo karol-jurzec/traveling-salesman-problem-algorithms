@@ -83,7 +83,7 @@ public class AnalysisPanel extends JPanel implements ActionListener, LoadPanelOb
             case 3:
                 return "Three-opt algorithm";
             default:
-                return "Butelka zwrotna 50 groszy";
+                return "Butelka zwrotna, 50 groszy";
         }
     }
 
