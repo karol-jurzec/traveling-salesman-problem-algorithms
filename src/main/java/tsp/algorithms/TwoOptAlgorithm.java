@@ -12,6 +12,8 @@ import java.util.stream.Stream;
 
 public class TwoOptAlgorithm implements ITspAlgorithm {
 
+    static ArrayList<Integer> kValues =  new ArrayList<>();
+
     private ArrayList<Point2D> twoOptSwap(ArrayList<Point2D> cities, Point2D v1, Point2D v2) {
         ArrayList newGraph = new ArrayList<>(cities);
 
@@ -28,6 +30,8 @@ public class TwoOptAlgorithm implements ITspAlgorithm {
     }
 
     public TspSolution solve(TspInstance tspInstance) {
+        int k = 0;
+
         var nn = new NearestNeighbourAlgorithm().solve(tspInstance).getPath();
         var points = tspInstance.getPointCollection();
 
@@ -36,6 +40,7 @@ public class TwoOptAlgorithm implements ITspAlgorithm {
         var foundImprovment = true;
 
         while(foundImprovment) {
+            ++k;
             foundImprovment = false;
 
             for(int i = 0; i < points.size() - 2; ++i) {
@@ -49,6 +54,8 @@ public class TwoOptAlgorithm implements ITspAlgorithm {
                 }
             }
         }
+
+        TwoOptAlgorithm.kValues.add(k);
 
         return new TspSolution(bestTour)    ;
     }

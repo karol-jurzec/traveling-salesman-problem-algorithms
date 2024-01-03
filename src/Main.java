@@ -22,10 +22,7 @@ import org.nd4j.linalg.factory.Nd4jBackend;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 import src.main.java.tsp.TspSolver;
-import src.main.java.tsp.algorithms.ChristofidesAlgorithm;
-import src.main.java.tsp.algorithms.HeldKarpAlgorithm;
-import src.main.java.tsp.algorithms.NearestNeighbourAlgorithm;
-import src.main.java.tsp.algorithms.TwoOptAlgorithm;
+import src.main.java.tsp.algorithms.*;
 import src.main.java.tsp.models.Point;
 import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.panel.TspAnalyzerFrame;
@@ -33,6 +30,7 @@ import src.main.java.tsp.test.TspTimer;
 import src.main.java.tsp.tspmlp.TspMlpFeatures;
 import src.main.java.tsp.tspmlp.dataset.DatasetGenerator;
 
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.io.*;
 import java.util.*;
@@ -141,8 +139,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        TspTimer.algorithmTimer(6000, 50, new TwoOptAlgorithm(), "2-opt");
-        //TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
+        //TspTimer.algorithmTimer(10, 1, new BruteForceAlgorithm(), "brute-force");
+        TspTimer.algorithmTimer(500  , 20, new AntColonyAlgorithm(10), "ant_colony");
+
+        TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
     }
 }
 

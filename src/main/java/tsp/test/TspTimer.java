@@ -11,7 +11,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class TspTimer {
 
@@ -55,16 +58,17 @@ public class TspTimer {
     public static void algorithmTimer(int i, int interval, ITspAlgorithm algorithm, String name) {
         tspSolver.setAlgorithm(algorithm);
 
-        for(int n = 3; n <= i; n = n + interval) {
+        for(int n = 2; n <= i; n = n + interval) {
             ArrayList<Double> compTimes = new ArrayList<>();
 
-            for(int j = 0; j < 5; ++j) {
+            for(int j = 0; j < 1; ++j) {
                 var instance = generateTSPInstance(n);
                 var runningTime = computeRunningTime(tspSolver, instance);
                 compTimes.add(runningTime);
             }
 
-            double avg = compTimes.stream().mapToDouble(a -> a).average().getAsDouble();
+            double avg = compTimes.stream().mapToDouble(a -> a.doubleValue()).average().getAsDouble();
+
             writeToFile(n, avg, path + "_" + name);
 
         }

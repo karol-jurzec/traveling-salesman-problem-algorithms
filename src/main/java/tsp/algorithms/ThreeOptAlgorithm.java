@@ -10,6 +10,8 @@ import java.util.Collections;
 
 public class ThreeOptAlgorithm implements ITspAlgorithm {
 
+    static ArrayList<Integer> kValues =  new ArrayList<>();
+
     public double delta = 0;
 
     private ArrayList<Point2D> twoOptSwap(ArrayList<Point2D> cities, int vOneIndex, int vTwoIndex) {
@@ -272,20 +274,19 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
     public TspSolution solve(TspInstance tspInstance) {
         var tour = new NearestNeighbourAlgorithm().solve(tspInstance).getPath();
 
+        int z = 0;
 
         var foundImprovment = true;
 
 
         while(foundImprovment) {
+            ++z;
             foundImprovment = false;
             for(int i = 0; i < tour.size() - 3; ++i) {
                 for(int j = i + 1; j < tour.size() - 2; ++j) {
                     for(int k = j + 1; k < tour.size() - 1; ++k) {
                         if(checkConstraints(i, j, k)) {
                             var threeOpt = applyThreeOpt(tour, i, j, k);
-
-                            //var calculateTour = new TspSolution(threeOpt);
-                            //var secTour = new TspSolution(tour);
 
                             if(!threeOpt.equals(tour)) {
                                 tour = threeOpt;
@@ -297,6 +298,7 @@ public class ThreeOptAlgorithm implements ITspAlgorithm {
             }
         }
 
+        kValues.add(z);
         //return new TspSolution(tour);
         return new TspSolution(tour);
     }

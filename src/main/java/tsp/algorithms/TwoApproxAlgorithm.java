@@ -36,16 +36,25 @@ public class TwoApproxAlgorithm implements ITspAlgorithm {
         return pointMap.values().iterator().next();
     }
 
-    private void dfs(Point p) {
-        if(visited.get(p) != null) {
-            return;
-        }
+    private void dfs(Point start) {
+        Stack<Point> stack = new Stack<>();
+        stack.push(start);
 
-        path.add(p);
-        visited.put(p, true);
+        while (!stack.isEmpty()) {
+            Point p = stack.pop();
 
-        for(var n : p.neighbours) {
-            dfs(n);
+            if (visited.get(p) != null) {
+                continue;
+            }
+
+            visited.put(p, true);
+            path.add(p);
+
+            for (Point n : p.neighbours) {
+                if (visited.get(n) == null) {
+                    stack.push(n);
+                }
+            }
         }
     }
 
