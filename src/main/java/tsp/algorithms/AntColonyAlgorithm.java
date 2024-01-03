@@ -232,7 +232,7 @@ public class AntColonyAlgorithm implements ITspAlgorithm {
         initialize(tspInstance);
 
         for(int i = 0; i < 500; ++i) {
-            buildAntTours(Point2DList.size());
+            buildAntTours(Point2DList.size()); //
             performGlobalUpdate();
             refresh(cities);
         }

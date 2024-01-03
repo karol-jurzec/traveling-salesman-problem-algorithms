@@ -58,10 +58,10 @@ public class TspTimer {
     public static void algorithmTimer(int i, int interval, ITspAlgorithm algorithm, String name) {
         tspSolver.setAlgorithm(algorithm);
 
-        for(int n = 2; n <= i; n = n + interval) {
+        for(int n = 12; n <= i; n = n + interval) {
             ArrayList<Double> compTimes = new ArrayList<>();
 
-            for(int j = 0; j < 1; ++j) {
+            for(int j = 0; j < 10; ++j) {
                 var instance = generateTSPInstance(n);
                 var runningTime = computeRunningTime(tspSolver, instance);
                 compTimes.add(runningTime);
