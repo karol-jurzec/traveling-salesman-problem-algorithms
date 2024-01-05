@@ -138,10 +138,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-
-        //TspTimer.algorithmTimer(10, 1, new BruteForceAlgorithm(), "brute-force");
-        TspTimer.algorithmTimer(500  , 20, new AntColonyAlgorithm(10), "ant_colony");
-
         TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
     }
 }
