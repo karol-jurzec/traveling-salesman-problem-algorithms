@@ -68,16 +68,17 @@ Prezentacja/omowienie:
   - [X] opis 
   - [X] analiza zlozonosci
 - [X] nierownosc trojkata w problemie komiwojazera
-- [ ] przeglad algorytmow + literatura
+- [X] przeglad algorytmow + literatura
   - [X] posortowanie po algorytmow wedlug date powstania
-  - [ ] opis tych algorytmow
-- [ ] implementacja wybranych algorytmow z listy
-  - [ ] algorytm genetyczny
+  - [X] opis tych algorytmow
+- [X] implementacja wybranych algorytmow z listy
   - [X] algorytm christofidesa
+  - [ ] algorytm genetyczny
   - [ ] tabu search
 - [X] implementacja wizualizacji
   - [X] widok punktow jako wspolrzedne (x, y) na mapie
   - [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
 - [X] opisy algorytmow do pracy
 - [X] zredagowac, poukladac
-- [ ] porownanie algorytmow -- wykresy, dążęnie do najlepszego rozwiązania (wykres zależny od czasu działania algorytmu)
+- [X] porownanie algorytmow -- wykresy
+- [ ] dążęnie do najlepszego rozwiązania (wykres zależny od czasu działania algorytmu)
