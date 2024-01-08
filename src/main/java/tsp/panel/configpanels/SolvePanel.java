@@ -4,6 +4,7 @@ import src.main.java.tsp.TspSolver;
 import src.main.java.tsp.algorithms.*;
 import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.models.TspSolution;
+import src.main.java.tsp.panel.drawpanels.DrawingPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,8 +63,13 @@ public class SolvePanel extends JPanel implements ActionListener, LoadPanelObser
         this.add(jLabel);
     }
 
+    public DrawingPanel getDrawingPanel() {
+        return (DrawingPanel)observers.get(0);
+    }
+
     public void changeCurrentAlgorithm(ActionEvent e) {
         Algorithm selectedIndex = Algorithm.values()[jComboBox.getSelectedIndex()];
+        DrawingPanel dp = getDrawingPanel();
 
         switch (selectedIndex) {
             case BRUTE_FORCE:
@@ -79,7 +85,7 @@ public class SolvePanel extends JPanel implements ActionListener, LoadPanelObser
                 return;
 
             case NEAREST_NEIGHBOUR:
-                tspSolver = new TspSolver(new NearestNeighbourAlgorithm());
+                tspSolver = new TspSolver(new NearestNeighbourAlgorithm(dp));
                 return;
 
             case THREE_OPT:
@@ -88,6 +94,14 @@ public class SolvePanel extends JPanel implements ActionListener, LoadPanelObser
 
             case TWO_OPT:
                 tspSolver = new TspSolver(new TwoOptAlgorithm());
+                return;
+
+            case TWO_OPT_CHRIST:
+                tspSolver = new TspSolver(new TwoOptChristofidesAlgorithm());
+                return;
+
+            case TWO_OPT_TWO_APPROX:
+                tspSolver = new TspSolver(new TwoOptTwoApproxAlgorithm());
                 return;
 
             case TWO_APPROX:
@@ -146,8 +160,11 @@ public class SolvePanel extends JPanel implements ActionListener, LoadPanelObser
         NEAREST_NEIGHBOUR("Nearest neighbour algorithm"),
         THREE_OPT("Three-opt algorithm"),
         TWO_OPT("Two-opt algorithm"),
+        TWO_OPT_CHRIST("Two-opt algorithm with Christofides"),
+        TWO_OPT_TWO_APPROX("Two-opt algorithm with two-approximation"),
         TWO_APPROX("Two-approximation algorithm"),
         CHRIST_ALG("Christofides algorithm");
+
 
         private final String name;
 

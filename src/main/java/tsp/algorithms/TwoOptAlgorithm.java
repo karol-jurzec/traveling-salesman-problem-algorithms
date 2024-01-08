@@ -14,7 +14,7 @@ public class TwoOptAlgorithm implements ITspAlgorithm {
 
     static ArrayList<Integer> kValues =  new ArrayList<>();
 
-    private ArrayList<Point2D> twoOptSwap(ArrayList<Point2D> cities, Point2D v1, Point2D v2) {
+    protected ArrayList<Point2D> twoOptSwap(ArrayList<Point2D> cities, Point2D v1, Point2D v2) {
         ArrayList newGraph = new ArrayList<>(cities);
 
         var vOneIndex = cities.indexOf(v1);
@@ -25,22 +25,18 @@ public class TwoOptAlgorithm implements ITspAlgorithm {
         return newGraph;
     }
 
-    private double calculateDelta(Point2D v10, Point2D v11, Point2D v20, Point2D v21) {
+    protected double calculateDelta(Point2D v10, Point2D v11, Point2D v20, Point2D v21) {
         return - v10.distance(v11) - v20.distance(v21) + v10.distance(v20) + v21.distance(v11);
     }
 
     public TspSolution solve(TspInstance tspInstance) {
-        int k = 0;
-
         var nn = new NearestNeighbourAlgorithm().solve(tspInstance).getPath();
         var points = tspInstance.getPointCollection();
 
         var bestTour = nn;
-        var totalDistance = TspSolution.getTotalPathDistanceForPoints(nn);
         var foundImprovment = true;
 
         while(foundImprovment) {
-            ++k;
             foundImprovment = false;
 
             for(int i = 0; i < points.size() - 2; ++i) {
@@ -48,16 +44,14 @@ public class TwoOptAlgorithm implements ITspAlgorithm {
                     double deltaLen = calculateDelta(bestTour.get(i), bestTour.get(i+1), bestTour.get(j), bestTour.get(j+1));
                     if(deltaLen < -0.001) {
                         bestTour = twoOptSwap(bestTour, bestTour.get(i), bestTour.get(j));
-                        totalDistance += deltaLen;
                         foundImprovment = true;
                     }
                 }
             }
         }
 
-        TwoOptAlgorithm.kValues.add(k);
 
-        return new TspSolution(bestTour)    ;
+        return new TspSolution(bestTour);
     }
 
     @Override

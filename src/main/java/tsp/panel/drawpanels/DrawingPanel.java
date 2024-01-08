@@ -1,8 +1,8 @@
 package src.main.java.tsp.panel.drawpanels;
 
-import src.main.java.tsp.models.Edge;
 import src.main.java.tsp.models.TspInstance;
 import src.main.java.tsp.models.TspSolution;
+import src.main.java.tsp.panel.AlgorithmVisualizer;
 import src.main.java.tsp.panel.configpanels.LoadPanelObserver;
 import src.main.java.tsp.panel.configpanels.SolvePanelObserver;
 
@@ -12,6 +12,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class DrawingPanel extends JPanel implements LoadPanelObserver, SolvePanelObserver {
     final double POINT_RADIUS = 4;
@@ -25,7 +26,12 @@ public class DrawingPanel extends JPanel implements LoadPanelObserver, SolvePane
 
 
     ArrayList<Point2D> points = null;
+    private AlgorithmVisualizer visualizer;
 
+    public void setVisualizer(AlgorithmVisualizer visualizer) {
+        this.visualizer = visualizer;
+        repaint();
+    }
 
     public DrawingPanel() {
         this.setLayout(new BorderLayout());
@@ -103,6 +109,30 @@ public class DrawingPanel extends JPanel implements LoadPanelObserver, SolvePane
         graph.draw(new Line2D.Double(x1, height - y1, x2, height - y2));
     }
 
+    public void plotLine2D(Point2D p1, Point2D p2, Graphics g) {
+        int width = getWidth() - PADDING;
+        int height = getHeight() - PADDING;
+
+        double scaleX = calculateScale(width, tspInstance.maxX, tspInstance.minX);
+        double scaleY = calculateScale(height, tspInstance.maxY, tspInstance.minY);
+
+        Graphics2D graph = (Graphics2D)g;
+        graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        //set color for points
+        graph.setPaint(Color.BLACK);
+
+        double x1 = (p1.getX() - tspInstance.minX) * scaleX + PADDING/2;
+        double y1 = (p1.getY() - tspInstance.minY) * scaleY + PADDING/2;
+
+        double x2 = (p2.getX() - tspInstance.minX) * scaleX + PADDING/2;
+        double y2 = (p2.getY() - tspInstance.minY) * scaleY + PADDING/2;
+
+        height = getHeight();
+
+        graph.draw(new Line2D.Double(x1, height - y1, x2, height - y2));
+    }
+
     public void drawEdges(Graphics g) {
         int width = getWidth() - PADDING;
         int height = getHeight() - PADDING;
@@ -132,8 +162,13 @@ public class DrawingPanel extends JPanel implements LoadPanelObserver, SolvePane
 
         if(tspInstance != null) {
             drawPoints(g);
+
+            if (visualizer != null) {
+                visualizer.draw(g);
+            }
+
             if(tspSolution != null) {
-                drawSolution(g);
+                //drawSolution(g);
             }
         }
     }
@@ -142,6 +177,7 @@ public class DrawingPanel extends JPanel implements LoadPanelObserver, SolvePane
     public void updateInstance(TspInstance tspInstance) {
         this.tspInstance = tspInstance;
         this.tspSolution = null;
+        this.visualizer = null;
         repaint();
     }
 
