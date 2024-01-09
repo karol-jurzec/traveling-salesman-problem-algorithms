@@ -162,13 +162,8 @@ public class DrawingPanel extends JPanel implements LoadPanelObserver, SolvePane
 
         if(tspInstance != null) {
             drawPoints(g);
-
-            if (visualizer != null) {
-                visualizer.draw(g);
-            }
-
             if(tspSolution != null) {
-                //drawSolution(g);
+                drawSolution(g);
             }
         }
     }

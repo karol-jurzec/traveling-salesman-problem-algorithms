@@ -120,6 +120,7 @@ public class SolvePanel extends JPanel implements ActionListener, LoadPanelObser
             if(tspInstance != null) {
 
                 long start = System.currentTimeMillis();
+
                 var solution = tspSolver.solve(tspInstance);
                 long end = System.currentTimeMillis();
 

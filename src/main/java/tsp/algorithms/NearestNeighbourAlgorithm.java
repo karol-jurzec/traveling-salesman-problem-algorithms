@@ -6,6 +6,7 @@ import src.main.java.tsp.models.TspSolution;
 import src.main.java.tsp.panel.AlgorithmVisualizer;
 import src.main.java.tsp.panel.drawpanels.DrawingPanel;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
@@ -56,15 +57,10 @@ public class NearestNeighbourAlgorithm implements ITspAlgorithm, AlgorithmVisual
             visited.put(curr, true);
             nnIdPath.add(nearest);
 
-            addStep(points.get(curr), points.get(nearest));
-            dp.repaint();
         }
 
         nnIdPath.add(nnIdPath.get(0));
 
-        addStep(points.get(nnIdPath.get(nnIdPath.size() - 2)),
-                points.get(nnIdPath.get(0)));
-        dp.repaint();
 
         var nnPath = new ArrayList<Point2D>();
         nnIdPath.forEach(x -> nnPath.add(points.get(x)));
@@ -93,12 +89,10 @@ public class NearestNeighbourAlgorithm implements ITspAlgorithm, AlgorithmVisual
             dp.plotLine2D(line.getP1(), line.getP2(), g);
         }
 
-        try {
-            // Delay for 1 second (1000 milliseconds)
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            // Handle interruption (e.g., stop the algorithm if interrupted)
-        }
+
+
+
     }
+
+
 }

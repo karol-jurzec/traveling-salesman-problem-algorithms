@@ -138,6 +138,15 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        try {
+
+            throw new NoSuchElementException();
+
+        } catch (NoSuchElementException e) {
+
+        }
+
         TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
     }
 }
