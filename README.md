@@ -81,6 +81,6 @@ Prezentacja/omowienie:
 - [X] opisy algorytmow do pracy
 - [X] zredagowac, poukladac
 - [X] porownanie algorytmow -- wykresy
+- [X] poprawki z pliku
 - [ ] rozdział z opisem aplikacji
-- [ ] poprawki z pliku
 - [ ] poprawki opisu testow 
