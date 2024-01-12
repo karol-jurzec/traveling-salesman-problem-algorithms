@@ -82,5 +82,5 @@ Prezentacja/omowienie:
 - [X] zredagowac, poukladac
 - [X] porownanie algorytmow -- wykresy
 - [X] poprawki z pliku
-- [ ] rozdział z opisem aplikacji
-- [ ] poprawki opisu testow 
+- [X] rozdział z opisem aplikacji
+- [X] poprawki opisu testow 

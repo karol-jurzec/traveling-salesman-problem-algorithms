@@ -10,7 +10,7 @@ public class TspAnalyzerFrame extends JFrame {
 
     public TspAnalyzerFrame() {
 
-        this.setTitle("Traveling salesman problem - algorithm selection");
+        this.setTitle("traveling salesman problem");
         this.setSize(1000, 1000);
         this.setLayout(new BorderLayout());
         this.setBackground(Color.white);

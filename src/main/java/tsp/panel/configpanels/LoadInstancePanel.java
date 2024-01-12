@@ -19,7 +19,7 @@ public class LoadInstancePanel extends JPanel implements ActionListener {
     ArrayList<LoadPanelObserver> observers = new ArrayList<>();
 
     public LoadInstancePanel() {
-        this.setPreferredSize(new Dimension(200, 500));
+        this.setPreferredSize(new Dimension(200, 600));
         this.setBackground(Color.lightGray);
         this.setLayout(null);
 

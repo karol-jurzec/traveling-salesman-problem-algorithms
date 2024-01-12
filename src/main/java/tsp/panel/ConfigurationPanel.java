@@ -24,8 +24,8 @@ public class ConfigurationPanel extends JPanel {
         this.setPreferredSize(new Dimension(200, 200));
 
         this.add(loadInstancePanel);
-        this.add(analysisPanel);
-        this.add(outputPanel);
+        //this.add(analysisPanel);
+        //this.add(outputPanel);
         this.add(solvePanel);
 
     }
