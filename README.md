@@ -73,14 +73,17 @@ Prezentacja/omowienie:
   - [X] opis tych algorytmow
 - [X] implementacja wybranych algorytmow z listy
   - [X] algorytm christofidesa
-  - [ ] algorytm genetyczny
-  - [ ] tabu search
 - [X] implementacja wizualizacji
   - [X] widok punktow jako wspolrzedne (x, y) na mapie
-  - [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
 - [X] opisy algorytmow do pracy
 - [X] zredagowac, poukladac
 - [X] porownanie algorytmow -- wykresy
 - [X] poprawki z pliku
 - [X] rozdział z opisem aplikacji
 - [X] poprawki opisu testow 
+
+
+
+- [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
+- [ ] algorytm genetyczny
+- [ ] tabu search
