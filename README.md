@@ -85,5 +85,6 @@ Prezentacja/omowienie:
 
 
 - [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
+  - [ ] dodac rozwiązywanie na innym wątku
 - [ ] algorytm genetyczny
 - [ ] tabu search
