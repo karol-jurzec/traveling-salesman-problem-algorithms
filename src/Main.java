@@ -37,6 +37,7 @@ import java.util.*;
 
 import static src.main.java.tsp.tspmlp.NormalizeData.NormalizeData.*;
 
+
 public class Main {
 
     public static int RANGE = 900;
@@ -137,15 +138,9 @@ public class Main {
 
 
 
+
+
     public static void main(String[] args) {
-
-        try {
-
-            throw new NoSuchElementException();
-
-        } catch (NoSuchElementException e) {
-
-        }
 
         TspAnalyzerFrame tspAnalyzer = new TspAnalyzerFrame();
     }
