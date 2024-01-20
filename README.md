@@ -83,6 +83,8 @@ Prezentacja/omowienie:
 - [X] poprawki opisu testow 
 
 
+## optional
+
 
 - [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
   - [ ] dodac rozwiązywanie na innym wątku
