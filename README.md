@@ -86,7 +86,9 @@ Prezentacja/omowienie:
 ## optional
 
 
+
 - [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
   - [ ] dodac rozwiązywanie na innym wątku
+- [ ] lin kernighan
 - [ ] algorytm genetyczny
 - [ ] tabu search
