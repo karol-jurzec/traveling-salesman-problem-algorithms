@@ -1,6 +1,3 @@
-# traveling-salesman-problem-thesis
-Algorithms for thesis connected to traveling salesman problem. 
-
 ### Algorytmy aproksymujące dla problemu komiwojażera
 
 ## Plan i schemat pracy:
@@ -58,8 +55,6 @@ Prezentacja/omowienie:
 - [X] przeglad, poukladanie, zredegaowanie
 - [X] przeslanie do Pani Suwady
 
-[geeksforgeeks - native implementation, (n-1)! perms](https://www.geeksforgeeks.org/traveling-salesman-problem-tsp-implementation/)
-
 ## todo 30.10 - 1.12.
 
 - [X] podzial na asymetryczny i symetryczny problem
@@ -82,10 +77,7 @@ Prezentacja/omowienie:
 - [X] rozdział z opisem aplikacji
 - [X] poprawki opisu testow 
 
-
 ## optional
-
-
 
 - [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
   - [ ] dodac rozwiązywanie na innym wątku
