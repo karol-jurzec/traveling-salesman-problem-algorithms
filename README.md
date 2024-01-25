@@ -1,22 +1,22 @@
-### Algorytmy aproksymujące dla problemu komiwojażera
+## Algorytmy aproksymujące dla problemu komiwojażera
 
-## Plan i schemat pracy:
+### Plan i schemat pracy:
 
 1.	Wprowadzenie, przedstawienie oraz opis problemu + historia i geneza
 2.	Przejście do analizy algorytmów. Implementacja, ocena złożoności. Porównanie działania algorytmów dla różnych rozmiarów danych wejściowych oraz różnych rodzajów grafów (symetryczny oraz asymetryczny problem komiwojażera).
 3.	Podsumowanie oraz wnioski.
 
-## Algorytmy dokładne:
+### Algorytmy dokładne:
 
 1.	Rozwiązanie naiwne, wszystkie możliwe permutacje
 2.	Algorytm Bellmana-Helda-Karpa
 
-## Algorytmy aproksymacyjne i heurystyczne:
+### Algorytmy aproksymacyjne i heurystyczne:
 
 3.	Algorytm najbliższego sąsiada
 4.	Algorytm mrówkowy
 
-## Metryczny problem komiwojażera, krawędzie grafu spełniają nierówność trójkąta:
+### Metryczny problem komiwojażera, krawędzie grafu spełniają nierówność trójkąta:
 
 5.	Algorytmy k-optymalne, 2-opt, 3-opt…
 6.	Algorytm Christofidesa, 3/2 aproksymacyjny
@@ -24,19 +24,19 @@
 
 ----------------------------------------------------------------------------------------------
 
-Aplikacja prezentujaca dzialanie:
+#### Aplikacja prezentujaca dzialanie:
 
     Mozliwe generowanie lokalizacji/miast:
 
     1. generowanie randomyowych wspolrzednych z przedzialu
     3. sferyczny uklad wspolrzednych
 
-Prezentacja/omowienie:
+#### Prezentacja/omowienie:
 
 - omowienie zlozonosci oraz wymagan/zalozen algorytmow
 - prezentacja dzialania algorytmow na mapie/wykresie
 
-## todo 15-30.10
+### todo 15-30.10
 
 - [X] opis problemu komiwojażera
 - [X] algorytm naiwny
@@ -48,7 +48,7 @@ Prezentacja/omowienie:
 - [X] przeglad, poukladanie, zredegaowanie
 - [X] przeslanie do Pani Suwady
 
-## todo 30.10 - 1.12.
+### todo 30.10 - 1.12.
 
 - [X] podzial na asymetryczny i symetryczny problem
 - [X] bellman held karp - implementacja
@@ -70,7 +70,7 @@ Prezentacja/omowienie:
 - [X] rozdział z opisem aplikacji
 - [X] poprawki opisu testow 
 
-## optional
+### optional
 
 - [ ] jak zaimplementowac mechanizm do wyswietlania dzialania algorytmu
   - [ ] dodac rozwiązywanie na innym wątku
