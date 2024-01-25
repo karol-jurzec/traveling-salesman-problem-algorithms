@@ -6,28 +6,21 @@
 2.	Przejście do analizy algorytmów. Implementacja, ocena złożoności. Porównanie działania algorytmów dla różnych rozmiarów danych wejściowych oraz różnych rodzajów grafów (symetryczny oraz asymetryczny problem komiwojażera).
 3.	Podsumowanie oraz wnioski.
 
-
-# Algorytmy, które udało mi się znaleźć:
-
 ## Algorytmy dokładne:
 
 1.	Rozwiązanie naiwne, wszystkie możliwe permutacje
 2.	Algorytm Bellmana-Helda-Karpa
-3.	Algorytm Branch and Bound
 
 ## Algorytmy aproksymacyjne i heurystyczne:
 
-4.	Algorytm najbliższego sąsiada
-5.	Algorytm mrówkowy
-6.	Algorytm genetyczny
+3.	Algorytm najbliższego sąsiada
+4.	Algorytm mrówkowy
 
 ## Metryczny problem komiwojażera, krawędzie grafu spełniają nierówność trójkąta:
 
-7.	Heurystyka Lin - Khernighana
-8.	Algorytmy k-optymalne, 2-opt, 3-opt…
-9.	Algorytm Christofidesa, 3/2 aproksymacyjny
-10.	 Algorytm 2 aproksymacyjny
-
+5.	Algorytmy k-optymalne, 2-opt, 3-opt…
+6.	Algorytm Christofidesa, 3/2 aproksymacyjny
+7.	 Algorytm 2 aproksymacyjny
 
 ----------------------------------------------------------------------------------------------
 
@@ -36,10 +29,10 @@ Aplikacja prezentujaca dzialanie:
     Mozliwe generowanie lokalizacji/miast:
 
     1. generowanie randomyowych wspolrzednych z przedzialu
-    2. pobieranie wspolrzednych miast z API i przedstawienie na mapie
-    3. sferyczny uklad wspolrzednych - mapa kosmosu, prezentacja na
+    3. sferyczny uklad wspolrzednych
 
 Prezentacja/omowienie:
+
 - omowienie zlozonosci oraz wymagan/zalozen algorytmow
 - prezentacja dzialania algorytmow na mapie/wykresie
 
