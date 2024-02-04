@@ -91,3 +91,4 @@ Prezentacja/omowienie:
 - [ ] lin kernighan
 - [ ] algorytm genetyczny
 - [ ] tabu search
+- [ ] przetlumaczyc na jezyk angielski + opis i zredagowac cale readme
